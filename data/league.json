@@ -37,6 +37,8 @@
     ] }
   ],
 
+  "gameOfWeek": { "season": 4, "week": 9, "away": "TCU", "home": "USC", "kickoff": "2026-10-29T18:00:00-04:00", "tz": "America/New_York", "tzLabel": "ET" },
+
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
     { "name": "Devontae Kuhn", "position": "DT", "archetype": "Pure Power", "size": "6'5\" · 300 lbs", "stars": 5, "hometown": "Kissimmee, FL", "school": "Alabama", "status": "Committed", "nil": "150", "note": "#1 player in the country", "image": "img/recruits/devontae-kuhn.webp" },
