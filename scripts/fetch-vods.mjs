@@ -63,6 +63,7 @@ for (const group of chunks(logins, 100)) {
 
 // 4. Past broadcasts + highlights + uploads for each member
 const weeks = (league.weeks || []).map(w => ({ ...w, t: Date.parse(w.start) })).sort((a, b) => a.t - b.t);
+const maxWeek = Math.max(0, ...weeks.filter(w => w.season === league.season).map(w => w.week));
 const hide = new Set((league.hideVideos || []).map(String));
 const mustInclude = (league.titleMustIncludeAny || []).map(s => s.toLowerCase()).filter(Boolean);
 
@@ -72,7 +73,7 @@ function weekFor(title, created) {
   for (const w of weeks) if (w.t <= t) byDate = w;
   const m = title.match(/\b(?:wk|week)\s*[#.:-]?\s*(\d{1,2})\b/i);
   const season = byDate ? byDate.season : league.season;
-  if (m) return { season, week: Number(m[1]), source: 'title' };
+  if (m && byDate && Number(m[1]) <= maxWeek) return { season, week: Number(m[1]), source: 'title' };
   if (byDate) return { season: byDate.season, week: byDate.week, source: 'date' };
   return { season: null, week: null, source: 'none' };
 }
@@ -91,6 +92,7 @@ for (const u of users) {
         ? v.thumbnail_url.replace('%{width}', '640').replace('%{height}', '360')
         : null;
       const wk = weekFor(v.title, v.created_at);
+      if (wk.week === null) continue; // older than the season's first logged week
       videos.push({
         id: v.id,
         login: u.login,
