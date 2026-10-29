@@ -66,12 +66,22 @@ const weeks = (league.weeks || []).map(w => ({ ...w, t: Date.parse(w.start) })).
 const maxWeek = Math.max(0, ...weeks.filter(w => w.season === league.season).map(w => w.week));
 const hide = new Set((league.hideVideos || []).map(String));
 const mustInclude = (league.titleMustIncludeAny || []).map(s => s.toLowerCase()).filter(Boolean);
+const forceInclude = new Set((league.includeVideos || []).map(String));
+// Schools a title can mention, for rescuing an untitled stream that was clearly a league game
+const after = '(?![A-Za-z])(?!\\s+(?:State|St\\.?|Tech|A&M|Christian|Southern|Atlantic|International)\\b)';
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const schoolRe = {};
+for (const m of league.members) {
+  const names = [m.school, ...(m.abbr && m.abbr.length >= 3 && m.abbr !== 'OSU' ? [m.abbr] : []), ...(m.aliases || [])];
+  schoolRe[m.twitch.toLowerCase()] = new RegExp('(^|[^A-Za-z])(?:' + names.map(reEsc).join('|') + ')' + after, 'i');
+}
+const durSec = d => { const g = k => +((d || '').match(new RegExp('(\\d+)' + k)) || [0, 0])[1]; return g('h') * 3600 + g('m') * 60 + g('s'); };
 
 function weekFor(title, created) {
   const t = Date.parse(created);
   let byDate = null;
   for (const w of weeks) if (w.t <= t) byDate = w;
-  const m = title.match(/\b(?:wk|week)\s*[#.:-]?\s*(\d{1,2})\b/i);
+  const m = title.match(/\b(?:wk|week|w)\s*[#.:-]?\s*(\d{1,2})\b/i);
   const season = byDate ? byDate.season : league.season;
   if (m && byDate && Number(m[1]) <= maxWeek) return { season, week: Number(m[1]), source: 'title' };
   if (byDate) return { season: byDate.season, week: byDate.week, source: 'date' };
@@ -87,7 +97,7 @@ for (const u of users) {
     const r = await helix('videos', params);
     for (const v of r.data) {
       if (hide.has(String(v.id))) continue;
-      if (mustInclude.length && !mustInclude.some(k => v.title.toLowerCase().includes(k))) continue;
+      const tagged = !mustInclude.length || mustInclude.some(k => v.title.toLowerCase().includes(k)) || forceInclude.has(String(v.id));
       const thumb = v.thumbnail_url && !v.thumbnail_url.includes('404')
         ? v.thumbnail_url.replace('%{width}', '640').replace('%{height}', '360')
         : null;
@@ -105,12 +115,23 @@ for (const u of users) {
         season: wk.season,
         week: wk.week,
         weekFrom: wk.source,
+        tagged,
       });
     }
     cursor = r.pagination?.cursor;
     if (!cursor) break;
   }
 }
+// Keep an untagged stream only if it overlaps a tagged stream from another coach whose title names this coach's school
+// (e.g. "Blam S4 W9 @ Nebraska" rescues Nebraska's stream titled just "Bignu225").
+const span = v => [Date.parse(v.created) - 30 * 60e3, Date.parse(v.created) + durSec(v.duration) * 1000 + 30 * 60e3];
+const tagged = videos.filter(v => v.tagged);
+for (const v of videos) if (!v.tagged) {
+  const [s1, e1] = span(v), re = schoolRe[v.login];
+  const opp = re && tagged.find(w => w.login !== v.login && w.type === 'archive' && v.type === 'archive' && re.test(' ' + w.title + ' ') && (([s2, e2]) => s1 < e2 && s2 < e1)(span(w)));
+  if (opp) { v.tagged = true; v.rescuedBy = opp.id; }
+}
+for (let i = videos.length - 1; i >= 0; i--) { if (!videos[i].tagged) videos.splice(i, 1); else delete videos[i].tagged; }
 videos.sort((a, b) => Date.parse(b.created) - Date.parse(a.created));
 
 const members = {};
