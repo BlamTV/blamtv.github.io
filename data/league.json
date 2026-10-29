@@ -19,6 +19,24 @@
   "titleMustIncludeAny": ["blam"],
   "hideVideos": [],
 
+  "conferences": [
+    { "tier": 1, "name": "SEC",    "schools": ["Florida State", "Georgia", "LSU", "Notre Dame", "Alabama", "Ole Miss", "Oklahoma"] },
+    { "tier": 2, "name": "Big 10", "schools": ["Auburn", "TCU", "Maryland", "USC", "Washington", "Ohio State", "Arizona State"] },
+    { "tier": 3, "name": "ACC",    "schools": ["Clemson", "Florida", "Penn State", "Texas", "Indiana", "Oregon"] },
+    { "tier": 4, "name": "Big 12", "schools": ["Illinois", "Utah", "West Virginia", "Nebraska", "Stanford", "Virginia Tech"] },
+    { "tier": 5, "name": "Pac 12", "schools": ["Louisville", "Iowa", "UCLA", "Pitt", "North Carolina", "South Carolina"] }
+  ],
+
+  "schedule": [
+    { "season": 4, "week": 9, "games": [
+      ["Ole Miss", "Notre Dame"], ["North Carolina", "Iowa"], ["West Virginia", "Nebraska"], ["Georgia", "Alabama"],
+      ["Rutgers", "Illinois"], ["Stanford", "Utah"], ["Maryland", "Washington"], ["UCLA", "Louisville"],
+      ["Oklahoma", "Virginia Tech"], ["Clemson", "Purdue"], ["Florida", "Oregon State"], ["Penn State", "Missouri"],
+      ["Auburn", "Ohio State"], ["Texas", "Miami"], ["Pitt", "NC State"], ["Florida State", "Navy"],
+      ["TCU", "USC"], ["Arizona State", "Oregon"]
+    ] }
+  ],
+
   "members": [
     { "twitch": "papitalabi123",       "school": "Florida",        "abbr": "UF",   "color": "#0021A5" },
     { "twitch": "kingruthless1",       "school": "LSU",            "abbr": "LSU",  "color": "#461D7C" },
