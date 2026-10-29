@@ -124,11 +124,11 @@ for (const u of users) {
 }
 // Keep an untagged stream only if it overlaps a tagged stream from another coach whose title names this coach's school
 // (e.g. "Blam S4 W9 @ Nebraska" rescues Nebraska's stream titled just "Bignu225").
-const span = v => [Date.parse(v.created) - 30 * 60e3, Date.parse(v.created) + durSec(v.duration) * 1000 + 30 * 60e3];
+const sameKickoff = (a, b) => Math.abs(Date.parse(a.created) - Date.parse(b.created)) <= 30 * 60e3; // both sides go live within 30 min
 const tagged = videos.filter(v => v.tagged);
 for (const v of videos) if (!v.tagged) {
-  const [s1, e1] = span(v), re = schoolRe[v.login];
-  const opp = re && tagged.find(w => w.login !== v.login && w.type === 'archive' && v.type === 'archive' && re.test(' ' + w.title + ' ') && (([s2, e2]) => s1 < e2 && s2 < e1)(span(w)));
+  const re = schoolRe[v.login];
+  const opp = re && tagged.find(w => w.login !== v.login && w.type === 'archive' && v.type === 'archive' && re.test(' ' + w.title + ' ') && sameKickoff(v, w));
   if (opp) { v.tagged = true; v.rescuedBy = opp.id; }
 }
 for (let i = videos.length - 1; i >= 0; i--) { if (!videos[i].tagged) videos.splice(i, 1); else delete videos[i].tagged; }
