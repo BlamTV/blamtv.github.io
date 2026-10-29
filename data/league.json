@@ -37,6 +37,10 @@
     ] }
   ],
 
+  "recruits": [
+    { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" }
+  ],
+
   "members": [
     { "twitch": "papitalabi123",       "school": "Florida",        "abbr": "UF",   "color": "#0021A5" },
     { "twitch": "kingruthless1",       "school": "LSU",            "abbr": "LSU",  "color": "#461D7C" },
