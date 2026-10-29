@@ -159,6 +159,30 @@ a.tm:hover { background: var(--raise) }
 .tm .nos { flex: 0 0 auto; font-size: 11px; color: var(--muted) }
 .tm .chip { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--raise); color: var(--muted); font: 800 10px/1 var(--display); border: 1px dashed var(--muted) }
 @media (max-width: 560px) { .tm .play .w, .tm .nos { display: none } .tm .nm b { font-size: 13px } }
+.gotw { position: relative; overflow: hidden; isolation: isolate; border-radius: calc(var(--r) + 6px); margin: 0 0 26px; color: #fff;
+  background: linear-gradient(105deg, var(--ca) 0 47%, #0b0e13 47% 53%, var(--ch) 53% 100%); border: 1px solid var(--line) }
+.gotw::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(90% 120% at 50% 0%, rgba(255,255,255,.14), transparent 60%), linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)) }
+.gotw .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 14px 18px 0 }
+.gotw .gw-tag { font: 800 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; background: #f3b234; color: #14100a; padding: 7px 10px; border-radius: 4px }
+.gotw .when { font: 700 14px/1.2 var(--body); text-shadow: 0 1px 2px rgba(0,0,0,.6) }
+.gotw .when small { display: block; font-weight: 600; font-size: 12px; opacity: .85; text-align: right }
+.gotw .row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; padding: 18px 18px 8px }
+.gotw .side { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; min-width: 0 }
+.gotw .side .av { width: 88px; height: 88px; display: grid; color: var(--ink); font-size: 22px; border: 3px solid rgba(255,255,255,.9); box-shadow: 0 8px 24px rgba(0,0,0,.45) }
+.gotw .side b { font: 800 clamp(20px, 4vw, 32px)/1 var(--display); text-transform: uppercase; letter-spacing: -.01em; text-shadow: 0 2px 8px rgba(0,0,0,.5); overflow-wrap: anywhere }
+.gotw .side span { font-size: 13px; opacity: .9 }
+.gotw .vs { font: 800 clamp(22px, 4vw, 34px)/1 var(--display); color: #f3b234; text-shadow: 0 2px 10px rgba(0,0,0,.6) }
+.gotw .clock { text-align: center; padding: 4px 18px 0; font: 700 15px/1.3 var(--body); text-shadow: 0 1px 3px rgba(0,0,0,.6) }
+.gotw .clock .n { font: 800 22px/1 var(--display); letter-spacing: .02em }
+.gotw .acts { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; padding: 14px 18px 18px }
+.gotw .acts a { display: inline-flex; align-items: center; gap: 8px; font: 700 14px/1 var(--body); padding: 10px 14px; border-radius: 999px; background: rgba(8,10,14,.72); color: #fff; border: 1px solid rgba(255,255,255,.35) }
+.gotw .acts a:hover { background: rgba(8,10,14,.92); border-color: #fff }
+.gotw .acts a.hot { background: #f3b234; color: #14100a; border-color: #f3b234 }
+@media (max-width: 560px) { .gotw .side .av { width: 64px; height: 64px } .gotw .row { padding: 14px 10px 6px } .gotw .when small { text-align: left } }
+.game.star { border-color: #f3b234; box-shadow: inset 0 0 0 1px #f3b234 }
+.game .gw { grid-column: 1 / -1; font: 800 11px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: #b07a00; padding: 4px 6px 0 }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .game .gw { color: #f3b234 } }
+:root[data-theme="dark"] .game .gw { color: #f3b234 }
 .nil-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); min-height: 230px; margin-bottom: 26px; display: flex; align-items: center;
   background: radial-gradient(120% 140% at 85% 60%, #1f5a2f 0%, #0f2a18 45%, #08120c 100%); color: #fff; isolation: isolate }
 .nil-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none }
@@ -369,7 +393,50 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function matchups(season, week) {
     const games = weekGames(season, week);
     if (!games.length) return '';
-    return `<h2 class="section-h">Matchups</h2><div class="mu-list">${games.map(([aw, hm]) => `<div class="game">${teamCell(aw, hm, season, week)}<span class="at">@</span>${teamCell(hm, aw, season, week)}</div>`).join('')}</div><h2 class="section-h">All streams</h2>`;
+    const g = L.gameOfWeek, isStar = (aw, hm) => g && g.season === season && g.week === week && g.away === aw && g.home === hm;
+    return `<h2 class="section-h">Matchups</h2><div class="mu-list">${games.map(([aw, hm]) => `<div class="game${isStar(aw, hm) ? ' star' : ''}">${isStar(aw, hm) ? '<span class="gw">★ Game of the Week</span>' : ''}${teamCell(aw, hm, season, week)}<span class="at">@</span>${teamCell(hm, aw, season, week)}</div>`).join('')}</div><h2 class="section-h">All streams</h2>`;
+  }
+  let gotwTimer = null;
+  function gotw(season, week) {
+    const g = L.gameOfWeek;
+    if (!g || g.season !== season || g.week !== week) return '';
+    const a = teamOf(g.away), h = teamOf(g.home);
+    const ko = Date.parse(g.kickoff), now = Date.now();
+    const tz = g.tzLabel || 'ET', tzName = g.tz || 'America/New_York';
+    const fmt = (opts, zone) => new Date(ko).toLocaleString('en-US', { ...opts, timeZone: zone });
+    const homeTime = fmt({ hour: 'numeric', minute: '2-digit' }, tzName) + ' ' + tz;
+    const day = fmt({ weekday: 'short', month: 'short', day: 'numeric' }, tzName);
+    const mine = new Date(ko).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+    const sameZone = Intl.DateTimeFormat().resolvedOptions().timeZone === tzName;
+    const side = (m, name) => m ? `<div class="side">${avatar(m)}<b>${esc(m.school)}</b><span>${esc(m.display)}</span></div>`
+      : `<div class="side"><span class="av" style="--sc:#333;--ink:#fff">CPU</span><b>${esc(name)}</b><span>Computer</span></div>`;
+    const isLive = m => m && (D.live || []).some(x => x.login.toLowerCase() === m.login);
+    const windowLive = now >= ko - 15 * 60e3 && now < ko + 2.5 * 3600e3;
+    const va = a && pickStream(a, g.home, season, week), vh = h && pickStream(h, g.away, season, week);
+    const done = now >= ko + 2.5 * 3600e3;
+    let acts = '';
+    for (const [m, v] of [[a, va], [h, vh]]) {
+      if (!m) continue;
+      if (isLive(m) || windowLive) acts += `<a class="hot" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">${isLive(m) ? '<span class="pill-live">LIVE</span>' : '▶'} ${esc(m.school)} side on Twitch</a>`;
+      else if (done && v) acts += `<a class="hot" href="#v-${esc(v.id)}">▶ Replay: ${esc(m.school)} side</a>`;
+      else acts += `<a href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">${esc(m.display)} on Twitch</a>`;
+    }
+    const sc = (m, k) => m ? `--${k}:${m.color}` : `--${k}:#333`;
+    return `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}">
+      <div class="top"><span class="gw-tag">★ Game of the Week</span><span class="when">${esc(day)} · ${esc(homeTime)}${sameZone ? '' : `<small>${esc(mine)} your time</small>`}</span></div>
+      <div class="row">${side(a, g.away)}<span class="vs">@</span>${side(h, g.home)}</div>
+      <div class="clock" data-clock></div>
+      <div class="acts">${acts}</div></section>`;
+  }
+  function tickGotw() {
+    const el = document.querySelector('.gotw [data-clock]');
+    if (!el) { clearInterval(gotwTimer); gotwTimer = null; return; }
+    const ko = +el.closest('.gotw').dataset.ko, d = ko - Date.now();
+    if (d > 0) {
+      const hh = Math.floor(d / 3600e3), mm = Math.floor(d % 3600e3 / 60e3), dd = Math.floor(hh / 24);
+      el.innerHTML = `Kickoff in <span class="n">${dd ? dd + 'd ' + (hh % 24) + 'h' : hh ? hh + 'h ' + mm + 'm' : mm + 'm'}</span>`;
+    } else if (d > -2.5 * 3600e3) el.innerHTML = `<span class="n">Game on</span> · watch it live below`;
+    else el.innerHTML = `<span class="n">Final</span>${document.querySelector('.gotw .acts a[href^="#v-"]') ? ' · replays below' : ''}`;
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
 
@@ -409,8 +476,9 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <p>Season ${L.season}${start ? ' · advanced ' + esc(fmtDate(start.start)) : ''}</p></div>
         <span class="count">${list.length} stream${list.length === 1 ? '' : 's'}</span></div>
       <nav class="sched" aria-label="Weeks">${chips}</nav>
-      ${wk !== null ? matchups(L.season, wk) : ''}
+      ${wk !== null ? gotw(L.season, wk) + matchups(L.season, wk) : ''}
       ${list.length ? grid(list, wk === null) : `<div class="empty-state"><b>No tape yet</b>Nobody's stream from ${esc(weekLabel(L.season, wk))} is on Twitch. New streams show up within about 2 hours.</div>`}`;
+    if (app.querySelector('.gotw')) { tickGotw(); if (!gotwTimer) gotwTimer = setInterval(tickGotw, 30e3); }
     const cur = app.querySelector('.sched [aria-current]');
     if (cur) cur.scrollIntoView({ inline: 'center', block: 'nearest' });
   }
