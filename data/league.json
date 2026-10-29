@@ -38,7 +38,15 @@
   ],
 
   "recruits": [
-    { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" }
+    { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
+    { "name": "Devontae Kuhn", "position": "DT", "archetype": "Pure Power", "size": "6'5\" · 300 lbs", "stars": 5, "hometown": "Kissimmee, FL", "school": "Alabama", "status": "Committed", "nil": "150", "note": "#1 player in the country", "image": "img/recruits/devontae-kuhn.webp" },
+    { "name": "Joshua Castillo", "position": "LT", "stars": 5, "school": "TCU", "status": "Hard Committed", "image": "img/recruits/joshua-castillo.webp" },
+    { "name": "Von Williams", "position": "HB", "archetype": "East/West Playmaker", "size": "6'1\" · 185 lbs", "stars": 4, "hometown": "Freeport, FL", "school": "Clemson", "status": "Top 3", "nil": "100", "image": "img/recruits/von-williams.webp" },
+    { "name": "Bobby Genus", "position": "WR", "archetype": "Speedster", "size": "5'11\" · 166 lbs", "stars": 4, "hometown": "Rock Hill, SC", "school": "Clemson", "status": "Committed", "nil": "130", "image": "img/recruits/bobby-genus.webp" },
+    { "name": "Tito Samuel", "position": "RT", "stars": 4, "school": "TCU", "status": "Hard Committed", "image": "img/recruits/tito-samuel.webp" },
+    { "name": "Anthony Russo", "position": "LT", "stars": 4, "school": "TCU", "status": "Hard Committed", "image": "img/recruits/anthony-russo.webp" },
+    { "name": "Frank Osborne", "position": "LG", "stars": 4, "school": "TCU", "status": "Hard Committed", "image": "img/recruits/frank-osborne.webp" },
+    { "name": "Lawrence Macafee", "position": "HB", "size": "5'11\" · 203 lbs", "stars": 3, "hometown": "Hightstown, NJ", "school": "Illinois", "status": "Committed", "image": "img/recruits/lawrence-macafee.webp" }
   ],
 
   "members": [
