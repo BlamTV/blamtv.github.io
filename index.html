@@ -444,9 +444,13 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const side = (m, name) => m ? `<div class="side">${avatar(m)}<b>${esc(m.school)}</b><span>${esc(m.display)}</span></div>`
       : `<div class="side"><span class="av" style="--sc:#333;--ink:#fff">CPU</span><b>${esc(name)}</b><span>Computer</span></div>`;
     const isLive = m => m && (D.live || []).some(x => x.login.toLowerCase() === m.login);
-    const windowLive = now >= ko - 15 * 60e3 && now < ko + 2.5 * 3600e3;
+    let windowLive = now >= ko - 15 * 60e3 && now < ko + 2.5 * 3600e3;
     const va = a && pickStream(a, g.home, season, week), vh = h && pickStream(h, g.away, season, week);
-    const done = now >= ko + 2.5 * 3600e3;
+    // Game is over once both coaches are offline and both saved streams from around kickoff are in
+    const near = v => v && Math.abs(Date.parse(v.created) - ko) < 2 * 3600e3;
+    const ended = near(va) && near(vh) && !isLive(a) && !isLive(h);
+    const done = now >= ko + 2.5 * 3600e3 || ended;
+    if (ended) windowLive = false;
     let acts = '';
     for (const [m, v] of [[a, va], [h, vh]]) {
       if (!m) continue;
@@ -457,7 +461,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (a && h && (windowLive || (isLive(a) && isLive(h)))) acts = `<a class="hot" href="#both-c${esc(a.login)}-c${esc(h.login)}">▶▶ Watch both sidelines live</a>` + acts;
     else if (done && bothPair(g.away, g.home, season, week)) { const p = bothPair(g.away, g.home, season, week); acts = `<a class="hot" href="#both-v${esc(p[0].id)}-v${esc(p[1].id)}">▶▶ Watch both sidelines</a>` + acts; }
     const sc = (m, k) => m ? `--${k}:${m.color}` : `--${k}:#333`;
-    return `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}">
+    return `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}"${done ? ' data-done="1"' : ''}>
       <div class="top"><span class="gw-tag">★ Game of the Week</span><span class="when">${esc(day)} · ${esc(homeTime)}${sameZone ? '' : `<small>${esc(mine)} your time</small>`}</span></div>
       <div class="row">${side(a, g.away)}<span class="vs">@</span>${side(h, g.home)}</div>
       <div class="clock" data-clock></div>
@@ -466,11 +470,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function tickGotw() {
     const el = document.querySelector('.gotw [data-clock]');
     if (!el) { clearInterval(gotwTimer); gotwTimer = null; return; }
-    const ko = +el.closest('.gotw').dataset.ko, d = ko - Date.now();
-    if (d > 0) {
+    const ko = +el.closest('.gotw').dataset.ko, d = ko - Date.now(), over = el.closest('.gotw').dataset.done;
+    if (d > 0 && !over) {
       const hh = Math.floor(d / 3600e3), mm = Math.floor(d % 3600e3 / 60e3), dd = Math.floor(hh / 24);
       el.innerHTML = `Kickoff in <span class="n">${dd ? dd + 'd ' + (hh % 24) + 'h' : hh ? hh + 'h ' + mm + 'm' : mm + 'm'}</span>`;
-    } else if (d > -2.5 * 3600e3) el.innerHTML = `<span class="n">Game on</span> · watch it live below`;
+    } else if (d > -2.5 * 3600e3 && !over) el.innerHTML = `<span class="n">Game on</span> · watch it live below`;
     else el.innerHTML = `<span class="n">Final</span>${document.querySelector('.gotw .acts a[href^="#v-"]') ? ' · replays below' : ''}`;
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
