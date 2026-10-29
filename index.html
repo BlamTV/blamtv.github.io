@@ -87,6 +87,7 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .ph-abbr { font: 800 clamp(30px, 7vw, 46px)/1 var(--display); letter-spacing: -.01em; z-index: 1 }
 .ph-wk { position: absolute; left: 10px; top: 10px; font: 700 11px/1 var(--body); letter-spacing: .12em; z-index: 1; opacity: .9 }
 .dur, .tag { position: absolute; bottom: 8px; font: 500 12px/1 var(--mono); padding: 4px 6px; border-radius: 4px; background: rgba(8,10,14,.82); color: #fff; z-index: 2 }
+.sides { position: absolute; top: 8px; right: 8px; z-index: 2; font: 700 10px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 5px 7px; border-radius: 4px; background: rgba(8,10,14,.82); color: #fff }
 .dur { right: 8px } .tag { left: 8px; background: var(--accent); color: var(--accent-ink); font-family: var(--body); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 10px }
 .meta { display: flex; gap: 10px; align-items: flex-start }
 .meta .txt { min-width: 0 }
@@ -137,6 +138,14 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .byline .who { display: flex; align-items: center; gap: 10px; margin-right: auto; min-width: 0 }
 .byline .who b { display: block }
 .byline .who span { display: block; font-size: 13px; color: var(--muted) }
+.other { margin-top: 14px; border: 1px solid var(--accent); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 10px; background: var(--surface) }
+.other h2 { margin: 0; font: 800 15px/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--accent) }
+.other a { display: flex; align-items: center; gap: 12px; min-width: 0 }
+.other a .t { min-width: 0; flex: 1 }
+.other a b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.other a span.s { display: block; font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.other .go { flex: 0 0 auto; font-weight: 700; font-size: 14px; color: var(--accent) }
+.other .av { display: grid; color: var(--ink) }
 .facts { margin-top: 14px; padding: 12px 14px; border-radius: var(--r); background: var(--raise); font-size: 14px; display: flex; gap: 8px 18px; flex-wrap: wrap }
 .facts span { color: var(--muted) } .facts b { font-family: var(--mono); font-weight: 500 }
 .side h2 { font: 800 19px/1.1 var(--display); text-transform: uppercase; margin: 0 0 12px }
@@ -253,7 +262,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const inner = v.thumb
       ? `<img src="${esc(v.thumb)}" alt="" loading="lazy">`
       : `<div class="ph" style="${scVars(m)}"><span class="ph-wk">${esc(weekShort(v))}</span><span class="ph-abbr">${esc(m.abbr)}</span></div>`;
-    return `<div class="thumb">${inner}${v.type === 'highlight' ? '<span class="tag">Highlight</span>' : ''}<span class="dur">${fmtDur(v.duration)}</span></div>`;
+    return `<div class="thumb">${inner}${v.type === 'highlight' ? '<span class="tag">Highlight</span>' : ''}${v.sides && v.sides.length ? '<span class="sides">⇄ Both sides</span>' : ''}<span class="dur">${fmtDur(v.duration)}</span></div>`;
   }
   function card(v, showWeek) {
     const m = member(v.login);
@@ -263,6 +272,39 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <p>${esc(m.display)}${m.school ? ' · ' + esc(m.school) : ''}</p>
         <p>${fmtViews(v.views)} views · ${ago(v.created)}${showWeek && v.week != null ? ' · ' + esc(weekLabel(v.season, v.week)) : ''}</p>
       </div></div></a>`;
+  }
+  const ALIASES = {
+    'Alabama': ['Bama', 'Crimson Tide'], 'Auburn': ['War Eagle'], 'Clemson': [], 'Florida': ['Gators', 'UF'],
+    'Florida State': ['FSU', 'Seminoles', 'Noles'], 'Georgia': ['UGA', 'Dawgs', 'Bulldogs'], 'Illinois': ['Illini'],
+    'Indiana': ['Hoosiers', 'IU'], 'Iowa': ['Hawkeyes'], 'LSU': [], 'Louisville': ['Cardinals', 'Cards'],
+    'Maryland': ['Terps', 'Terrapins', 'UMD'], 'Nebraska': ['Huskers', 'Cornhuskers'], 'North Carolina': ['UNC', 'Tar Heels'],
+    'Notre Dame': ['ND', 'Irish'], 'Ohio State': ['Buckeyes', 'tOSU'], 'Oklahoma': ['Sooners', 'OU'], 'Ole Miss': ['Rebels'],
+    'Oregon': ['Ducks'], 'Penn State': ['PSU', 'Nittany Lions'], 'Pitt': ['Pittsburgh', 'Panthers'], 'South Carolina': ['Gamecocks'],
+    'Stanford': ['Cardinal'], 'TCU': ['Horned Frogs'], 'Texas': ['Longhorns', 'Horns'], 'UCLA': ['Bruins'], 'USC': ['Trojans'],
+    'Utah': ['Utes'], 'Virginia Tech': ['VTech', 'Va Tech', 'VT', 'Hokies'], 'Washington': ['UW', 'Huskies'],
+    'West Virginia': ['WVU', 'Mountaineers']
+  };
+  const durSec = d => { const g = k => +((d || '').match(new RegExp('(\\d+)' + k)) || [0, 0])[1]; return g('h') * 3600 + g('m') * 60 + g('s'); };
+  function pairUp() {
+    const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const after = '(?![A-Za-z])(?!\\s+(?:State|St\\.?|Tech|A&M|Christian|Southern|Atlantic|International)\\b)';
+    const names = [];
+    for (const m of Object.values(members)) {
+      const list = [m.school, ...(m.abbr && m.abbr.length >= 3 && m.abbr !== 'OSU' ? [m.abbr] : []), ...(ALIASES[m.school] || []), ...(m.aliases || [])];
+      for (const n of list) if (n) names.push([n, m.login]);
+    }
+    names.sort((a, b) => b[0].length - a[0].length);
+    const matchers = names.map(([n, login]) => [new RegExp('(^|[^A-Za-z])' + reEsc(n) + after, 'i'), login]);
+    const mentions = title => { let t = ' ' + title + ' '; const f = new Set(); for (const [re, login] of matchers) if (re.test(t)) { f.add(login); t = t.replace(re, '$1 '); } return f; };
+    const slack = 30 * 60e3;
+    const vs = D.videos.map(v => ({ v, s: Date.parse(v.created), e: Date.parse(v.created) + durSec(v.duration) * 1000, men: mentions(v.title) }));
+    for (const x of vs) x.v.sides = [];
+    for (let i = 0; i < vs.length; i++) for (let j = i + 1; j < vs.length; j++) {
+      const a = vs[i], b = vs[j];
+      if (a.v.login === b.v.login) continue;
+      if (!(a.s < b.e + slack && b.s < a.e + slack)) continue;
+      if (a.men.has(b.v.login) || b.men.has(a.v.login)) { a.v.sides.push(b.v.id); b.v.sides.push(a.v.id); }
+    }
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
 
@@ -342,6 +384,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         : `<div class="empty-state"><b>No saved streams</b>${esc(m.display)} has no past broadcasts on Twitch right now. In Twitch settings, they can turn on <em>Store past broadcasts</em> so games get saved.</div>`}`;
   }
 
+  function otherSide(v) {
+    const list = (v.sides || []).map(id => D.videos.find(x => x.id === id)).filter(Boolean);
+    if (!list.length) return '';
+    return `<section class="other"><h2>Watch from the other sideline</h2>${list.map(x => { const mm = member(x.login); return `<a href="#v-${esc(x.id)}">${avatar(mm)}<span class="t"><b>${esc(mm.display)} · ${esc(mm.school)}</b><span class="s">${esc(x.title)}</span></span><span class="go">Switch ⇄</span></a>`; }).join('')}</section>`;
+  }
+
   function viewWatch(id) {
     const v = D.videos.find(x => String(x.id) === id);
     if (!v) { app.innerHTML = `<div class="empty-state"><b>Video gone</b>Twitch may have deleted this stream. <a href="#">Back to this week</a></div>`; return; }
@@ -359,6 +407,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <div class="byline"><a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}</span></span></a>
           ${v.week != null ? `<a class="btn" href="#week-${v.week}">${esc(weekLabel(v.season, v.week))}</a>` : ''}
           <a class="btn primary" href="https://www.twitch.tv/videos/${esc(v.id)}" target="_blank" rel="noopener">Watch on Twitch ↗</a></div>
+        ${otherSide(v)}
         <div class="facts"><span>Streamed <b>${esc(new Date(v.created).toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))}</b></span>
           <span>Length <b>${fmtDur(v.duration)}</b></span><span>Views <b>${fmtViews(v.views)}</b></span>
           <span>${v.weekFrom === 'title' ? 'Week read from stream title' : v.weekFrom === 'date' ? 'Week matched by stream date' : 'No week matched'}</span></div>
@@ -397,6 +446,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       bySlug[slug(k)] = members[k];
     }
     for (const v of D.videos) v.login = String(v.login).toLowerCase(), members[v.login] && members[v.login].count++;
+    pairUp();
     document.getElementById('season-tag').textContent = `${L.name} · Season ${L.season}`;
     document.getElementById('foot-league').textContent = `${L.name} · ${L.game} dynasty · ${L.members.length} coaches`;
     document.getElementById('foot-updated').textContent = D.updated ? `Updated ${ago(D.updated)}` : (D.sample ? 'Sample data' : 'Waiting for first Twitch update');
