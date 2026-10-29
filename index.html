@@ -584,20 +584,20 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const panel = (S, i) => `<section class="bside" style="${scVars(S.m)}">
         <div class="pl" id="bp${i}">${preview ? `<div class="ph" style="${scVars(S.m)}"><span class="ph-abbr">${esc(S.m.abbr)}</span></div>` : ''}</div>
         <div class="bar">${avatar(S.m)}<span class="t"><b>${esc(S.m.school || S.m.display)}</b><span class="s">${esc(S.m.display)}${S.v ? ' · ' + esc(S.v.title) : ' · live on Twitch'}</span></span>
-          <button class="snd" data-i="${i}" aria-pressed="${i === 0}">${i === 0 ? '🔊 Hearing this side' : '🔈 Hear this side'}</button></div></section>`;
+          <button class="snd" data-i="${i}" aria-pressed="false">🔈 Hear this side</button></div></section>`;
     const wk = A.v && A.v.week != null ? `<a class="btn" href="#week-${A.v.week}">${esc(weekLabel(A.v.season, A.v.week))}</a>` : '';
     app.innerHTML = `<div class="both-head"><div><h1>${esc(A.m.school || A.m.display)} <span style="color:var(--accent)">⇄</span> ${esc(B.m.school || B.m.display)}</h1>
-        <p>${live ? 'Both sidelines, live' : 'Both sidelines of the same game'} · one side's audio at a time</p></div>
+        <p>${live ? 'Both sidelines, live' : 'Both sidelines of the same game'} · tap a side to hear its commentary</p></div>
         <div class="both-tools">${live ? '' : '<button id="bsync" disabled>⟳ Sync to same moment</button>'}${wk}</div></div>
       <div class="both-grid">${panel(A, 0)}${panel(B, 1)}</div>
-      <p class="both-note">${live ? 'Each side plays live from Twitch.' : 'Replays start lined up to the same moment of the game. If one side pauses or skips, hit Sync to line them back up.'} Tap "Hear this side" to switch commentary.</p>`;
+      <p class="both-note">${live ? 'Each side plays live from Twitch.' : 'Replays start lined up to the same moment of the game. If one side pauses or skips, hit Sync to line them back up.'} Both start muted so they can autoplay. Tap "Hear this side" to turn on that side's sound.</p>`;
     if (preview) return;
     let gone = false; bothStop = () => { gone = true; };
     loadTwitchApi().then(Tw => {
       if (gone) return;
       const S = [A, B], P = [], ready = [false, false];
       S.forEach((s, i) => {
-        const opts = { width: '100%', height: '100%', parent: [host], autoplay: true, muted: i === 1 };
+        const opts = { width: '100%', height: '100%', parent: [host], autoplay: true, muted: true };
         if (s.kind === 'video') opts.video = s.v.id; else opts.channel = s.m.login;
         P[i] = new Tw.Player('bp' + i, opts);
         P[i].addEventListener(Tw.Player.READY, () => { ready[i] = true; if (ready[0] && ready[1]) onBothReady(); });
@@ -618,7 +618,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       };
       app.querySelectorAll('.bside .snd').forEach(b => b.onclick = () => {
         const on = +b.dataset.i;
-        P.forEach((p, i) => p.setMuted(i !== on));
+        P.forEach((p, i) => p.setMuted(i !== on)); P[on].play();
         app.querySelectorAll('.bside .snd').forEach(x => { const me = +x.dataset.i === on; x.setAttribute('aria-pressed', me); x.textContent = me ? '🔊 Hearing this side' : '🔈 Hear this side'; });
       });
     }).catch(() => { if (!gone) app.querySelector('.both-note').textContent = 'The Twitch player could not load. Try refreshing the page.'; });
