@@ -55,7 +55,7 @@
     { "twitch": "papitalabi123",       "school": "Florida",        "abbr": "UF",   "color": "#0021A5" },
     { "twitch": "kingruthless1",       "school": "LSU",            "abbr": "LSU",  "color": "#461D7C" },
     { "twitch": "oldgkenny28",         "school": "Utah",           "abbr": "UTAH", "color": "#CC0000" },
-    { "twitch": "dreday2603",          "school": "Stanford",       "abbr": "STAN", "color": "#8C1515" },
+    { "twitch": "dreday2603",          "school": "Stanford",       "abbr": "STAN", "color": "#8C1515", "logo": "img/teams/stanford.jpg" },
     { "twitch": "shuffleman88",        "school": "Ole Miss",       "abbr": "MISS", "color": "#CE1126" },
     { "twitch": "dig9a",               "school": "Clemson",        "abbr": "CLEM", "color": "#F56600" },
     { "twitch": "tno242215",           "school": "Ohio State",     "abbr": "OSU",  "color": "#BB0000" },
