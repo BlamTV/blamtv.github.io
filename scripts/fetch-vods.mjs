@@ -5,8 +5,8 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const league = JSON.parse(await readFile('data/league.json', 'utf8'));
-const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-const SECRET = process.env.TWITCH_CLIENT_SECRET;
+const CLIENT_ID = (process.env.TWITCH_CLIENT_ID || '').trim();
+const SECRET = (process.env.TWITCH_CLIENT_SECRET || '').trim();
 
 if (!CLIENT_ID || !SECRET) {
   console.warn('Twitch is not connected yet: add TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET under Settings > Secrets and variables > Actions. Publishing the site without new videos.');
