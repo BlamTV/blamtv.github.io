@@ -493,7 +493,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     D.videos = D.videos || []; D.live = D.live || []; D.members = D.members || {};
     for (const mm of L.members) {
       const k = mm.twitch.toLowerCase(), info = D.members[k] || {};
-      members[k] = { ...mm, login: k, display: info.display || mm.twitch, avatar: info.avatar || null, ink: inkFor(mm.color), count: 0 };
+      members[k] = { ...mm, login: k, display: info.display || mm.twitch, avatar: mm.logo || info.avatar || null, ink: inkFor(mm.color), count: 0 };
       bySlug[slug(k)] = members[k];
     }
     for (const v of D.videos) v.login = String(v.login).toLowerCase(), members[v.login] && members[v.login].count++;
