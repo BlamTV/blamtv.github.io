@@ -178,6 +178,7 @@ a.tm:hover { background: var(--raise) }
 .rc .info b { font: 800 18px/1.15 var(--display); text-transform: uppercase; overflow-wrap: anywhere }
 .rc .info .st { color: #e9a400; letter-spacing: 2px; font-size: 15px }
 .rc .info span { font-size: 14px; color: var(--muted) }
+.rc .info .nilv { color: #2f9e55; font-weight: 700 }
 .rc .info .to { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--fg) }
 .rc .info .to .av { width: 26px; height: 26px; display: grid; color: var(--ink); font-size: 8px }
 .facts { margin-top: 14px; padding: 12px 14px; border-radius: var(--r); background: var(--raise); font-size: 14px; display: flex; gap: 8px 18px; flex-wrap: wrap }
@@ -536,7 +537,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const card = r => { const m = r.school ? teamOf(r.school) : null; const sc = m ? scVars(m) : '--sc:var(--accent);--ink:#fff';
       return `<article class="rc" style="${sc}"><div class="ph2">${r.image ? `<img src="${esc(r.image)}" alt="${esc(r.name || 'Recruit')}" loading="lazy">` : esc((r.name || '?').slice(0, 1))}</div>
         <div class="info"><b>${esc(r.name || 'Recruit')}</b>${r.stars ? `<span class="st" aria-label="${r.stars} stars">${'★'.repeat(r.stars)}</span>` : ''}
-        <span>${[r.position, r.hometown].filter(Boolean).map(esc).join(' · ')}</span>
+        <span>${[r.position, r.archetype, r.size].filter(Boolean).map(esc).join(' · ')}</span>${r.hometown ? `<span>${esc(r.hometown)}</span>` : ''}${r.nil ? `<span class="nilv">NIL ${esc(r.nil)}</span>` : ''}
         ${r.school ? `<span class="to">${m ? avatar(m) : ''}${esc(r.status || 'Committed')} · ${esc(r.school)}</span>` : ''}
         ${r.note ? `<span>${esc(r.note)}</span>` : ''}</div></article>`; };
     app.innerHTML = `<section class="nil-hero" aria-label="NIL: Spend Dat Ish"><canvas id="nil-canvas"></canvas>
