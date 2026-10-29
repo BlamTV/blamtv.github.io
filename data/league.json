@@ -1,0 +1,55 @@
+{
+  "name": "Blam League",
+  "game": "College Football 27",
+  "season": 4,
+
+  "weeks": [
+    { "season": 4, "week": 0, "start": "2026-10-09T20:00:00-05:00" },
+    { "season": 4, "week": 1, "start": "2026-10-11T20:00:00-05:00" },
+    { "season": 4, "week": 2, "start": "2026-10-13T20:00:00-05:00" },
+    { "season": 4, "week": 3, "start": "2026-10-15T20:00:00-05:00" },
+    { "season": 4, "week": 4, "start": "2026-10-17T20:00:00-05:00" },
+    { "season": 4, "week": 5, "start": "2026-10-19T20:00:00-05:00" },
+    { "season": 4, "week": 6, "start": "2026-10-21T20:00:00-05:00" },
+    { "season": 4, "week": 7, "start": "2026-10-23T20:00:00-05:00" },
+    { "season": 4, "week": 8, "start": "2026-10-25T20:00:00-05:00" },
+    { "season": 4, "week": 9, "start": "2026-10-27T20:00:00-05:00" }
+  ],
+
+  "titleMustIncludeAny": [],
+  "hideVideos": [],
+
+  "members": [
+    { "twitch": "papitalabi123",       "school": "Florida",        "abbr": "UF",   "color": "#0021A5" },
+    { "twitch": "kingruthless1",       "school": "LSU",            "abbr": "LSU",  "color": "#461D7C" },
+    { "twitch": "oldgkenny28",         "school": "Utah",           "abbr": "UTAH", "color": "#CC0000" },
+    { "twitch": "dreday2603",          "school": "Stanford",       "abbr": "STAN", "color": "#8C1515" },
+    { "twitch": "shuffleman88",        "school": "Ole Miss",       "abbr": "MISS", "color": "#CE1126" },
+    { "twitch": "dig9a",               "school": "Clemson",        "abbr": "CLEM", "color": "#F56600" },
+    { "twitch": "tno242215",           "school": "Ohio State",     "abbr": "OSU",  "color": "#BB0000" },
+    { "twitch": "dream_vvv",           "school": "USC",            "abbr": "USC",  "color": "#990000" },
+    { "twitch": "blakbuddah",          "school": "Penn State",     "abbr": "PSU",  "color": "#041E42" },
+    { "twitch": "ravingzebe",          "school": "Auburn",         "abbr": "AUB",  "color": "#E87722" },
+    { "twitch": "tomcatdadaddy",       "school": "Louisville",     "abbr": "LOU",  "color": "#AD0000" },
+    { "twitch": "grodd30",             "school": "South Carolina", "abbr": "SC",   "color": "#73000A" },
+    { "twitch": "vchosenone12",        "school": "Iowa",           "abbr": "IOWA", "color": "#FFCD00" },
+    { "twitch": "drakeworth33",        "school": "Texas",          "abbr": "TEX",  "color": "#BF5700" },
+    { "twitch": "lingo205",            "school": "Oklahoma",       "abbr": "OU",   "color": "#841617" },
+    { "twitch": "OletDoiTT",           "school": "North Carolina", "abbr": "UNC",  "color": "#7BAFD4" },
+    { "twitch": "Kanga103",            "school": "Florida State",  "abbr": "FSU",  "color": "#782F40" },
+    { "twitch": "PKSHADOWMAN",         "school": "Virginia Tech",  "abbr": "VT",   "color": "#630031" },
+    { "twitch": "Loso03",              "school": "Notre Dame",     "abbr": "ND",   "color": "#0C2340" },
+    { "twitch": "Tmac17225",           "school": "Georgia",        "abbr": "UGA",  "color": "#BA0C2F" },
+    { "twitch": "Radi0ActivWaste",     "school": "Washington",     "abbr": "UW",   "color": "#4B2E83" },
+    { "twitch": "vacationpapi",        "school": "Illinois",       "abbr": "ILL",  "color": "#E84A27" },
+    { "twitch": "icyorchid7",          "school": "Oregon",         "abbr": "ORE",  "color": "#154733" },
+    { "twitch": "Ykla_2144",           "school": "West Virginia",  "abbr": "WVU",  "color": "#002855" },
+    { "twitch": "r3al3st260",          "school": "Alabama",        "abbr": "BAMA", "color": "#9E1B32" },
+    { "twitch": "bignu225",            "school": "Nebraska",       "abbr": "NEB",  "color": "#E41C38" },
+    { "twitch": "dubshow23",           "school": "TCU",            "abbr": "TCU",  "color": "#4D1979" },
+    { "twitch": "coach_barbermike707", "school": "Pitt",           "abbr": "PITT", "color": "#003594" },
+    { "twitch": "purpdollas7",         "school": "UCLA",           "abbr": "UCLA", "color": "#2D68C4" },
+    { "twitch": "cantguardmac13",      "school": "Indiana",        "abbr": "IU",   "color": "#990000" },
+    { "twitch": "changknd",            "school": "Maryland",       "abbr": "UMD",  "color": "#E03A3E" }
+  ]
+}
