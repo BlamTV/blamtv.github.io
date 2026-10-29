@@ -404,7 +404,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const a = teamOf(aw), h = teamOf(hm);
       if (!a || !h) continue;
       const va = pickStream(a, hm, sch.season, sch.week), vh = pickStream(h, aw, sch.season, sch.week);
-      if (va && vh && !va.sides.includes(vh.id)) { va.sides.push(vh.id); vh.sides.push(va.id); }
+      if (va && vh && !va.sides.includes(vh.id) && Math.abs(Date.parse(va.created) - Date.parse(vh.created)) <= 45 * 60e3) { va.sides.push(vh.id); vh.sides.push(va.id); }
     }
   }
   function teamCell(name, opp, season, week) {
