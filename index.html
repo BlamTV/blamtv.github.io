@@ -181,6 +181,11 @@ a.tm:hover { background: var(--raise) }
 .tm .nm span { display: block; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
 .tm .play { flex: 0 0 auto; font: 700 11px/1 var(--body); padding: 5px 8px; border-radius: 999px; background: var(--accent); color: var(--accent-ink) }
 .tm .nos { flex: 0 0 auto; font-size: 11px; color: var(--muted) }
+.tm.on { background: color-mix(in srgb, var(--live) 10%, transparent); box-shadow: inset 0 0 0 1.5px var(--live) }
+.tm.on .av, .ch.on .av { box-shadow: 0 0 0 2px var(--live) }
+.game .both-link.live { color: var(--live) }
+.ch.on { border-color: var(--live); border-left-color: var(--sc); box-shadow: inset 0 0 0 1px var(--live) }
+.ch .pill-live { display: inline-block; margin-left: 6px; vertical-align: 1px; font-size: 10px; padding: 3px 5px }
 .tm .chip { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--raise); color: var(--muted); font: 800 10px/1 var(--display); border: 1px dashed var(--muted) }
 @media (max-width: 560px) { .tm .play .w, .tm .nos { display: none } .tm .nm b { font-size: 13px } }
 .gotw { position: relative; overflow: hidden; isolation: isolate; border-radius: calc(var(--r) + 6px); margin: 0 0 26px; color: #fff;
@@ -434,6 +439,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function teamCell(name, opp, season, week) {
     const m = teamOf(name);
     if (!m) return `<div class="tm"><span class="chip">CPU</span><span class="nm"><b>${esc(name)}</b><span>Computer</span></span></div>`;
+    const lv = season === L.season && week === seasonWeeks()[0] && liveOf(m);
+    if (lv) return `<a class="tm on" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener" title="${esc(lv.title)}">${avatar(m)}<span class="nm"><b>${esc(m.school)}</b><span>${esc(m.display)}</span></span><span class="pill-live">LIVE</span></a>`;
     const v = pickStream(m, opp, season, week);
     return `<a class="tm" href="${v ? '#v-' + esc(v.id) : '#ch-' + slug(m.login)}">${avatar(m)}<span class="nm"><b>${esc(m.school)}</b><span>${esc(m.display)}</span></span>${v ? '<span class="play">▶<span class="w"> Watch</span></span>' : '<span class="nos">No stream</span>'}</a>`;
   }
@@ -450,6 +457,9 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     return va && vh && (va.sides || []).includes(vh.id) ? [va, vh] : null;
   }
   function bothLink(aw, hm, season, week) {
+    const la = teamOf(aw), lh = teamOf(hm);
+    if (la && lh && season === L.season && week === seasonWeeks()[0] && liveOf(la) && liveOf(lh))
+      return `<a class="both-link live" href="#both-c${esc(la.login)}-c${esc(lh.login)}"><span class="pill-live">LIVE</span> Watch both sidelines</a>`;
     const p = bothPair(aw, hm, season, week);
     return p ? `<a class="both-link" href="#both-v${esc(p[0].id)}-v${esc(p[1].id)}">▶▶ Watch both sidelines</a>` : '';
   }
@@ -503,6 +513,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
 
+  const liveOf = m => m && (D.live || []).find(x => x.login.toLowerCase() === m.login);
   function liveStrip() {
     if (!D.live || !D.live.length) return '';
     return `<div class="live" aria-label="Live now">${D.live.map(s => {
@@ -553,10 +564,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const rest = all.filter(m => !confOf(m));
     if (rest.length) groups.push({ title: groups.length ? 'Other' : '', list: rest });
     const tile = m => `
-        <a class="ch" href="#ch-${slug(m.login)}" style="${scVars(m)}" data-q="${esc((m.display + ' ' + m.school + ' ' + m.abbr).toLowerCase())}">
-          ${avatar(m, 'md')}<span class="txt"><b>${esc(m.display)}</b><span>${esc(m.school)}</span>
+        <a class="ch${liveOf(m) ? ' on' : ''}" href="#ch-${slug(m.login)}" style="${scVars(m)}" data-q="${esc((m.display + ' ' + m.school + ' ' + m.abbr).toLowerCase())}">
+          ${avatar(m, 'md')}<span class="txt"><b>${esc(m.display)}${liveOf(m) ? '<span class="pill-live">LIVE</span>' : ''}</b><span>${esc(m.school)}</span>
           <span class="n">${m.count} video${m.count === 1 ? '' : 's'}</span></span></a>`;
-    app.innerHTML = `${banner()}
+    app.innerHTML = `${banner()}${liveStrip()}
       <div class="toolbar"><h1>Channels</h1>
         <input class="search" id="ch-filter" type="search" placeholder="Search coach or school" aria-label="Search coach or school"></div>
       ${groups.map(g => `<section class="conf">${g.title ? `<h2 class="section-h">${esc(g.title)}</h2>` : ''}<div class="chgrid">${g.list.map(tile).join('')}</div></section>`).join('')}`;
@@ -770,7 +781,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   let hlStop = null;
   function viewHighlights() {
     const list = highlights();
-    app.innerHTML = `<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas>
+    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas>
         <div class="hl-copy"><div class="pre">Blam<span>TV</span></div><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
       <h2 class="section-h">Latest highlights</h2>
       ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
