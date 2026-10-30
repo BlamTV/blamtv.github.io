@@ -40,7 +40,8 @@ jobs:
           git config user.name "blamtv-bot"
           git config user.email "blamtv-bot@users.noreply.github.com"
           git add data/videos.json
-          if ! git diff --cached --quiet; then git commit -m "Update videos" && git push; fi
+          # two runs can overlap; a lost race just skips saving history (the site still deploys below)
+          if ! git diff --cached --quiet; then git commit -m "Update videos" && (git push || echo "push skipped: another run saved first"); fi
 
       - name: Prepare site
         run: mkdir _site && cp -r index.html data img _site/
