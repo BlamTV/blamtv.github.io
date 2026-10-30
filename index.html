@@ -377,8 +377,16 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const opp = teamOf(oppName);
     const oppRe = new RegExp('(^|[^A-Za-z])' + reEsc(oppName) + '(?![A-Za-z])', 'i');
     const hits = v => opp ? MENTIONS(v.title).has(opp.login) : oppRe.test(v.title);
+    // a stream that clearly belongs to a different game (its title names another member's school, or it was
+    // pulled in by another opponent's stream) is never credited to this matchup
+    const otherGame = v => {
+      const men = MENTIONS(v.title); men.delete(m.login);
+      if ([...men].some(l => !opp || l !== opp.login)) return true;
+      const by = v.rescuedBy && D.videos.find(x => x.id === v.rescuedBy);
+      return !!(by && (!opp || by.login !== opp.login));
+    };
     const same = D.videos.filter(v => v.login === m.login && v.season === season && v.week === week);
-    return same.find(hits) || D.videos.find(v => v.login === m.login && v.season === season && v.week != null && Math.abs(v.week - week) === 1 && hits(v)) || same[0] || null;
+    return same.find(hits) || D.videos.find(v => v.login === m.login && v.season === season && v.week != null && Math.abs(v.week - week) === 1 && hits(v)) || same.find(v => !otherGame(v)) || null;
   }
   function pairUp() {
     const after = '(?![A-Za-z])(?!\\s+(?:State|St\\.?|Tech|A&M|Christian|Southern|Atlantic|International)\\b)';
