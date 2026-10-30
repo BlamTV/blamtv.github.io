@@ -41,7 +41,8 @@
   "highlights": [
     { "title": "#12 Virginia Tech vs #11 Oklahoma, 38–35", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7702478940832533774", "week": 9, "date": "2026-10-30T10:12:09-05:00" },
     { "title": "#9 Virginia Tech vs Nebraska, 31–23", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7700213335903571213", "week": 5, "date": "2026-10-24T07:40:27-05:00" },
-    { "title": "#17 Virginia Tech vs #12 Illinois, 28–21", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7699948556874026254", "week": 4, "date": "2026-10-23T14:32:58-05:00" }
+    { "title": "#17 Virginia Tech vs #12 Illinois, 28–21", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7699948556874026254", "week": 4, "date": "2026-10-23T14:32:58-05:00" },
+    { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
   "gameOfWeek": { "season": 4, "week": 9, "away": "TCU", "home": "USC", "kickoff": "2026-10-29T18:00:00-04:00", "tz": "America/New_York", "tzLabel": "ET" },
