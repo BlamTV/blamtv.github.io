@@ -224,6 +224,8 @@ a.tm:hover { background: var(--raise) }
 .hl-copy { position: relative; z-index: 3; padding: 26px 28px; max-width: 58% }
 .hl-copy .k { font: 800 clamp(44px, 8.6vw, 100px)/.84 var(--display); letter-spacing: -.03em; color: #f3c23a; text-transform: uppercase; text-shadow: 0 4px 0 #7a5a00, 0 10px 30px rgba(0,0,0,.5) }
 .hl-copy .s { font: 800 clamp(18px, 3.4vw, 32px)/1 var(--display); text-transform: uppercase; margin-top: 10px; transform: rotate(-2deg); display: inline-block; background: #fff; color: #0b0d10; padding: 6px 12px 7px; border-radius: 4px }
+.hl-copy .pre { font: 800 clamp(22px, 3.8vw, 40px)/1 var(--display); text-transform: uppercase; letter-spacing: .01em; color: #fff; margin-bottom: 6px }
+.hl-copy .pre span { background: #f3b234; color: #111; padding: 0 6px 2px; margin-left: 4px; border-radius: 4px }
 .hl-copy p { margin: 14px 0 0; color: #e8dfc4; font-size: 15px; max-width: 34ch }
 @media (max-width: 640px) { .hl-copy { max-width: 100%; padding: 22px 18px 170px } .hl-hero { align-items: flex-start; min-height: 420px } }
 .hl-how { margin-top: 26px; padding: 14px 16px; border-radius: var(--r); background: var(--raise); font-size: 14px; color: var(--muted) }
@@ -769,7 +771,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function viewHighlights() {
     const list = highlights();
     app.innerHTML = `<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas>
-        <div class="hl-copy"><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
+        <div class="hl-copy"><div class="pre">Blam<span>TV</span></div><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
       <h2 class="section-h">Latest highlights</h2>
       ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
         : `<div class="empty-state"><b>No highlights posted yet</b>Coach-made clips land here as soon as they're posted.</div>`}
