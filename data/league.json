@@ -18,6 +18,7 @@
 
   "titleMustIncludeAny": ["blam"],
   "hideVideos": [],
+  "includeVideos": ["2915014521"],
 
   "conferences": [
     { "tier": 1, "name": "SEC",    "schools": ["Florida State", "Georgia", "LSU", "Notre Dame", "Alabama", "Ole Miss", "Oklahoma"] },
