@@ -2,7 +2,7 @@ name: Update Blam League videos
 
 on:
   schedule:
-    - cron: '7,37 * * * *'   # every 30 minutes
+    - cron: '2-59/10 * * * *'   # every 10 minutes
   workflow_dispatch:          # "Run workflow" button
   push:
     branches: [main]          # runs right away when you edit league.json
