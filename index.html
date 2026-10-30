@@ -132,6 +132,7 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .player { aspect-ratio: 16/9; max-width: 100%; border-radius: var(--r); overflow: hidden; background: #000; position: relative }
 .player iframe { width: 100%; height: 100%; border: 0; display: block }
 .player .ph { border-radius: 0 }
+.player.vert { aspect-ratio: 9/16; width: min(100%, 400px); margin-inline: auto }
 .player .note { position: absolute; z-index: 3; left: 50%; bottom: 16px; transform: translateX(-50%); background: rgba(8,10,14,.86); color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis }
 .watch h1 { font: 700 22px/1.25 var(--body); margin: 14px 0 10px; overflow-wrap: anywhere }
 .byline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap }
@@ -740,6 +741,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const u = String(url || ''); let m;
     if ((m = u.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([\w-]{11})/))) return { kind: 'yt', id: m[1], label: 'YouTube' };
     if ((m = u.match(/clips\.twitch\.tv\/(?:embed\?clip=)?([\w-]+)/)) || (m = u.match(/twitch\.tv\/[^/]+\/clip\/([\w-]+)/))) return { kind: 'clip', id: m[1], label: 'Twitch clip' };
+    if ((m = u.match(/tiktok\.com\/@[\w.-]+\/video\/(\d+)/))) return { kind: 'tt', id: m[1], label: 'TikTok' };
     if ((m = u.match(/twitch\.tv\/videos\/(\d+)/))) return { kind: 'tv', id: m[1], label: 'Twitch' };
     return { kind: 'link', id: '', label: 'Link' };
   }
@@ -781,15 +783,16 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const m = h.login ? member(h.login) : { abbr: 'BTV', color: '#f3b234', ink: '#111111', display: 'Blam League', school: '', login: '' };
     const host = encodeURIComponent(location.hostname || 'localhost'), c = h.clip;
     const src = c.kind === 'yt' ? `https://www.youtube-nocookie.com/embed/${c.id}?autoplay=1&rel=0&playsinline=1`
+      : c.kind === 'tt' ? `https://www.tiktok.com/player/v1/${c.id}?autoplay=1&loop=1&rel=0`
       : c.kind === 'clip' ? `https://clips.twitch.tv/embed?clip=${encodeURIComponent(c.id)}&parent=${host}&autoplay=true`
       : `https://player.twitch.tv/?video=${encodeURIComponent(c.id)}&parent=${host}&autoplay=true`;
     const more = list.filter(x => x.key !== key).slice(0, 8);
     app.innerHTML = `<div class="watch"><div>
-        <div class="player"><iframe src="${src}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(h.title)}"></iframe></div>
+        <div class="player${c.kind === 'tt' ? ' vert' : ''}"><iframe src="${src}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(h.title)}"></iframe></div>
         <h1>${esc(h.title)}</h1>
         <div class="byline">${m.login ? `<a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}</span></span></a>` : ''}
           <a class="btn" href="#highlights">All highlights</a>
-          <a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : 'Twitch'} ↗</a></div>
+          <a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : c.kind === 'tt' ? 'TikTok' : 'Twitch'} ↗</a></div>
       </div>
       <aside class="side"><h2>More highlights</h2><div class="list">${more.map(x => { const mm = x.login ? member(x.login) : m;
         return `<a class="mini" href="#${esc(x.key)}"><div class="thumb">${x.thumb ? `<img src="${esc(x.thumb)}" alt="" loading="lazy">` : `<div class="ph" style="${scVars(mm)}"><span class="ph-abbr">${esc(mm.abbr)}</span></div>`}</div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div></aside></div>`;
