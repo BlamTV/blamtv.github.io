@@ -217,6 +217,18 @@ a.tm:hover { background: var(--raise) }
 @keyframes nilFlick { 0%, 55% { transform: rotate(0deg) } 70% { transform: rotate(-16deg) translateY(-6px) } 100% { transform: rotate(0deg) } }
 @media (max-width: 640px) { .nil-copy { max-width: 100%; padding: 22px 18px 120px } .nil-hand { width: 46%; right: 0 } .nil-hero { align-items: flex-start } }
 @media (prefers-reduced-motion: reduce) { .nil-hand { animation: none } }
+.hl-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); min-height: 240px; margin-bottom: 26px; display: flex; align-items: center;
+  background: radial-gradient(90% 120% at 78% 0%, #4a3a0c 0%, #1a160b 42%, #07080b 100%); color: #fff; isolation: isolate }
+.hl-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none }
+.hl-copy { position: relative; z-index: 3; padding: 26px 28px; max-width: 58% }
+.hl-copy .k { font: 800 clamp(44px, 8.6vw, 100px)/.84 var(--display); letter-spacing: -.03em; color: #f3c23a; text-transform: uppercase; text-shadow: 0 4px 0 #7a5a00, 0 10px 30px rgba(0,0,0,.5) }
+.hl-copy .s { font: 800 clamp(18px, 3.4vw, 32px)/1 var(--display); text-transform: uppercase; margin-top: 10px; transform: rotate(-2deg); display: inline-block; background: #fff; color: #0b0d10; padding: 6px 12px 7px; border-radius: 4px }
+.hl-copy p { margin: 14px 0 0; color: #e8dfc4; font-size: 15px; max-width: 34ch }
+@media (max-width: 640px) { .hl-copy { max-width: 100%; padding: 22px 18px 170px } .hl-hero { align-items: flex-start; min-height: 420px } }
+.hl-how { margin-top: 26px; padding: 14px 16px; border-radius: var(--r); background: var(--raise); font-size: 14px; color: var(--muted) }
+.hl-how b { color: var(--fg) }
+.ph .ph-kind { position: absolute; top: 8px; left: 8px; font: 700 10px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; background: rgba(8,10,14,.82); color: #fff; padding: 4px 6px; border-radius: 4px }
+@media (max-width: 420px) { nav.tabs a { padding: 9px 9px; letter-spacing: .06em; font-size: 12px } }
 .rc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 18px }
 .rc { display: grid; gap: 10px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; border-top: 4px solid var(--sc) }
 .rc .ph2 { aspect-ratio: 4/5; max-width: 100%; background: var(--raise); display: grid; place-items: center; color: var(--muted); font: 800 40px/1 var(--display) }
@@ -275,6 +287,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#" id="nav-weeks">Weeks</a>
       <a href="#channels" id="nav-channels">Channels</a>
       <a href="#nil" id="nav-nil">NIL</a>
+      <a href="#highlights" id="nav-hl">Highlights</a>
     </nav>
   </div>
   <div class="hash" aria-hidden="true"></div>
@@ -720,18 +733,166 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     nilStop = startMoney(document.getElementById('nil-canvas'));
   }
 
+  // ---------------- Highlights: coach-made clips ----------------
+  // Two sources: Twitch Highlights the coaches save (type "highlight", titled with BLAM), and links the
+  // commissioner posts in league.json "highlights": [{ "title", "coach" (Twitch name or school), "url", "week", "date" }].
+  function parseClip(url) {
+    const u = String(url || ''); let m;
+    if ((m = u.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([\w-]{11})/))) return { kind: 'yt', id: m[1], label: 'YouTube' };
+    if ((m = u.match(/clips\.twitch\.tv\/(?:embed\?clip=)?([\w-]+)/)) || (m = u.match(/twitch\.tv\/[^/]+\/clip\/([\w-]+)/))) return { kind: 'clip', id: m[1], label: 'Twitch clip' };
+    if ((m = u.match(/twitch\.tv\/videos\/(\d+)/))) return { kind: 'tv', id: m[1], label: 'Twitch' };
+    return { kind: 'link', id: '', label: 'Link' };
+  }
+  function highlights() {
+    const posted = (L.highlights || []).map((h, i) => {
+      const c = parseClip(h.url);
+      const m = h.coach ? (members[String(h.coach).toLowerCase()] || teamOf(h.coach)) : null;
+      return { key: 'hl-' + (i + 1), src: 'posted', title: h.title || 'Highlight', login: m ? m.login : null, url: h.url, clip: c,
+        week: h.week ?? null, created: h.date || null, thumb: c.kind === 'yt' ? `https://i.ytimg.com/vi/${c.id}/hqdefault.jpg` : null };
+    });
+    const twitch = D.videos.filter(v => v.type === 'highlight').map(v => ({ key: 'v-' + v.id, src: 'twitch', title: v.title, login: v.login,
+      url: 'https://www.twitch.tv/videos/' + v.id, clip: { kind: 'tv', id: v.id, label: 'Twitch highlight' }, week: v.week, created: v.created, thumb: v.thumb, duration: v.duration, views: v.views }));
+    return [...posted, ...twitch].sort((a, b) => (Date.parse(b.created || 0) || 0) - (Date.parse(a.created || 0) || 0));
+  }
+  function hlCard(h) {
+    const m = h.login ? member(h.login) : { abbr: 'BTV', color: '#f3b234', ink: '#111111', display: 'Blam League', school: '' };
+    const inner = h.thumb ? `<img src="${esc(h.thumb)}" alt="" loading="lazy">`
+      : `<div class="ph" style="${scVars(m)}"><span class="ph-kind">${esc(h.clip.label)}</span><span class="ph-abbr">${esc(m.abbr)}</span></div>`;
+    const href = h.clip.kind === 'link' ? esc(h.url) : '#' + esc(h.key);
+    return `<a class="card" href="${href}"${h.clip.kind === 'link' ? ' target="_blank" rel="noopener"' : ''}><div class="thumb">${inner}<span class="tag">Highlight</span>${h.duration ? `<span class="dur">${fmtDur(h.duration)}</span>` : ''}</div>
+      <div class="meta">${avatar(m)}<div class="txt"><h3>${esc(h.title)}</h3><p>${esc(m.display)}${m.school ? ' · ' + esc(m.school) : ''}</p>
+      <p>${[h.views != null ? fmtViews(h.views) + ' views' : '', h.created ? ago(h.created) : '', h.week != null ? 'Week ' + h.week : ''].filter(Boolean).join(' · ')}</p></div></div></a>`;
+  }
+  let hlStop = null;
+  function viewHighlights() {
+    const list = highlights();
+    app.innerHTML = `<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas>
+        <div class="hl-copy"><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
+      <h2 class="section-h">Latest highlights</h2>
+      ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
+        : `<div class="empty-state"><b>No highlights posted yet</b>Coach-made clips land here as soon as they're posted.</div>`}
+      <div class="hl-how"><b>Coaches, get your plays on here:</b> save a Highlight on Twitch with <b>BLAM</b> in the title and it shows up automatically,
+        or send your YouTube or Twitch clip link to the commissioner.</div>`;
+    hlStop = startHighStep(document.getElementById('hl-canvas'));
+  }
+  function viewHighlight(key) {
+    const list = highlights(), h = list.find(x => x.key === key);
+    if (!h) { app.innerHTML = `<div class="empty-state"><b>Highlight not found</b><a href="#highlights">Back to highlights</a></div>`; return; }
+    const m = h.login ? member(h.login) : { abbr: 'BTV', color: '#f3b234', ink: '#111111', display: 'Blam League', school: '', login: '' };
+    const host = encodeURIComponent(location.hostname || 'localhost'), c = h.clip;
+    const src = c.kind === 'yt' ? `https://www.youtube-nocookie.com/embed/${c.id}?autoplay=1&rel=0&playsinline=1`
+      : c.kind === 'clip' ? `https://clips.twitch.tv/embed?clip=${encodeURIComponent(c.id)}&parent=${host}&autoplay=true`
+      : `https://player.twitch.tv/?video=${encodeURIComponent(c.id)}&parent=${host}&autoplay=true`;
+    const more = list.filter(x => x.key !== key).slice(0, 8);
+    app.innerHTML = `<div class="watch"><div>
+        <div class="player"><iframe src="${src}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(h.title)}"></iframe></div>
+        <h1>${esc(h.title)}</h1>
+        <div class="byline">${m.login ? `<a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}</span></span></a>` : ''}
+          <a class="btn" href="#highlights">All highlights</a>
+          <a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : 'Twitch'} ↗</a></div>
+      </div>
+      <aside class="side"><h2>More highlights</h2><div class="list">${more.map(x => { const mm = x.login ? member(x.login) : m;
+        return `<a class="mini" href="#${esc(x.key)}"><div class="thumb">${x.thumb ? `<img src="${esc(x.thumb)}" alt="" loading="lazy">` : `<div class="ph" style="${scVars(mm)}"><span class="ph-abbr">${esc(mm.abbr)}</span></div>`}</div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div></aside></div>`;
+  }
+
+  // Original cartoon player high-stepping into the end zone (drawn in code; still frame for reduced motion)
+  function startHighStep(canvas) {
+    const ctx = canvas.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let W = 0, H = 0, dpr = Math.min(2, devicePixelRatio || 1), raf = 0, t0 = 0;
+    const size = () => { const r = canvas.getBoundingClientRect(); W = r.width; H = r.height; canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+    size(); const ro = new ResizeObserver(() => { size(); if (reduce) draw(1.1); }); ro.observe(canvas);
+    const G = '#f3b234', GD = '#b07a00', K = '#0b0d10', SKIN = '#8a5a3c';
+    const limb = (x1, y1, x2, y2, w, col) => { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); };
+    function field(t) {
+      const top = H * 0.64;
+      let g = ctx.createLinearGradient(0, top, 0, H); g.addColorStop(0, '#1d5a27'); g.addColorStop(1, '#0d2f13');
+      ctx.fillStyle = g; ctx.fillRect(0, top, W, H - top);
+      const sp = 70, off = (t * 0.22) % sp;
+      ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 3;
+      for (let x = -sp + (sp - off); x < W + sp * 2; x += sp) { ctx.beginPath(); ctx.moveTo(x + 40, top); ctx.lineTo(x - 30, H); ctx.stroke(); }
+      // pylons sliding past
+      const P = 520, px = W + 60 - ((t * 0.22) % P) * (W + 120) / P;
+      if (px > W * 0.45) { ctx.fillStyle = '#ff7a1a'; ctx.fillRect(px, H * 0.9 - 30, 12, 30); }
+      // stadium light glow
+      g = ctx.createRadialGradient(W * 0.82, 0, 10, W * 0.82, 0, H * 0.9); g.addColorStop(0, 'rgba(255,235,180,.32)'); g.addColorStop(1, 'rgba(255,235,180,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      // keep the copy readable: darken the left side
+      g = ctx.createLinearGradient(0, 0, W * 0.6, 0); g.addColorStop(0, 'rgba(7,8,11,.82)'); g.addColorStop(1, 'rgba(7,8,11,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    function player(p) {
+      const mobile = W < 640, s = mobile ? H * 0.0017 : Math.min(H * 0.0036, W * 0.0046);
+      const gx = W * (mobile ? 0.74 : 0.74), gy = H * (mobile ? 0.95 : 0.9);
+      ctx.save(); ctx.translate(gx, gy); ctx.scale(s, s);
+      ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(0, 4, 54, 9, 0, 0, 7); ctx.fill();
+      const bob = -Math.abs(Math.sin(p)) * 7, hip = { x: 0, y: -94 + bob };
+      // speed lines
+      ctx.strokeStyle = 'rgba(243,194,58,.5)'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+      for (let i = 0; i < 4; i++) { const y = -150 + i * 30 + Math.sin(p * 2 + i) * 4; ctx.beginPath(); ctx.moveTo(-70 - i * 8, y); ctx.lineTo(-130 - i * 14, y); ctx.stroke(); }
+      const leg = (ph, back) => {
+        const lift = Math.max(0, Math.sin(ph)), push = Math.max(0, -Math.sin(ph));
+        const a = 0.12 + Math.pow(lift, 0.7) * 1.78 - push * 0.45;            // thigh: knee drives up near horizontal
+        const kx = hip.x + Math.sin(a) * 46, ky = hip.y + Math.cos(a) * 46;
+        const c = a - Math.pow(lift, 0.7) * 2.15 - 0.05 + push * 0.35;          // shin tucks back under the high knee
+        const fx = kx + Math.sin(c) * 46, fy = ky + Math.cos(c) * 46;
+        limb(hip.x, hip.y, kx, ky, 22, back ? GD : G);            // gold pants
+        limb(kx, ky, fx, fy, 15, back ? '#000' : K);              // black socks
+        ctx.fillStyle = back ? '#000' : '#16181d'; ctx.beginPath(); ctx.ellipse(fx + 8, fy + 2, 13, 6, c * 0.3, 0, 7); ctx.fill();
+      };
+      leg(p + Math.PI, true);
+      // torso, leaning back with swagger
+      ctx.save(); ctx.translate(hip.x, hip.y); ctx.rotate(-0.2 + Math.sin(p * 2) * 0.02);
+      const sh = { x: 0, y: -62 };
+      // back arm pumping
+      const ba = Math.sin(p) * 0.9;
+      limb(sh.x - 4, sh.y + 6, sh.x - 4 + Math.sin(-ba) * 28, sh.y + 6 + Math.cos(ba) * 28, 13, '#000');
+      ctx.fillStyle = K; ctx.beginPath(); ctx.roundRect(-20, -66, 40, 70, 12); ctx.fill();
+      ctx.fillStyle = K; ctx.beginPath(); ctx.roundRect(-28, -70, 56, 22, 10); ctx.fill();   // shoulder pads
+      ctx.strokeStyle = G; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-26, -50); ctx.lineTo(26, -50); ctx.stroke();
+      ctx.fillStyle = G; ctx.font = '800 26px Archivo, Arial Black, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('00', 0, -14);
+      // helmet (no face, just a dark visor)
+      ctx.fillStyle = G; ctx.beginPath(); ctx.ellipse(4, -88, 19, 18, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = K; ctx.fillRect(-2, -106, 5, 36);
+      ctx.fillStyle = '#1b1f27'; ctx.beginPath(); ctx.ellipse(16, -86, 8, 9, 0, 0, 7); ctx.fill();
+      ctx.strokeStyle = '#d9d9d9'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(18, -78); ctx.lineTo(27, -78); ctx.moveTo(18, -92); ctx.lineTo(27, -90); ctx.moveTo(27, -94); ctx.lineTo(27, -74); ctx.stroke();
+      // ball arm held high and out, showing the ball to the crowd
+      const wave = Math.sin(p * 2) * 0.12;
+      const ex = 38 + wave * 12, ey = -80 - wave * 6;          // elbow up and out in front
+      limb(16, -58, ex, ey, 13, K);
+      limb(ex, ey, ex + 14, ey - 26, 11, SKIN);
+      ctx.save(); ctx.translate(ex + 18, ey - 34); ctx.rotate(-0.6 + wave);
+      ctx.fillStyle = '#7a3e1d'; ctx.beginPath(); ctx.ellipse(0, 0, 15, 9, 0, 0, 7); ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-6, 0); ctx.lineTo(6, 0); for (let i = -4; i <= 4; i += 4) { ctx.moveTo(i, -3); ctx.lineTo(i, 3); } ctx.stroke();
+      ctx.restore();
+      ctx.restore();
+      leg(p, false);
+      ctx.restore();
+    }
+    function draw(p, t = 0) { ctx.clearRect(0, 0, W, H); field(t); player(p); }
+    if (reduce) { draw(1.1); return () => ro.disconnect(); }
+    const tick = ts => { if (!t0) t0 = ts; const t = ts - t0; draw(t * 0.0105, t); raf = requestAnimationFrame(tick); };
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }
+
   let lastHash = null;
   function render() {
     const h = location.hash.slice(1);
     let m;
     const isCh = h === 'channels' || h.startsWith('ch-');
+    const isHl = h === 'highlights' || /^hl-\d+$/.test(h);
     if (nilStop) { nilStop(); nilStop = null; }
+    if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !h.startsWith('v-') && h !== 'nil');
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !h.startsWith('v-') && h !== 'nil');
     document.getElementById('nav-nil').toggleAttribute('aria-current', h === 'nil');
+    document.getElementById('nav-hl').toggleAttribute('aria-current', isHl);
     document.getElementById('nav-channels').toggleAttribute('aria-current', isCh);
     document.querySelectorAll('nav.tabs [aria-current]').forEach(a => a.setAttribute('aria-current', 'page'));
     if (h === 'nil') viewNil();
+    else if (h === 'highlights') viewHighlights();
+    else if ((m = h.match(/^hl-(\d+)$/))) viewHighlight(h);
     else if (h === 'channels') viewChannels();
     else if ((m = h.match(/^ch-([a-z0-9-]+)$/))) viewChannel(m[1]);
     else if ((m = h.match(/^v-(\d+)$/))) viewWatch(m[1]);
