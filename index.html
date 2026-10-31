@@ -237,6 +237,19 @@ a.tm:hover { background: var(--raise) }
 .hl-how b { color: var(--fg) }
 .ph .ph-kind { position: absolute; top: 8px; left: 8px; font: 700 10px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; background: rgba(8,10,14,.82); color: #fff; padding: 4px 6px; border-radius: 4px }
 @media (max-width: 420px) { nav.tabs a { padding: 9px 9px; letter-spacing: .06em; font-size: 12px } }
+@media (max-width: 480px) { nav.tabs { margin-left: 0; width: 100%; justify-content: space-between; gap: 0 } nav.tabs a { padding: 9px 7px; letter-spacing: .03em; font-size: 11.5px } }
+.city-hero { position: relative; overflow: hidden; border-radius: var(--r); margin-top: 18px; min-height: 300px; display: flex; align-items: flex-start;
+  background: radial-gradient(120% 90% at 80% 0%, #3b2a6b 0, #1a1433 45%, #0b0a14 100%); color: #fff }
+.city-hero svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 40%; display: block }
+.city-copy { position: relative; z-index: 1; padding: 26px 30px 140px }
+.city-copy .k { font: 800 clamp(40px, 7.6vw, 86px)/.86 var(--display); letter-spacing: -.03em; text-transform: uppercase; color: #fff; text-shadow: 0 4px 0 #6a4a00, 0 10px 30px rgba(0,0,0,.5) }
+.city-copy .k span { color: #f3c23a }
+.city-copy .s { display: inline-block; margin-top: 10px; font: 800 clamp(15px, 2.6vw, 22px)/1 var(--display); text-transform: uppercase; background: #f3b234; color: #111; padding: 6px 11px 7px; border-radius: 4px; transform: rotate(-2deg) }
+.city-copy p { margin: 14px 0 0; max-width: 40ch; color: #ddd6f3; font-size: 15px; text-shadow: 0 1px 8px #0b0a14, 0 0 2px #0b0a14 }
+.thumb .tag.lv { background: var(--live); color: #fff }
+.thumb .city-off { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(135deg, #2a2050, #0e0b1c); color: #f3c23a; font: 800 30px/1 var(--display); z-index: 0 }
+.thumb img.city-img { position: relative; z-index: 1 }
+.city-game { display: inline-block; margin-top: 4px; font: 600 12px/1 var(--body); color: var(--accent) }
 .rc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 18px }
 .rc { display: grid; gap: 10px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; border-top: 4px solid var(--sc) }
 .rc .ph2 { aspect-ratio: 4/5; max-width: 100%; background: var(--raise); display: grid; place-items: center; color: var(--muted); font: 800 40px/1 var(--display) }
@@ -296,6 +309,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#channels" id="nav-channels">Channels</a>
       <a href="#nil" id="nav-nil">NIL</a>
       <a href="#highlights" id="nav-hl">Highlights</a>
+      <a href="#city" id="nav-city">BlamCity</a>
     </nav>
   </div>
   <div class="hash" aria-hidden="true"></div>
@@ -814,6 +828,53 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         return `<a class="mini" href="#${esc(x.key)}"><div class="thumb">${x.thumb ? `<img src="${esc(x.thumb)}" alt="" loading="lazy">` : `<div class="ph" style="${scVars(mm)}"><span class="ph-abbr">${esc(mm.abbr)}</span></div>`}</div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div></aside></div>`;
   }
 
+  // BlamCity: members who are live without BLAM in the title (other games, hangouts)
+  const cityThumb = (login, w, h) => `https://static-cdn.jtvnw.net/previews-ttv/live_user_${encodeURIComponent(login)}-${w}x${h}.jpg?t=${Math.floor(Date.now() / 300e3)}`;
+  function citySkyline() {
+    let s = 7, x = 0, out = '';
+    const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    while (x < 1200) {
+      const w = 40 + rnd() * 70, h = 60 + rnd() * 120, y = 200 - h;
+      out += `<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="#120e22"/>`;
+      for (let wy = y + 10; wy < 190; wy += 16) for (let wx = x + 8; wx < x + w - 10; wx += 14)
+        if (rnd() < .32) out += `<rect x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="6" height="8" fill="${rnd() < .8 ? '#f3c23a' : '#ff4d5e'}" opacity="${(.45 + rnd() * .55).toFixed(2)}"/>`;
+      x += w + 2 + rnd() * 6;
+    }
+    return `<svg viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${out}<rect y="196" width="1200" height="4" fill="#f3b234"/></svg>`;
+  }
+  function cityCard(s) {
+    const m = member(s.login.toLowerCase());
+    return `<a class="card" href="#city-${esc(m.login)}"><div class="thumb"><div class="city-off">${esc(m.abbr || 'BTV')}</div>
+      <img class="city-img" src="${cityThumb(m.login, 640, 360)}" alt="" loading="lazy" onerror="this.remove()">
+      <span class="tag lv">● Live</span>${s.viewers != null ? `<span class="dur">${s.viewers} watching</span>` : ''}</div>
+      <div class="meta">${avatar(m)}<div class="txt"><h3>${esc(s.title || 'Live on Twitch')}</h3><p>${esc(m.display)}${m.school ? ' · ' + esc(m.school) : ''}</p>
+      ${s.game ? `<span class="city-game">${esc(s.game)}</span>` : ''}${s.started && ago(s.started) !== 'just now' ? `<p>Live for ${ago(s.started).replace(/ ago$/, '')}</p>` : ''}</div></div></a>`;
+  }
+  function viewCity() {
+    const list = D.cityLive || [];
+    app.innerHTML = `${liveStrip()}<section class="city-hero" aria-label="BlamCity">${citySkyline()}
+        <div class="city-copy"><div class="k">Blam<span>City</span></div><div class="s">After hours</div>
+        <p>Coaches live right now outside of league games. Other games, hangouts, whatever they're on.</p></div></section>
+      <h2 class="section-h">Live in BlamCity</h2>
+      ${list.length ? `<div class="grid">${list.map(cityCard).join('')}</div>`
+        : `<div class="empty-state"><b>The city's quiet</b>Nobody's live outside a league game right now. When a coach goes live without BLAM in the title, the stream shows up here with a live preview.</div>`}
+      <div class="hl-how">League games still go on the <a href="#" style="color:var(--accent)">Weeks</a> page. Put <b>BLAM</b> in your stream title for those. ${D.updated ? `Checked ${ago(D.updated)}; the list refreshes about every 10 minutes.` : ''}</div>`;
+  }
+  function viewCityStream(login) {
+    const list = D.cityLive || [], s = list.find(x => x.login.toLowerCase() === login);
+    const m = member(login), host = encodeURIComponent(location.hostname || 'localhost');
+    const more = list.filter(x => x.login.toLowerCase() !== login);
+    app.innerHTML = `<div class="watch"><div>
+        <div class="player"><iframe src="https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${host}&autoplay=true" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(m.display)} live"></iframe></div>
+        <h1>${esc(s ? s.title : m.display + ' on Twitch')}</h1>
+        <div class="byline"><a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}${s && s.game ? ' · ' + esc(s.game) : ''}</span></span></a>
+          <a class="btn" href="#city">All of BlamCity</a>
+          <a class="btn primary" href="https://www.twitch.tv/${esc(login)}" target="_blank" rel="noopener">Open on Twitch ↗</a></div>
+      </div>
+      <aside class="side"><h2>Also in BlamCity</h2><div class="list">${more.map(x => { const mm = member(x.login.toLowerCase());
+        return `<a class="mini" href="#city-${esc(mm.login)}"><div class="thumb"><div class="city-off">${esc(mm.abbr || 'BTV')}</div><img class="city-img" src="${cityThumb(mm.login, 320, 180)}" alt="" loading="lazy" onerror="this.remove()"><span class="tag lv">● Live</span></div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nobody else is out right now.</p>'}</div></aside></div>`;
+  }
+
   // Original cartoon player high-stepping into the end zone (drawn in code; still frame for reduced motion)
   function startHighStep(canvas) {
     const ctx = canvas.getContext('2d');
@@ -901,16 +962,20 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     let m;
     const isCh = h === 'channels' || h.startsWith('ch-');
     const isHl = h === 'highlights' || /^hl-\d+$/.test(h);
+    const isCity = h === 'city' || h.startsWith('city-');
     if (nilStop) { nilStop(); nilStop = null; }
     if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !h.startsWith('v-') && h !== 'nil');
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil');
+    document.getElementById('nav-city').toggleAttribute('aria-current', isCity);
     document.getElementById('nav-nil').toggleAttribute('aria-current', h === 'nil');
     document.getElementById('nav-hl').toggleAttribute('aria-current', isHl);
     document.getElementById('nav-channels').toggleAttribute('aria-current', isCh);
     document.querySelectorAll('nav.tabs [aria-current]').forEach(a => a.setAttribute('aria-current', 'page'));
     if (h === 'nil') viewNil();
     else if (h === 'highlights') viewHighlights();
+    else if (h === 'city') viewCity();
+    else if ((m = h.match(/^city-([a-z0-9_]+)$/))) viewCityStream(m[1]);
     else if ((m = h.match(/^hl-(\d+)$/))) viewHighlight(h);
     else if (h === 'channels') viewChannels();
     else if ((m = h.match(/^ch-([a-z0-9-]+)$/))) viewChannel(m[1]);
@@ -928,6 +993,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     catch (e) { app.innerHTML = `<div class="empty-state"><b>Setup file missing</b>The site couldn't load data/league.json.</div>`; return; }
     try { D = await getJSON('data/videos.json'); } catch (e) { D = {}; }
     D.videos = D.videos || []; D.live = D.live || []; D.members = D.members || {};
+    // Only BLAM-titled streams count as league live (banner, matchups, LIVE tags); the rest go to BlamCity
+    const must = (L.titleMustIncludeAny || []).map(s => String(s).toLowerCase()).filter(Boolean);
+    const isBlam = t => !must.length || must.some(k => String(t || '').toLowerCase().includes(k));
+    D.cityLive = D.live.filter(s => !isBlam(s.title)); D.live = D.live.filter(s => isBlam(s.title));
     for (const mm of L.members) {
       const k = mm.twitch.toLowerCase(), info = D.members[k] || {};
       members[k] = { ...mm, login: k, display: info.display || mm.twitch, avatar: mm.logo || info.avatar || null, ink: inkFor(mm.color), count: 0 };
