@@ -41,6 +41,8 @@ header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block:
 .logo b { font: 800 24px/1 var(--display); letter-spacing: -.01em; text-transform: uppercase }
 .logo b span { background: var(--accent); color: var(--accent-ink); padding: 0 5px 1px; margin-left: 3px; border-radius: 3px }
 .logo small { font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+.logo small.stats { font-size: 10.5px; letter-spacing: .1em; display: flex; gap: 10px; flex-wrap: wrap }
+.logo small.stats b { font: 800 11px/1 var(--body); letter-spacing: .04em; text-transform: none; color: var(--accent); margin: 0 3px 0 0; padding: 0; background: none }
 nav.tabs { display: flex; gap: 4px; margin-left: auto }
 nav.tabs a { font: 700 13px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; padding: 10px 14px; border-radius: 999px; color: var(--accent) }
 nav.tabs a:hover { color: var(--accent); background: var(--raise) }
@@ -303,7 +305,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     <text x="100" y="141" font-size="10" letter-spacing="1.2" font-weight="700">NATIONAL GLOBAL</text>
     <text x="100" y="153" font-size="9" letter-spacing="2">★ ★ ★</text>
   </g>
-</svg><span class="words"><b>Blam<span>TV</span></b><small id="season-tag">Blam League</small></span></a>
+</svg><span class="words"><b>Blam<span>TV</span></b><small id="season-tag">Blam League</small><small class="stats" id="site-stats" hidden></small></span></a>
     <nav class="tabs" aria-label="Sections">
       <a href="#" id="nav-weeks">Weeks</a>
       <a href="#channels" id="nav-channels">Channels</a>
@@ -956,6 +958,29 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }
 
+  // Site counters (free Abacus counter service; no sign-up, no cookies)
+  const CNT = 'https://abacus.jasoncameron.dev', CNS = 'blamtv-github-io', stats = { visits: null, views: null };
+  const counter = (key, hit) => fetch(`${CNT}/${hit ? 'hit' : 'get'}/${CNS}/${key}`).then(r => r.ok ? r.json() : null).then(j => j && typeof j.value === 'number' ? j.value : null).catch(() => null);
+  function showStats() {
+    const el = document.getElementById('site-stats'); if (!el) return;
+    const parts = [];
+    if (stats.visits != null) parts.push(`<span><b>${stats.visits.toLocaleString('en-US')}</b>site visits</span>`);
+    if (stats.views != null) parts.push(`<span><b>${stats.views.toLocaleString('en-US')}</b>video views</span>`);
+    el.innerHTML = parts.join(''); el.hidden = !parts.length;
+  }
+  function startStats() {
+    let first = true;
+    try { first = !sessionStorage.getItem('btv-visit'); sessionStorage.setItem('btv-visit', '1'); } catch (e) {}
+    counter('visits', first).then(v => { if (v == null && !first) return; stats.visits = v ?? stats.visits; showStats(); });
+    counter('video-views', false).then(v => { if (v != null && stats.views == null) { stats.views = v; showStats(); } });
+  }
+  let lastPlay = null;
+  function countPlay(h) {
+    if (!/^(v-\d+|hl-\d+|both-.+|city-.+)$/.test(h) || h === lastPlay) return;
+    lastPlay = h;
+    counter('video-views', true).then(v => { if (v != null) { stats.views = v; showStats(); } });
+  }
+
   let lastHash = null;
   function render() {
     const h = location.hash.slice(1);
@@ -986,6 +1011,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else viewWeek(defaultWeek());
     if (lastHash !== null && lastHash !== h) window.scrollTo(0, 0);
     lastHash = h;
+    countPlay(h);
   }
 
   async function init() {
@@ -1008,6 +1034,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     document.getElementById('foot-league').textContent = `${L.name} · ${L.game} dynasty · ${L.members.length} coaches`;
     document.getElementById('foot-updated').textContent = D.updated ? `Updated ${ago(D.updated)}` : (D.sample ? 'Sample data' : 'Waiting for first Twitch update');
     render();
+    startStats();
     addEventListener('hashchange', render);
   }
   init();
