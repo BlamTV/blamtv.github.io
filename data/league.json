@@ -53,7 +53,7 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 10, "away": "Alabama", "home": "Florida State", "kickoff": "2026-10-31T12:00:00-04:00", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 10, "away": "Alabama", "home": "Florida State", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
 
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
