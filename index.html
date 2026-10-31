@@ -168,6 +168,16 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .bside .snd { flex: 0 0 auto; font: 700 13px/1 var(--body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); color: var(--fg); cursor: pointer }
 .bside .snd[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
 .both-note { margin-top: 12px; color: var(--muted); font-size: 13px }
+.chat { display: grid; gap: 8px; margin-bottom: 22px }
+.chat-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap }
+.chat-head b { font: 800 19px/1.1 var(--display); text-transform: uppercase }
+.chat-tabs { display: flex; gap: 6px; flex-wrap: wrap }
+.chat-tabs button { font: 700 12px/1 var(--body); padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer }
+.chat-tabs button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.chat iframe { width: 100%; height: 520px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); display: block }
+.chat-note { margin: 0; font-size: 12.5px; color: var(--muted) }
+.both-chat { margin-top: 18px }
+.both-chat iframe { height: 440px }
 .both-tools button { font: 700 14px/1 var(--body); padding: 10px 14px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer }
 .both-tools button:disabled { opacity: .5; cursor: default }
 .game .both-link { grid-column: 1 / -1; justify-self: center; font: 700 12px/1 var(--body); color: var(--accent); padding: 2px 8px 6px }
@@ -456,7 +466,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const m = teamOf(name);
     if (!m) return `<div class="tm"><span class="chip">CPU</span><span class="nm"><b>${esc(name)}</b><span>Computer</span></span></div>`;
     const lv = season === L.season && week === seasonWeeks()[0] && liveOf(m);
-    if (lv) return `<a class="tm on" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener" title="${esc(lv.title)}">${avatar(m)}<span class="nm"><b>${esc(m.school)}</b><span>${esc(m.display)}</span></span><span class="pill-live">LIVE</span></a>`;
+    if (lv) return `<a class="tm on" href="#live-${esc(m.login)}" title="${esc(lv.title)}">${avatar(m)}<span class="nm"><b>${esc(m.school)}</b><span>${esc(m.display)}</span></span><span class="pill-live">LIVE</span></a>`;
     const v = pickStream(m, opp, season, week);
     return `<a class="tm" href="${v ? '#v-' + esc(v.id) : '#ch-' + slug(m.login)}">${avatar(m)}<span class="nm"><b>${esc(m.school)}</b><span>${esc(m.display)}</span></span>${v ? '<span class="play">▶<span class="w"> Watch</span></span>' : '<span class="nos">No stream</span>'}</a>`;
   }
@@ -535,7 +545,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (!D.live || !D.live.length) return '';
     return `<div class="live" aria-label="Live now">${D.live.map(s => {
       const m = member(s.login.toLowerCase());
-      return `<a href="https://www.twitch.tv/${esc(s.login)}" target="_blank" rel="noopener">${avatar(m)}<span class="txt"><b><span class="pill-live">LIVE</span> ${esc(m.display)}</b><span>${esc(s.title)}</span></span></a>`;
+      return `<a href="#live-${esc(m.login)}">${avatar(m)}<span class="txt"><b><span class="pill-live">LIVE</span> ${esc(m.display)}</b><span>${esc(s.title)}</span></span></a>`;
     }).join('')}</div>`;
   }
   function banner() {
@@ -646,6 +656,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <p>${live ? 'Both sidelines, live' : 'Both sidelines of the same game'} · tap a side to hear its commentary</p></div>
         <div class="both-tools">${live ? '' : '<button id="bsync" disabled>⟳ Sync to same moment</button>'}${wk}</div></div>
       <div class="both-grid">${panel(A, 0)}${panel(B, 1)}</div>
+      ${live ? chatBox([A.m, B.m], 'both-chat') : ''}
       <p class="both-note">${live ? 'Each side plays live from Twitch.' : 'Replays start lined up to the same moment of the game. If one side pauses or skips, hit Sync to line them back up.'} Both start muted so they can autoplay. Tap "Hear this side" to turn on that side's sound.</p>`;
     if (preview) return;
     let gone = false; bothStop = () => { gone = true; };
@@ -862,19 +873,32 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         : `<div class="empty-state"><b>The city's quiet</b>Nobody's live outside a league game right now. When a coach goes live without BLAM in the title, the stream shows up here with a live preview.</div>`}
       <div class="hl-how">League games still go on the <a href="#" style="color:var(--accent)">Weeks</a> page. Put <b>BLAM</b> in your stream title for those. ${D.updated ? `Checked ${ago(D.updated)}; the list refreshes about every 10 minutes.` : ''}</div>`;
   }
-  function viewCityStream(login) {
-    const list = D.cityLive || [], s = list.find(x => x.login.toLowerCase() === login);
+  // Twitch chat beside live streams (people chat with their Twitch accounts)
+  const isDark = () => { const t = document.documentElement.dataset.theme; return t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches); };
+  const chatSrc = login => `https://www.twitch.tv/embed/${encodeURIComponent(login)}/chat?parent=${encodeURIComponent(location.hostname || 'localhost')}${isDark() ? '&darkpopout' : ''}`;
+  function chatBox(list, cls = '') {
+    return `<section class="chat ${cls}" aria-label="Live chat"><div class="chat-head"><b>Live chat</b>${list.length > 1 ? `<span class="chat-tabs">${list.map((mm, i) => `<button type="button" data-login="${esc(mm.login)}" aria-pressed="${i === 0}">${esc(mm.school || mm.display)}</button>`).join('')}</span>` : ''}</div>
+      <iframe src="${chatSrc(list[0].login)}" title="Twitch chat"></iframe>
+      <p class="chat-note">Sign in with your Twitch account to chat${list.length > 1 ? ', and switch sides with the buttons above' : ''}.</p></section>`;
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.chat-tabs button'); if (!b) return;
+    const box = b.closest('.chat'); box.querySelector('iframe').src = chatSrc(b.dataset.login);
+    box.querySelectorAll('.chat-tabs button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+  });
+  function viewCityStream(login, inCity = true) {
+    const list = (inCity ? D.cityLive : D.live) || [], s = [...(D.live || []), ...(D.cityLive || [])].find(x => x.login.toLowerCase() === login);
     const m = member(login), host = encodeURIComponent(location.hostname || 'localhost');
     const more = list.filter(x => x.login.toLowerCase() !== login);
     app.innerHTML = `<div class="watch"><div>
         <div class="player"><iframe src="https://player.twitch.tv/?channel=${encodeURIComponent(login)}&parent=${host}&autoplay=true" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(m.display)} live"></iframe></div>
         <h1>${esc(s ? s.title : m.display + ' on Twitch')}</h1>
         <div class="byline"><a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}${s && s.game ? ' · ' + esc(s.game) : ''}</span></span></a>
-          <a class="btn" href="#city">All of BlamCity</a>
+          ${inCity ? '<a class="btn" href="#city">All of BlamCity</a>' : '<a class="btn" href="#">Back to this week</a>'}
           <a class="btn primary" href="https://www.twitch.tv/${esc(login)}" target="_blank" rel="noopener">Open on Twitch ↗</a></div>
       </div>
-      <aside class="side"><h2>Also in BlamCity</h2><div class="list">${more.map(x => { const mm = member(x.login.toLowerCase());
-        return `<a class="mini" href="#city-${esc(mm.login)}"><div class="thumb"><div class="city-off">${esc(mm.abbr || 'BTV')}</div><img class="city-img" src="${cityThumb(mm.login, 320, 180)}" alt="" loading="lazy" onerror="this.remove()"><span class="tag lv">● Live</span></div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nobody else is out right now.</p>'}</div></aside></div>`;
+      <aside class="side">${chatBox([m])}<h2>${inCity ? 'Also in BlamCity' : 'Also live'}</h2><div class="list">${more.map(x => { const mm = member(x.login.toLowerCase());
+        return `<a class="mini" href="#${inCity ? 'city' : 'live'}-${esc(mm.login)}"><div class="thumb"><div class="city-off">${esc(mm.abbr || 'BTV')}</div><img class="city-img" src="${cityThumb(mm.login, 320, 180)}" alt="" loading="lazy" onerror="this.remove()"><span class="tag lv">● Live</span></div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nobody else is out right now.</p>'}</div></aside></div>`;
   }
 
   // Original cartoon player high-stepping into the end zone (drawn in code; still frame for reduced motion)
@@ -976,7 +1000,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
   let lastPlay = null;
   function countPlay(h) {
-    if (!/^(v-\d+|hl-\d+|both-.+|city-.+)$/.test(h) || h === lastPlay) return;
+    if (!/^(v-\d+|hl-\d+|both-.+|city-.+|live-.+)$/.test(h) || h === lastPlay) return;
     lastPlay = h;
     counter('video-views', true).then(v => { if (v != null) { stats.views = v; showStats(); } });
   }
@@ -1001,6 +1025,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (h === 'highlights') viewHighlights();
     else if (h === 'city') viewCity();
     else if ((m = h.match(/^city-([a-z0-9_]+)$/))) viewCityStream(m[1]);
+    else if ((m = h.match(/^live-([a-z0-9_]+)$/))) viewCityStream(m[1], false);
     else if ((m = h.match(/^hl-(\d+)$/))) viewHighlight(h);
     else if (h === 'channels') viewChannels();
     else if ((m = h.match(/^ch-([a-z0-9-]+)$/))) viewChannel(m[1]);
