@@ -130,7 +130,7 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .watch { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px }
 @media (max-width: 1000px) { .watch { grid-template-columns: minmax(0, 1fr) } }
 .player { aspect-ratio: 16/9; max-width: 100%; border-radius: var(--r); overflow: hidden; background: #000; position: relative }
-.player iframe { width: 100%; height: 100%; border: 0; display: block }
+.player iframe, .player video { width: 100%; height: 100%; border: 0; display: block; background: #000 }
 .player .ph { border-radius: 0 }
 .player.vert { aspect-ratio: 9/16; width: min(100%, 400px); margin-inline: auto }
 .player .note { position: absolute; z-index: 3; left: 50%; bottom: 16px; transform: translateX(-50%); background: rgba(8,10,14,.86); color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis }
@@ -756,6 +756,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if ((m = u.match(/clips\.twitch\.tv\/(?:embed\?clip=)?([\w-]+)/)) || (m = u.match(/twitch\.tv\/[^/]+\/clip\/([\w-]+)/))) return { kind: 'clip', id: m[1], label: 'Twitch clip' };
     if ((m = u.match(/tiktok\.com\/@[\w.-]+\/video\/(\d+)/))) return { kind: 'tt', id: m[1], label: 'TikTok' };
     if ((m = u.match(/twitch\.tv\/videos\/(\d+)/))) return { kind: 'tv', id: m[1], label: 'Twitch' };
+    if (/\.(mp4|webm|mov)(\?|#|$)/i.test(u)) return { kind: 'file', id: u, label: 'BlamTV' };
     return { kind: 'link', id: '', label: 'Link' };
   }
   function highlights() {
@@ -763,7 +764,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const c = parseClip(h.url);
       const m = h.coach ? (members[String(h.coach).toLowerCase()] || teamOf(h.coach)) : null;
       return { key: 'hl-' + (i + 1), src: 'posted', title: h.title || 'Highlight', login: m ? m.login : null, url: h.url, clip: c,
-        week: h.week ?? null, created: h.date || null, thumb: c.kind === 'yt' ? `https://i.ytimg.com/vi/${c.id}/hqdefault.jpg` : null };
+        week: h.week ?? null, created: h.date || null, thumb: h.thumb ? h.thumb : c.kind === 'yt' ? `https://i.ytimg.com/vi/${c.id}/hqdefault.jpg` : null };
     });
     const twitch = D.videos.filter(v => v.type === 'highlight').map(v => ({ key: 'v-' + v.id, src: 'twitch', title: v.title, login: v.login,
       url: 'https://www.twitch.tv/videos/' + v.id, clip: { kind: 'tv', id: v.id, label: 'Twitch highlight' }, week: v.week, created: v.created, thumb: v.thumb, duration: v.duration, views: v.views }));
@@ -801,11 +802,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       : `https://player.twitch.tv/?video=${encodeURIComponent(c.id)}&parent=${host}&autoplay=true`;
     const more = list.filter(x => x.key !== key).slice(0, 8);
     app.innerHTML = `<div class="watch"><div>
-        <div class="player${c.kind === 'tt' ? ' vert' : ''}"><iframe src="${src}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(h.title)}"></iframe></div>
+        ${c.kind === 'file' ? `<div class="player"><video src="${esc(h.url)}"${h.thumb ? ` poster="${esc(h.thumb)}"` : ''} controls autoplay muted loop playsinline onloadedmetadata="this.parentNode.classList.toggle('vert', this.videoHeight > this.videoWidth)"></video></div>`
+          : `<div class="player${c.kind === 'tt' ? ' vert' : ''}"><iframe src="${src}" allowfullscreen allow="autoplay; fullscreen; picture-in-picture" title="${esc(h.title)}"></iframe></div>`}
         <h1>${esc(h.title)}</h1>
         <div class="byline">${m.login ? `<a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}</span></span></a>` : ''}
           <a class="btn" href="#highlights">All highlights</a>
-          <a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : c.kind === 'tt' ? 'TikTok' : 'Twitch'} ↗</a></div>
+          ${c.kind === 'file' ? `<a class="btn primary" href="${esc(h.url)}" download>Download video ↓</a>` : `<a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : c.kind === 'tt' ? 'TikTok' : 'Twitch'} ↗</a>`}</div>
       </div>
       <aside class="side"><h2>More highlights</h2><div class="list">${more.map(x => { const mm = x.login ? member(x.login) : m;
         return `<a class="mini" href="#${esc(x.key)}"><div class="thumb">${x.thumb ? `<img src="${esc(x.thumb)}" alt="" loading="lazy">` : `<div class="ph" style="${scVars(mm)}"><span class="ph-abbr">${esc(mm.abbr)}</span></div>`}</div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div></aside></div>`;
