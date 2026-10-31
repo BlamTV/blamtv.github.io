@@ -531,7 +531,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   const inWeek = (v, wk) => wk === null ? !(v.season === L.season && seasonWeeks().includes(v.week)) : v.season === L.season && v.week === wk;
 
   function defaultWeek() {
-    for (const w of seasonWeeks()) if (D.videos.some(v => inWeek(v, w))) return w;
+    for (const w of seasonWeeks()) if (D.videos.some(v => inWeek(v, w)) || (L.schedule || []).some(g => g.season === L.season && g.week === w)) return w;
     return seasonWeeks()[0] ?? null;
   }
 
