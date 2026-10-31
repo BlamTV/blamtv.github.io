@@ -129,7 +129,11 @@ const tagged = videos.filter(v => v.tagged);
 for (const v of videos) if (!v.tagged) {
   const re = schoolRe[v.login];
   const opp = re && tagged.find(w => w.login !== v.login && w.type === 'archive' && v.type === 'archive' && re.test(' ' + w.title + ' ') && sameKickoff(v, w));
-  if (opp) { v.tagged = true; v.rescuedBy = opp.id; }
+  if (opp) {
+    v.tagged = true; v.rescuedBy = opp.id;
+    // Same game, same week: take the opponent's week when their title states it
+    if (opp.weekFrom === 'title') { v.season = opp.season; v.week = opp.week; v.weekFrom = 'opponent'; }
+  }
 }
 for (let i = videos.length - 1; i >= 0; i--) { if (!videos[i].tagged) videos.splice(i, 1); else delete videos[i].tagged; }
 videos.sort((a, b) => Date.parse(b.created) - Date.parse(a.created));
