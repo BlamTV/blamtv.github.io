@@ -44,7 +44,7 @@ jobs:
           if ! git diff --cached --quiet; then git commit -m "Update videos" && (git push || echo "push skipped: another run saved first"); fi
 
       - name: Prepare site
-        run: mkdir _site && cp -r index.html data img _site/
+        run: mkdir _site && cp -r index.html data img vid _site/
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
