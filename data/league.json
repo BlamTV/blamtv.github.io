@@ -13,7 +13,8 @@
     { "season": 4, "week": 6, "start": "2026-10-21T20:00:00-05:00" },
     { "season": 4, "week": 7, "start": "2026-10-23T20:00:00-05:00" },
     { "season": 4, "week": 8, "start": "2026-10-25T20:00:00-05:00" },
-    { "season": 4, "week": 9, "start": "2026-10-27T20:00:00-05:00" }
+    { "season": 4, "week": 9, "start": "2026-10-27T20:00:00-05:00" },
+    { "season": 4, "week": 10, "start": "2026-10-30T22:00:00-05:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -29,6 +30,12 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 10, "games": [
+      ["Clemson", "Penn State"], ["Miami", "Indiana"], ["Georgia", "Florida"], ["Missouri", "Texas"],
+      ["Nebraska", "Virginia"], ["Illinois", "Utah"], ["Rutgers", "Stanford"], ["West Virginia", "SMU"],
+      ["Auburn", "Maryland"], ["USC", "Ohio State"], ["Washington", "TCU"], ["Arizona State", "Pitt"],
+      ["UCLA", "North Carolina"], ["Louisville", "Iowa"], ["Georgia Tech", "South Carolina"], ["Alabama", "Florida State"]
+    ] },
     { "season": 4, "week": 9, "games": [
       ["Ole Miss", "Notre Dame"], ["North Carolina", "Iowa"], ["West Virginia", "Nebraska"], ["Georgia", "Alabama"],
       ["Rutgers", "Illinois"], ["Stanford", "Utah"], ["Maryland", "Washington"], ["UCLA", "Louisville"],
@@ -46,7 +53,7 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 9, "away": "TCU", "home": "USC", "kickoff": "2026-10-29T18:00:00-04:00", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 10, "away": "Alabama", "home": "Florida State", "kickoff": "2026-10-31T12:00:00-04:00", "tz": "America/New_York", "tzLabel": "ET" },
 
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
