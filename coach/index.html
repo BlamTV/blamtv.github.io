@@ -68,7 +68,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
 </head>
 <body>
 <header>
-  <img src="../img/btv-seal.svg" alt="" width="38" height="38">
+  <img src="icon-192.png" alt="" width="38" height="38">
   <div class="brand">Blam<span>TV</span><small>Coach</small></div>
   <div class="me" id="me"></div>
 </header>
@@ -104,7 +104,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     document.documentElement.style.setProperty('--sc', member.color || '#f3b234');
     app.innerHTML = `
       <section class="team"><div class="band"></div><div class="body">
-        <img class="logo" src="${member.logo ? '../' + esc(member.logo) : '../img/btv-seal.svg'}" alt="">
+        <img class="logo" src="${member.logo ? '../' + esc(member.logo) : 'icon-192.png'}" alt="">
         <div><h1>${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}</h1><p>Head coach · ${esc(member.school)}${conf ? ` · Tier ${conf.tier} ${esc(conf.name)}` : ''}</p></div></div></section>
       ${SR ? '<p class="note">Tap 🎤 next to any box and talk. You can always fix the words before saving.</p>' : '<p class="note">Tip: use the mic on your keyboard to talk instead of type.</p>'}
       <form id="f">
