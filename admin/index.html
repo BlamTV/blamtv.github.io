@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blam Admin</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e1218">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Blam Admin">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #0e1218; --surface: #161c24; --raise: #1f2731; --line: #29333f; --fg: #e9eef3; --muted: #8f9cab; --accent: #f3b234; --accent-ink: #14100a;
+  --live: #ff4d5e; --ok: #3fbf7f; --display: "Archivo", "Arial Black", sans-serif; --body: "Source Sans 3", system-ui, sans-serif; --r: 14px; color-scheme: dark }
+* { box-sizing: border-box }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 var(--body); -webkit-text-size-adjust: 100% }
+body { min-height: 100dvh; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) }
+a { color: var(--accent) }
+button { font: inherit; color: inherit; cursor: pointer }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px 40px }
+header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; max-width: 640px; margin: 0 auto }
+header img { width: 38px; height: 38px }
+header .brand { font: 800 20px/1 var(--display); letter-spacing: -.01em; text-transform: uppercase }
+header .brand span { background: var(--accent); color: var(--accent-ink); padding: 1px 5px 2px; border-radius: 4px; margin-left: 2px }
+header .brand small { display: block; font: 700 11px/1 var(--body); letter-spacing: .18em; color: var(--accent); margin-top: 4px }
+header .me { margin-left: auto; text-align: right; font-size: 13px; color: var(--muted) }
+header .me b { display: block; color: var(--fg) }
+header .me a { font-size: 12px }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; margin: 12px 0 }
+.card h2 { margin: 0 0 8px; font: 800 18px/1.1 var(--display); text-transform: uppercase }
+.muted { color: var(--muted) }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); font-weight: 700 }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.btn.ok { background: var(--ok); color: #05150c; border-color: var(--ok) }
+.btn.ghost { background: transparent }
+.btn:disabled { opacity: .5; cursor: default }
+.status { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0 }
+.pill { font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 999px; background: var(--raise); color: var(--muted) }
+.pill.warn { background: color-mix(in srgb, var(--live) 18%, transparent); color: #ffb3bb }
+.pill.good { background: color-mix(in srgb, var(--ok) 18%, transparent); color: #9be8c0 }
+.talk { display: grid; justify-items: center; gap: 12px; padding: 22px 16px 18px; text-align: center }
+.mic { width: 132px; height: 132px; border-radius: 50%; border: 0; background: radial-gradient(circle at 35% 30%, #ffd36a, var(--accent) 55%, #a86d00); color: var(--accent-ink);
+  display: grid; place-items: center; box-shadow: 0 10px 30px rgba(243,178,52,.25); transition: transform .15s }
+.mic svg { width: 54px; height: 54px }
+.mic:active { transform: scale(.96) }
+.mic.on { background: radial-gradient(circle at 35% 30%, #ff8a95, var(--live) 60%, #8a0d1b); color: #fff; animation: pulse 1.2s infinite }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,77,94,.5) } 50% { box-shadow: 0 0 0 18px rgba(255,77,94,0) } }
+@media (prefers-reduced-motion: reduce) { .mic.on { animation: none } }
+.mic-label { font-weight: 700 }
+.heard { min-height: 24px; font-size: 18px; font-weight: 600 }
+.heard.interim { color: var(--muted) }
+form.type { display: flex; gap: 8px; width: 100% }
+form.type input { flex: 1; min-width: 0; font: 16px var(--body); padding: 12px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg) }
+.confirm { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surface)) }
+.confirm .what { font: 700 19px/1.3 var(--body); margin: 2px 0 12px }
+.confirm .row { display: flex; gap: 10px; flex-wrap: wrap }
+.confirm .row .btn { flex: 1 }
+.check { display: flex; gap: 8px; align-items: center; margin: 0 0 12px; font-size: 15px }
+.check input { width: 20px; height: 20px; accent-color: var(--accent) }
+.err { border-color: var(--live) }
+.err b { color: #ffb3bb }
+.done { border-color: var(--ok) }
+.done b { color: #9be8c0 }
+ul.list { list-style: none; margin: 8px 0 0; padding: 0 }
+ul.list li { padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px }
+ul.list li:first-child { border-top: 0 }
+ul.list small { display: block; color: var(--muted) }
+.undone { text-decoration: line-through; color: var(--muted) }
+details summary { cursor: pointer; font-weight: 700; padding: 4px 0; list-style: none }
+details summary::-webkit-details-marker { display: none }
+details summary::after { content: " ▾"; color: var(--muted) }
+.ex { display: grid; gap: 6px; margin-top: 10px }
+.ex button { text-align: left; background: var(--raise); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font-size: 15px }
+.ex button small { display: block; color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase }
+.tools { display: flex; gap: 8px; flex-wrap: wrap }
+.tools .btn { flex: 1; min-width: 140px }
+.center { text-align: center }
+.hero { text-align: center; padding: 34px 18px }
+.hero h1 { font: 800 30px/1 var(--display); text-transform: uppercase; margin: 10px 0 8px }
+.hero h1 span { color: var(--accent) }
+.hero p { color: var(--muted); max-width: 40ch; margin: 0 auto 18px }
+.twitch { background: #9146ff; border-color: #9146ff; color: #fff }
+.hidden { display: none !important }
+</style>
+</head>
+<body>
+<header>
+  <img src="../img/btv-seal.svg" alt="" width="38" height="38">
+  <div class="brand">Blam<span>TV</span><small>Admin</small></div>
+  <div class="me" id="me"></div>
+</header>
+<main class="wrap" id="app"><div class="hero"><p class="muted">Loading…</p></div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="parser.js"></script>
+<script>
+(() => {
+  const SUPA = { url: 'https://euxhcrxitexflyvedaak.supabase.co', key: 'sb_publishable_MQT8iBshWIVsw6EjMyThIQ_E5gxF_GH' };
+  const FN = SUPA.url + '/functions/v1/commish';
+  const app = document.getElementById('app'), meEl = document.getElementById('me');
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const P = window.BlamCommish;
+  let sb, session = null, me = null, ready = {}, L = null, pending = null;
+  const DISCORD_ANNOUNCE = ['gotw', 'advance', 'new_season'];
+  const MIC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>';
+
+  async function call(action, extra = {}) {
+    const r = await fetch(FN, { method: 'POST', headers: { Authorization: 'Bearer ' + session.access_token, apikey: SUPA.key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, ...extra }) });
+    const j = await r.json().catch(() => ({ ok: false, error: 'No answer from the server.' }));
+    return j;
+  }
+  async function loadLeague() { L = await fetch('../data/league.json?t=' + Date.now()).then((r) => r.json()); }
+
+  function signedOut(msg) {
+    meEl.innerHTML = '';
+    app.innerHTML = `<div class="hero"><img src="icon-192.png" alt="" width="84" height="84" style="border-radius:20px"><h1>Blam<span>TV</span> Admin</h1>
+      <p>${esc(msg || 'Run the league by voice: Game of the Week, schedule, streams, announcements and more.')}</p>
+      <button class="btn twitch" id="signin">Sign in with Twitch</button></div>`;
+    document.getElementById('signin').onclick = () => sb.auth.signInWithOAuth({ provider: 'twitch', options: { redirectTo: location.origin + location.pathname } });
+  }
+  function header() {
+    meEl.innerHTML = `<b>${esc(me.twitch || me.name || 'Admin')}</b>${me.owner ? 'Owner' : me.admin ? 'Admin' : 'Signed in'} · <a href="#" id="signout">Sign out</a>`;
+    document.getElementById('signout').onclick = async (e) => { e.preventDefault(); await sb.auth.signOut(); };
+  }
+
+  function console_() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const warn = [];
+    if (!ready.github) warn.push('<span class="pill warn">Site changes need the GitHub key</span>');
+    if (!ready.channel) warn.push('<span class="pill warn">Discord channel not set</span>');
+    if (!warn.length) warn.push('<span class="pill good">Ready</span>');
+    app.innerHTML = `
+      <div class="status">${warn.join('')}</div>
+      <section class="card talk">
+        <button class="mic ${SR ? '' : 'hidden'}" id="mic" aria-label="Tap and speak a command">${MIC}</button>
+        <div class="mic-label ${SR ? '' : 'hidden'}" id="micLabel">Tap and talk</div>
+        <div class="heard" id="heard" aria-live="polite">${SR ? '' : '<span class="muted">Voice isn\'t available in this browser. Type below, or use the mic on your keyboard.</span>'}</div>
+        <form class="type" id="typeForm"><input id="cmd" autocomplete="off" enterkeyhint="go" placeholder="Or type a command…" aria-label="Command"><button class="btn primary" type="submit">Go</button></form>
+      </section>
+      <div id="out"></div>
+      <section class="card"><div class="tools">
+        <button class="btn" data-quick="unplayed">Who hasn't played?</button>
+        <button class="btn" data-quick="history">Recent changes</button>
+        <button class="btn" data-quick="undo">Undo last</button>
+        ${me.owner ? '<button class="btn" data-quick="admins">Admins</button>' : ''}
+      </div></section>
+      <section class="card"><details><summary>What can I say?</summary><div class="ex">
+        ${P.EXAMPLES.filter(([k]) => me.owner || k !== 'Admins').map(([k, t]) => `<button data-ex="${esc(t)}"><small>${esc(k)}</small>${esc(t)}</button>`).join('')}
+      </div></details></section>`;
+    const heard = document.getElementById('heard'), input = document.getElementById('cmd');
+    document.getElementById('typeForm').onsubmit = (e) => { e.preventDefault(); handle([input.value]); };
+    app.querySelectorAll('[data-ex]').forEach((b) => (b.onclick = () => { input.value = b.dataset.ex; input.focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+    app.querySelectorAll('[data-quick]').forEach((b) => (b.onclick = () => {
+      const t = b.dataset.quick;
+      if (t === 'undo') return handle(['undo']);
+      run({ type: t }, t === 'unplayed' ? 'Unplayed games' : t === 'history' ? 'Recent changes' : 'Admins');
+    }));
+    if (SR) {
+      const mic = document.getElementById('mic'), label = document.getElementById('micLabel');
+      let rec = null;
+      mic.onclick = () => {
+        if (rec) { rec.stop(); return; }
+        rec = new SR(); rec.lang = 'en-US'; rec.interimResults = true; rec.maxAlternatives = 4; rec.continuous = false;
+        mic.classList.add('on'); label.textContent = 'Listening… tap to stop'; heard.className = 'heard interim'; heard.textContent = '';
+        rec.onresult = (e) => {
+          const res = e.results[e.results.length - 1];
+          heard.textContent = res[0].transcript;
+          if (res.isFinal) { heard.className = 'heard'; const alts = [...res].map((a) => a.transcript); input.value = alts[0]; handle(alts); }
+        };
+        rec.onerror = (e) => { heard.className = 'heard'; heard.innerHTML = `<span class="muted">${e.error === 'not-allowed' ? 'Allow the microphone for this site in your browser settings.' : e.error === 'no-speech' ? "Didn't hear anything. Try again." : 'Mic problem: ' + esc(e.error)}</span>`; };
+        rec.onend = () => { mic.classList.remove('on'); label.textContent = 'Tap and talk'; rec = null; };
+        try { rec.start(); } catch (_) { rec = null; mic.classList.remove('on'); }
+      };
+    }
+  }
+
+  // Try each thing the phone thinks you said; use the first one that's a real command
+  function handle(alternatives) {
+    const out = document.getElementById('out');
+    let r = null;
+    for (const t of alternatives) { r = P.parseCommand(t, L); if (r.ok) break; }
+    if (!r || !r.ok) {
+      out.innerHTML = `<section class="card err"><b>${esc(r ? r.error : 'Say or type a command.')}</b>${r && (r.help || r.hint) ? '<p class="muted">Open “What can I say?” below for examples.</p>' : ''}</section>`;
+      if (r && r.help) document.querySelector('details').open = true;
+      return;
+    }
+    if (r.instant) return run(r.action, r.summary);
+    pending = r;
+    const canPost = DISCORD_ANNOUNCE.includes(r.action.type);
+    out.innerHTML = `<section class="card confirm"><div class="muted">Do this?</div><div class="what">${esc(r.summary)}</div>
+      ${canPost ? `<label class="check"><input type="checkbox" id="post" ${ready.channel ? 'checked' : 'disabled'}> Also post it in Discord${ready.channel ? '' : ' (set a channel first)'}</label>` : ''}
+      <div class="row"><button class="btn ok" id="yes">✓ Do it</button><button class="btn ghost" id="no">Cancel</button></div></section>`;
+    document.getElementById('no').onclick = () => { pending = null; out.innerHTML = ''; };
+    document.getElementById('yes').onclick = () => run(pending.action, pending.summary, { postToDiscord: !!(document.getElementById('post') || {}).checked });
+  }
+
+  async function run(action, label, extra = {}) {
+    const out = document.getElementById('out');
+    out.innerHTML = `<section class="card"><b>${esc(label)}</b><p class="muted">Working…</p></section>`;
+    const j = await call(action, extra);
+    if (!j.ok) { out.innerHTML = `<section class="card err"><b>Didn't work</b><p>${esc(j.error)}</p></section>`; return; }
+    let body = '';
+    if (action.type === 'unplayed') body = j.games.length ? `<ul class="list">${j.games.map((g) => `<li>${esc(g.away)}${g.ca ? ` <small>${esc(g.ca)}</small>` : ' <small>CPU</small>'} @ ${esc(g.home)}${g.ch ? ` <small>${esc(g.ch)}</small>` : ' <small>CPU</small>'}</li>`).join('')}</ul>`
+      : '<p>Every game has a stream. 🎉</p>';
+    else if (action.type === 'history') body = `<ul class="list">${(j.items || []).map((x) => `<li class="${x.undone ? 'undone' : ''}">${esc(x.summary)}<small>${new Date(x.at).toLocaleString()}</small></li>`).join('') || '<li class="muted">No changes yet.</li>'}</ul>`;
+    else if (action.type === 'admins') body = `<ul class="list">${(j.admins || []).map((a) => `<li>${esc(a.twitch || a.name)}${a.owner ? ' · <b>Owner</b>' : ''}<small>${a.signedIn ? 'Signed in' : 'Hasn\'t signed in yet'}</small></li>`).join('')}</ul>`;
+    else body = `<p>${esc(j.summary)}</p>${j.note ? `<p class="muted">${esc(j.note)}</p>` : ''}${extra.postToDiscord ? `<p class="muted">${j.posted ? 'Posted in Discord too.' : "Couldn't post in Discord, but the site change went through."}</p>` : ''}`;
+    const title = action.type === 'unplayed' ? `Week ${j.week}: ${j.games.length} still to play` : ['history', 'admins'].includes(action.type) ? esc(label) : '✓ Done';
+    out.innerHTML = `<section class="card ${['history', 'admins', 'unplayed'].includes(action.type) ? '' : 'done'}"><b>${title}</b>${body}</section>`;
+    if (!['history', 'admins', 'unplayed'].includes(action.type)) setTimeout(loadLeague, 1500);
+  }
+
+  async function boot() {
+    if (!window.supabase) { app.innerHTML = '<div class="hero"><p>Couldn\'t load. Check your connection and reload.</p></div>'; return; }
+    sb = window.supabase.createClient(SUPA.url, SUPA.key, { auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true } });
+    sb.auth.onAuthStateChange((_e, s) => { const changed = (s && s.access_token) !== (session && session.access_token); session = s; if (changed && !s) signedOut(); });
+    const { data } = await sb.auth.getSession(); session = data.session;
+    if (/[?&]code=/.test(location.search)) history.replaceState(null, '', location.pathname);
+    if (!session) return signedOut();
+    try { await loadLeague(); } catch (_) {}
+    const w = await call({ type: 'whoami' });
+    if (!w.ok || !w.me) return signedOut(w.error || 'Sign in again.');
+    me = w.me; ready = w.ready || {}; header();
+    if (!me.admin) { app.innerHTML = `<div class="hero"><h1>Admins only</h1><p>${esc(me.twitch || 'This account')} isn't a league admin. Ask the owner to add you, then sign in again.</p><a class="btn" href="../coach/">Go to the Coach app</a></div>`; return; }
+    console_();
+  }
+  window.__blamAdmin = { handle, setState: (o) => { ({ session, me, ready, L } = { session, me, ready, L, ...o }); } };
+  boot();
+})();
+</script>
+</body>
+</html>
