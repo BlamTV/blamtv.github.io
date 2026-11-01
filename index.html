@@ -287,6 +287,32 @@ a.tm:hover { background: var(--raise) }
 .ab-motto { margin: 30px 0 10px; padding: 26px 20px; border-radius: calc(var(--r) + 6px); background: #0b0c10; color: #fff; text-align: center }
 .ab-motto .n { font: 800 clamp(30px, 6vw, 60px)/.9 var(--display); letter-spacing: -.02em }
 .ab-motto .n span { color: #f3c23a }
+.chat-hero { margin: 18px 0 14px; padding: 26px 26px 22px; border-radius: calc(var(--r) + 6px); color: #fff; background: radial-gradient(90% 140% at 85% 0%, #4a3a0c 0%, #1a160b 45%, #07080b 100%) }
+.chat-hero .pre { font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: #fff }
+.chat-hero .pre span { background: #f3b234; color: #111; padding: 0 5px 1px; margin-left: 3px; border-radius: 3px }
+.chat-hero h1 { margin: 10px 0 0; font: 800 clamp(34px, 6vw, 64px)/.9 var(--display); text-transform: uppercase; color: #f3c23a; letter-spacing: -.02em }
+.chat-hero p { margin: 10px 0 0; color: #ddd3b6; max-width: 60ch }
+.chatbox { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: min(70vh, 640px) }
+.chatbox.compact { height: 440px; margin-top: 22px }
+.chat-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line) }
+.chat-top b { font: 800 18px/1 var(--display); text-transform: uppercase }
+.cuser { font-size: 13px; color: var(--muted) } .cuser a { color: var(--accent) }
+.clist { list-style: none; margin: 0; padding: 12px 14px; overflow-y: auto; display: grid; align-content: start; gap: 12px }
+.cmsg { display: flex; gap: 10px } .cmsg.gone { opacity: .4 }
+.cav { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: var(--raise); display: grid; place-items: center; font-weight: 800; color: var(--muted) }
+.cav img { width: 100%; height: 100%; object-fit: cover }
+.cbody { min-width: 0; flex: 1 } .cbody p { margin: 2px 0 0; overflow-wrap: anywhere; line-height: 1.45 }
+.chead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px } .chead time { font-size: 12px; color: var(--muted) }
+.cbadge { font: 800 10px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; background: var(--raise); color: var(--fg) }
+.cbadge.gold { background: var(--accent); color: var(--accent-ink) }
+.cmod { margin-left: auto; display: flex; gap: 6px }
+.cmod button { font: 700 11px/1 var(--body); padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer }
+.cmod button.arm { border-color: var(--live); color: var(--live) }
+.cform { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line) }
+.cform input { flex: 1; min-width: 0; font: 15px var(--body); padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg) }
+.csign { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--muted) }
+.cnote { color: var(--muted); font-size: 14px; text-align: center; padding: 20px }
+@media (max-width: 480px) { nav.tabs { overflow-x: auto; scrollbar-width: none } nav.tabs::-webkit-scrollbar { display: none } }
 .ab-motto .m { margin-top: 14px; display: flex; gap: 10px 22px; justify-content: center; flex-wrap: wrap; font: 800 clamp(14px, 2.2vw, 19px)/1.1 var(--display); text-transform: uppercase; color: #f3c23a }
 @media (max-width: 560px) { .ab-hero { padding: 28px 20px 30px } .ladder .arrows { width: 78px } .ladder .arrows div { font-size: 9.5px; letter-spacing: 0; padding: 6px 4px } .rung small { display: none } .rung b { min-width: 60px; font-size: 19px } }
 .city-hero { position: relative; overflow: hidden; border-radius: var(--r); margin-top: 18px; min-height: 300px; display: flex; align-items: flex-start;
@@ -361,6 +387,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#nil" id="nav-nil">NIL</a>
       <a href="#highlights" id="nav-hl">Highlights</a>
       <a href="#city" id="nav-city">BlamCity</a>
+      <a href="#chat" id="nav-chat" hidden>Chat</a>
       <a href="#about" id="nav-about">About</a>
     </nav>
   </div>
@@ -752,6 +779,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <div class="facts"><span>Streamed <b>${esc(new Date(v.created).toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))}</b></span>
           <span>Length <b>${fmtDur(v.duration)}</b></span><span>Views <b>${fmtViews(v.views)}</b></span>
           <span>${v.weekFrom === 'title' ? 'Week read from stream title' : v.weekFrom === 'date' ? 'Week matched by stream date' : 'No week matched'}</span></div>
+        <div class="comments-slot" data-room="video:v${esc(v.id)}"></div>
       </div>
       <aside class="side"><h2>${more.length ? 'More from ' + esc(weekLabel(v.season, v.week)) : 'More from ' + esc(m.display)}</h2>
         <div class="list">${side.map(x => { const mm = member(x.login); return `<a class="mini" href="#v-${esc(x.id)}">${thumb(x, mm)}<div><h3>${esc(x.title)}</h3><p>${esc(mm.display)} · ${esc(mm.school)}</p><p>${fmtViews(x.views)} views · ${ago(x.created)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div>
@@ -876,6 +904,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <div class="byline">${m.login ? `<a class="who" href="#ch-${slug(m.login)}">${avatar(m)}<span><b>${esc(m.display)}</b><span>${esc(m.school)}</span></span></a>` : ''}
           <a class="btn" href="#highlights">All highlights</a>
           ${c.kind === 'file' ? `<a class="btn primary" href="${esc(h.url)}" download>Download video ↓</a>` : `<a class="btn primary" href="${esc(h.url)}" target="_blank" rel="noopener">Open on ${c.kind === 'yt' ? 'YouTube' : c.kind === 'tt' ? 'TikTok' : 'Twitch'} ↗</a>`}</div>
+        <div class="comments-slot" data-room="video:${esc(key)}"></div>
       </div>
       <aside class="side"><h2>More highlights</h2><div class="list">${more.map(x => { const mm = x.login ? member(x.login) : m;
         return `<a class="mini" href="#${esc(x.key)}"><div class="thumb">${x.thumb ? `<img src="${esc(x.thumb)}" alt="" loading="lazy">` : `<div class="ph" style="${scVars(mm)}"><span class="ph-abbr">${esc(mm.abbr)}</span></div>`}</div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nothing else yet.</p>'}</div></aside></div>`;
@@ -1094,6 +1123,102 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     counter('video-views', true).then(v => { if (v != null) { stats.views = v; showStats(); } });
   }
 
+  // ---------------------------------------------------------------- BlamTV Chat + comments (Supabase)
+  // Built and switched OFF: turn on with league.json "features": { "chat": true, "comments": true }.
+  // Private preview without switching on: add ?preview=chat to the site address.
+  const SUPA = { url: 'https://euxhcrxitexflyvedaak.supabase.co', key: 'sb_publishable_MQT8iBshWIVsw6EjMyThIQ_E5gxF_GH',
+    lib: 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js' };
+  let sb = null, me = null, myProfile = null, chatSub = null, lastSend = 0;
+  const profCache = {};
+  const chatPreview = (() => { const q = /[?&]preview=chat\b/.test(location.search); try { if (q) sessionStorage.setItem('btv-preview-chat', '1'); return q || sessionStorage.getItem('btv-preview-chat') === '1'; } catch (e) { return q; } })();
+  const chatOn = () => !!(L.features && L.features.chat) || chatPreview;
+  const commentsOn = () => !!(L.features && L.features.comments) || chatPreview;
+  const loadScript = (src) => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+  async function supa() {
+    if (sb) return sb;
+    if (!window.supabase) await loadScript(SUPA.lib);
+    sb = window.supabase.createClient(SUPA.url, SUPA.key, { auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true } });
+    const { data } = await sb.auth.getSession(); me = data.session ? data.session.user : null;
+    sb.auth.onAuthStateChange((_e, session) => { const id = session ? session.user.id : null; if (id !== (me && me.id)) { me = session ? session.user : null; myProfile = null; if (document.querySelector('.chatbox')) render(); } });
+    return sb;
+  }
+  async function loadMyProfile() {
+    if (!me) return null; if (myProfile) return myProfile;
+    const { data } = await sb.from('profiles').select('*').eq('id', me.id).maybeSingle(); myProfile = data; return data;
+  }
+  async function signIn(provider) {
+    try { sessionStorage.setItem('btv-return', location.hash || '#chat'); } catch (e) {}
+    await (await supa()).auth.signInWithOAuth({ provider, options: { redirectTo: location.origin + location.pathname } });
+  }
+  function msgHTML(m, p) {
+    const name = p ? p.display_name : 'Fan', role = p && p.role;
+    const badge = role === 'commish' ? '<span class="cbadge gold">Commish</span>' : role === 'coach' ? `<span class="cbadge">${esc(p.school || 'Coach')}</span>` : '';
+    const av = p && p.avatar_url ? `<img src="${esc(p.avatar_url)}" alt="" loading="lazy">` : esc((name || '?').slice(0, 1).toUpperCase());
+    const mod = myProfile && myProfile.role === 'commish' ? `<span class="cmod">${m.deleted ? '' : `<button type="button" data-act="del" data-id="${m.id}">Delete</button>`}${role !== 'commish' ? `<button type="button" data-act="ban" data-uid="${esc(m.user_id)}">Ban</button>` : ''}</span>` : '';
+    return `<li class="cmsg${m.deleted ? ' gone' : ''}" data-id="${m.id}"><span class="cav">${av}</span><div class="cbody"><div class="chead"><b>${esc(name)}</b>${badge}<time>${esc(ago(m.created_at))}</time>${mod}</div><p>${esc(m.body)}</p></div></li>`;
+  }
+  async function mountRoom(el, room, { title = 'Chat', compact = false } = {}) {
+    if (!el) return;
+    el.innerHTML = `<section class="chatbox${compact ? ' compact' : ''}" data-room="${esc(room)}"><div class="chat-top"><b>${esc(title)}</b><span class="cuser"></span></div><ol class="clist"><li class="cnote">Loading…</li></ol><form class="cform"></form></section>`;
+    const box = el.querySelector('.chatbox'), list = box.querySelector('.clist');
+    let client; try { client = await supa(); } catch (e) { list.innerHTML = '<li class="cnote">Chat is offline right now.</li>'; return; }
+    await loadMyProfile();
+    const { data, error } = await client.from('messages').select('id,body,created_at,deleted,user_id,profiles(display_name,avatar_url,role,school)').eq('room', room).order('created_at', { ascending: false }).limit(80);
+    if (!document.body.contains(list)) return;
+    if (error) { list.innerHTML = '<li class="cnote">Couldn\'t load messages.</li>'; return; }
+    data.forEach((m) => { if (m.profiles) profCache[m.user_id] = m.profiles; });
+    list.innerHTML = data.length ? data.reverse().map((m) => msgHTML(m, m.profiles)).join('') : '<li class="cnote empty">No messages yet. Start it off.</li>';
+    list.scrollTop = list.scrollHeight;
+    if (chatSub) { client.removeChannel(chatSub); chatSub = null; }
+    chatSub = client.channel('room-' + room).on('postgres_changes', { event: '*', schema: 'public', table: 'messages', filter: 'room=eq.' + room }, async (pl) => {
+      const m = pl.new; if (!m || !document.body.contains(list)) return;
+      let p = profCache[m.user_id];
+      if (!p) { const r = await client.from('profiles').select('display_name,avatar_url,role,school').eq('id', m.user_id).maybeSingle(); p = profCache[m.user_id] = r.data; }
+      const old = list.querySelector(`[data-id="${m.id}"]`);
+      if (old) { if (m.deleted && !(myProfile && myProfile.role === 'commish')) old.remove(); else old.outerHTML = msgHTML(m, p); return; }
+      if (pl.eventType !== 'INSERT') return;
+      list.querySelector('.cnote.empty')?.remove();
+      const atBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+      list.insertAdjacentHTML('beforeend', msgHTML(m, p));
+      if (atBottom) list.scrollTop = list.scrollHeight;
+    }).subscribe();
+    renderComposer(box);
+  }
+  async function renderComposer(box) {
+    const f = box.querySelector('.cform'), u = box.querySelector('.cuser'); if (!f) return;
+    const p = await loadMyProfile();
+    const providers = (L.features && L.features.chatProviders) || ['twitch'];
+    if (!me) {
+      u.innerHTML = '';
+      f.innerHTML = `<div class="csign">${providers.map((pv) => `<button type="button" class="btn primary" data-signin="${esc(pv)}">Sign in with ${pv === 'google' ? 'YouTube / Google' : 'Twitch'}</button>`).join('')}<span>to join in</span></div>`;
+      return;
+    }
+    u.innerHTML = `${p ? esc(p.display_name) : 'Signed in'}${p && p.role !== 'fan' ? ` · ${p.role === 'commish' ? 'Commissioner' : 'Coach'}` : ''} · <a href="#" data-signout>Sign out</a>`;
+    if (p && p.banned) { f.innerHTML = '<div class="csign">You\'ve been removed from the chat.</div>'; return; }
+    f.innerHTML = '<input name="body" maxlength="500" autocomplete="off" placeholder="Say something…" aria-label="Message"><button class="btn primary" type="submit">Send</button>';
+  }
+  function viewChat() {
+    app.innerHTML = `<section class="chat-hero"><div class="pre">Blam<span>TV</span></div><h1>Blam Chat</h1><p>The league's own chat room. Coaches get their team badge automatically when they sign in with Twitch.</p></section><div id="chat-main"></div>`;
+    mountRoom(document.getElementById('chat-main'), 'league', { title: 'League chat' });
+  }
+  document.addEventListener('click', async (e) => {
+    const s = e.target.closest('[data-signin]'); if (s) { e.preventDefault(); signIn(s.dataset.signin); return; }
+    if (e.target.closest('[data-signout]')) { e.preventDefault(); if (sb) await sb.auth.signOut(); return; }
+    const b = e.target.closest('.cmod button'); if (!b || !sb) return;
+    if (!b.classList.contains('arm')) { b.classList.add('arm'); b.dataset.label = b.textContent; b.textContent = b.dataset.act === 'ban' ? 'Confirm ban' : 'Confirm'; setTimeout(() => { if (b.isConnected) { b.classList.remove('arm'); b.textContent = b.dataset.label; } }, 4000); return; }
+    if (b.dataset.act === 'del') await sb.from('messages').update({ deleted: true }).eq('id', b.dataset.id);
+    if (b.dataset.act === 'ban') { await sb.from('profiles').update({ banned: true }).eq('id', b.dataset.uid); b.textContent = 'Banned'; }
+  });
+  document.addEventListener('submit', async (e) => {
+    const f = e.target.closest('.cform'); if (!f) return; e.preventDefault();
+    const box = f.closest('.chatbox'), inp = f.querySelector('input[name=body]'); if (!inp || !me) return;
+    const body = inp.value.trim(); if (!body) return;
+    if (Date.now() - lastSend < 3000) { inp.placeholder = 'Slow down a sec…'; return; }
+    lastSend = Date.now(); inp.value = '';
+    const { error } = await sb.from('messages').insert({ room: box.dataset.room, user_id: me.id, body });
+    if (error) { inp.value = body; inp.placeholder = 'Couldn\'t send. Try again.'; }
+  });
+
   let lastHash = null;
   function render() {
     const h = location.hash.slice(1);
@@ -1104,7 +1229,9 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (nilStop) { nilStop(); nilStop = null; }
     if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about');
+    if (chatSub && sb) { sb.removeChannel(chatSub); chatSub = null; }
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat');
+    document.getElementById('nav-chat').toggleAttribute('aria-current', h === 'chat');
     document.getElementById('nav-city').toggleAttribute('aria-current', isCity);
     document.getElementById('nav-about').toggleAttribute('aria-current', h === 'about');
     document.getElementById('nav-nil').toggleAttribute('aria-current', h === 'nil');
@@ -1115,6 +1242,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (h === 'highlights') viewHighlights();
     else if (h === 'city') viewCity();
     else if (h === 'about') viewAbout();
+    else if (h === 'chat' && chatOn()) viewChat();
     else if ((m = h.match(/^city-([a-z0-9_]+)$/))) viewCityStream(m[1]);
     else if ((m = h.match(/^live-([a-z0-9_]+)$/))) viewCityStream(m[1], false);
     else if ((m = h.match(/^hl-(\d+)$/))) viewHighlight(h);
@@ -1128,6 +1256,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (lastHash !== null && lastHash !== h) window.scrollTo(0, 0);
     lastHash = h;
     countPlay(h);
+    if (commentsOn()) { const slot = app.querySelector('.comments-slot'); if (slot) mountRoom(slot, slot.dataset.room, { title: 'Comments', compact: true }); }
   }
 
   async function init() {
@@ -1151,6 +1280,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     document.getElementById('season-tag').textContent = `${L.name} · Season ${L.season}`;
     document.getElementById('foot-league').textContent = `${L.name} · ${L.game} dynasty · ${L.members.length} coaches`;
     document.getElementById('foot-updated').textContent = D.updated ? `Updated ${ago(D.updated)}` : (D.sample ? 'Sample data' : 'Waiting for first Twitch update');
+    if (chatOn()) document.getElementById('nav-chat').hidden = false;
+    if (/[?&]code=/.test(location.search)) {
+      try { await supa(); const back = sessionStorage.getItem('btv-return') || '#chat'; history.replaceState(null, '', location.pathname + back); } catch (e) { console.error('sign-in return failed', e); }
+    }
     render();
     startStats();
     addEventListener('hashchange', render);
