@@ -86,6 +86,7 @@ details summary::after { content: " ▾"; color: var(--muted) }
 .hero h1 span { color: var(--accent) }
 .hero p { color: var(--muted); max-width: 40ch; margin: 0 auto 18px }
 .twitch { background: #9146ff; border-color: #9146ff; color: #fff }
+.vbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--raise); font-size: 17px; line-height: 1; display: inline-grid; place-items: center; vertical-align: middle; margin-left: 8px }
 .hidden { display: none !important }
 </style>
 </head>
@@ -108,6 +109,14 @@ details summary::after { content: " ▾"; color: var(--muted) }
   const P = window.BlamCommish;
   let sb, session = null, me = null, ready = {}, L = null, pending = null;
   const DISCORD_ANNOUNCE = ['gotw', 'advance', 'new_season'];
+  // Announcer voice (pre-recorded clips; on/off remembered on this phone)
+  const VOICE = SUPA.url + '/storage/v1/object/public/voice/';
+  let voiceOn = true, clip = null;
+  try { voiceOn = localStorage.getItem('btv-voice') !== 'off'; } catch (_) {}
+  const hush = () => { if (clip) { clip.pause(); clip = null; } };
+  const say = (k) => { if (!voiceOn) return; hush(); try { clip = new Audio(VOICE + k + '.mp3'); clip.play().catch(() => {}); } catch (_) {} };
+  const voiceBtn = () => `<button type="button" class="vbtn" id="vbtn" aria-pressed="${voiceOn}" title="Announcer voice">${voiceOn ? '🔊' : '🔇'}</button>`;
+  document.addEventListener('click', (e) => { const b = e.target.closest('#vbtn'); if (!b) return; voiceOn = !voiceOn; try { localStorage.setItem('btv-voice', voiceOn ? 'on' : 'off'); } catch (_) {} b.textContent = voiceOn ? '🔊' : '🔇'; b.setAttribute('aria-pressed', voiceOn); if (!voiceOn) hush(); else say('switch'); });
   const MIC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>';
 
   async function call(action, extra = {}) {
@@ -126,7 +135,7 @@ details summary::after { content: " ▾"; color: var(--muted) }
     document.getElementById('signin').onclick = () => sb.auth.signInWithOAuth({ provider: 'twitch', options: { redirectTo: location.origin + location.pathname } });
   }
   function header() {
-    meEl.innerHTML = `<b>${esc(me.twitch || me.name || 'Admin')}</b>${me.owner ? 'Owner' : me.admin ? 'Admin' : 'Signed in'} · <a href="#" id="signout">Sign out</a>`;
+    meEl.innerHTML = `<b>${esc(me.twitch || me.name || 'Admin')}</b>${me.owner ? 'Owner' : me.admin ? 'Admin' : 'Signed in'} · <a href="#" id="signout">Sign out</a>${voiceBtn()}`;
     document.getElementById('signout').onclick = async (e) => { e.preventDefault(); await sb.auth.signOut(); };
   }
 
@@ -167,6 +176,7 @@ details summary::after { content: " ▾"; color: var(--muted) }
       let rec = null;
       mic.onclick = () => {
         if (rec) { rec.stop(); return; }
+        hush();
         rec = new SR(); rec.lang = 'en-US'; rec.interimResults = true; rec.maxAlternatives = 4; rec.continuous = false;
         mic.classList.add('on'); label.textContent = 'Listening… tap to stop'; heard.className = 'heard interim'; heard.textContent = '';
         rec.onresult = (e) => {
@@ -189,6 +199,7 @@ details summary::after { content: " ▾"; color: var(--muted) }
     if (!r || !r.ok) {
       out.innerHTML = `<section class="card err"><b>${esc(r ? r.error : 'Say or type a command.')}</b>${r && (r.help || r.hint) ? '<p class="muted">Open “What can I say?” below for examples.</p>' : ''}</section>`;
       if (r && r.help) document.querySelector('details').open = true;
+      else say('error');
       return;
     }
     if (r.instant) return run(r.action, r.summary);
@@ -197,7 +208,8 @@ details summary::after { content: " ▾"; color: var(--muted) }
     out.innerHTML = `<section class="card confirm"><div class="muted">Do this?</div><div class="what">${esc(r.summary)}</div>
       ${canPost ? `<label class="check"><input type="checkbox" id="post" ${ready.channel ? 'checked' : 'disabled'}> Also post it in Discord${ready.channel ? '' : ' (set a channel first)'}</label>` : ''}
       <div class="row"><button class="btn ok" id="yes">✓ Do it</button><button class="btn ghost" id="no">Cancel</button></div></section>`;
-    document.getElementById('no').onclick = () => { pending = null; out.innerHTML = ''; };
+    say('confirm');
+    document.getElementById('no').onclick = () => { pending = null; out.innerHTML = ''; hush(); };
     document.getElementById('yes').onclick = () => run(pending.action, pending.summary, { postToDiscord: !!(document.getElementById('post') || {}).checked });
   }
 
@@ -214,7 +226,9 @@ details summary::after { content: " ▾"; color: var(--muted) }
     else body = `<p>${esc(j.summary)}</p>${j.note ? `<p class="muted">${esc(j.note)}</p>` : ''}${extra.postToDiscord ? `<p class="muted">${j.posted ? 'Posted in Discord too.' : "Couldn't post in Discord, but the site change went through."}</p>` : ''}`;
     const title = action.type === 'unplayed' ? `Week ${j.week}: ${j.games.length} still to play` : ['history', 'admins'].includes(action.type) ? esc(label) : '✓ Done';
     out.innerHTML = `<section class="card ${['history', 'admins', 'unplayed'].includes(action.type) ? '' : 'done'}"><b>${title}</b>${body}</section>`;
-    if (!['history', 'admins', 'unplayed'].includes(action.type)) setTimeout(loadLeague, 1500);
+    const CLIP = { gotw: 'gotw', gotw_kickoff: 'gotw', advance: 'advance', add_game: 'schedule', remove_game: 'schedule', clear_week: 'schedule', stream: 'stream', announce: 'announce',
+      remind: 'remind', new_season: 'season', feature: 'switch', set_coach: 'coach', remove_coach: 'coach', add_admin: 'admin', remove_admin: 'admin', undo: 'undo', set_channel: 'done' };
+    if (!['history', 'admins', 'unplayed'].includes(action.type)) { say(CLIP[action.type] || 'done'); setTimeout(loadLeague, 1500); }
   }
 
   async function boot() {
@@ -230,6 +244,7 @@ details summary::after { content: " ▾"; color: var(--muted) }
     me = w.me; ready = w.ready || {}; header();
     if (!me.admin) { app.innerHTML = `<div class="hero"><h1>Admins only</h1><p>${esc(me.twitch || 'This account')} isn't a league admin. Ask the owner to add you, then sign in again.</p><a class="btn" href="../coach/">Go to the Coach app</a></div>`; return; }
     console_();
+    say('welcome'); // phones may block this until the first tap; that's fine
   }
   window.__blamAdmin = { handle, setState: (o) => { ({ session, me, ready, L } = { session, me, ready, L, ...o }); } };
   boot();
