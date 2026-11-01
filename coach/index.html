@@ -63,6 +63,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
 .msg { font-size: 14px; color: var(--muted) }
 .msg.err { color: #ffb3bb } .msg.ok { color: #9be8c0 }
 .note { font-size: 14px; color: var(--muted); margin: 0 0 14px }
+.vbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--raise); font-size: 17px; line-height: 1; display: inline-grid; place-items: center; vertical-align: middle; margin-left: 8px }
 .hidden { display: none !important }
 </style>
 </head>
@@ -82,6 +83,14 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const MIC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>';
+  // Announcer voice (pre-recorded clips; on/off remembered on this phone)
+  const VOICE = SUPA.url + '/storage/v1/object/public/voice/';
+  let voiceOn = true, clip = null;
+  try { voiceOn = localStorage.getItem('btv-voice') !== 'off'; } catch (_) {}
+  const hush = () => { if (clip) { clip.pause(); clip = null; } };
+  const say = (k) => { if (!voiceOn) return; hush(); try { clip = new Audio(VOICE + k + '.mp3'); clip.play().catch(() => {}); } catch (_) {} };
+  const voiceBtn = () => `<button type="button" class="vbtn" id="vbtn" aria-pressed="${voiceOn}" title="Announcer voice">${voiceOn ? '🔊' : '🔇'}</button>`;
+  document.addEventListener('click', (e) => { const b = e.target.closest('#vbtn'); if (!b) return; voiceOn = !voiceOn; try { localStorage.setItem('btv-voice', voiceOn ? 'on' : 'off'); } catch (_) {} b.textContent = voiceOn ? '🔊' : '🔇'; b.setAttribute('aria-pressed', voiceOn); if (!voiceOn) hush(); else say('switch'); });
   const FIELDS = ['nickname', 'hometown', 'platform', 'gamertag', 'offense', 'defense', 'joined_season', 'accolades', 'bio', 'youtube_url', 'x_handle', 'tiktok_handle', 'discord_name', 'rival_login', 'rival_note', 'beef_with', 'beef'];
   let sb, session = null, prof = null, L = null, member = null, cp = {};
 
@@ -138,6 +147,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
   let rec = null;
   function dictate(btn, el) {
     if (rec) { rec.stop(); return; }
+    hush();
     rec = new SR(); rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = el.tagName === 'TEXTAREA';
     const start = el.value ? el.value.replace(/\s*$/, ' ') : '';
     btn.classList.add('on');
@@ -174,7 +184,9 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
         : /row-level security/.test(error.message) ? 'Only you (or an admin) can edit your profile.' : "Couldn't save. Try again.";
       return;
     }
+    const before = cp || {};
     cp = data || row; msg.className = 'msg ok'; msg.textContent = 'Saved ✓';
+    say(cp.beef && (cp.beef !== before.beef || cp.beef_with !== before.beef_with) ? 'beef_saved' : cp.rival_login && cp.rival_login !== before.rival_login ? 'rival_saved' : 'coach_saved');
     const h = app.querySelector('.team h1'); if (h) h.innerHTML = `${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}`;
   }
 
@@ -187,7 +199,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     if (!session) return signedOut();
     L = await fetch('../data/league.json?t=' + Date.now()).then((r) => r.json());
     ({ data: prof } = await sb.from('profiles').select('display_name,twitch_login,role,is_admin').eq('id', session.user.id).maybeSingle());
-    meEl.innerHTML = `<b>${esc(prof?.twitch_login || prof?.display_name || 'Signed in')}</b><a href="#" id="signout">Sign out</a>`;
+    meEl.innerHTML = `<b>${esc(prof?.twitch_login || prof?.display_name || 'Signed in')}</b><a href="#" id="signout">Sign out</a>${voiceBtn()}`;
     document.getElementById('signout').onclick = async (e) => { e.preventDefault(); await sb.auth.signOut(); };
     member = prof && prof.twitch_login && L.members.find((m) => m.twitch.toLowerCase() === prof.twitch_login);
     if (!member) {
@@ -198,6 +210,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     ({ data: cp } = await sb.from('coach_profiles').select('*').eq('twitch_login', member.twitch.toLowerCase()).maybeSingle());
     cp = cp || {};
     form();
+    say('coach_hi'); // phones may block this until the first tap; that's fine
     if (prof.is_admin) app.insertAdjacentHTML('beforeend', '<p class="note" style="text-align:center"><a href="../admin/">Open the Admin app →</a></p>');
   }
   boot();
