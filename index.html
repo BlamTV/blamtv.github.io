@@ -313,6 +313,24 @@ a.tm:hover { background: var(--raise) }
 .cp-form .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
 .cp-form .msg { font-size: 14px; color: var(--muted) }
 .cp-form .msg.err { color: var(--live) }
+.cp-feud { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-bottom: 16px }
+.cp-vs { display: flex; align-items: center; gap: 12px; margin: 4px 0 10px }
+.cp-vs .side { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: 700 }
+.cp-vs .side span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.cp-vs .side:hover span { color: var(--accent) }
+.cp-vs i { font: 800 22px/1 var(--display); font-style: normal; color: var(--accent); flex: none }
+.cp-rival { border-top: 4px solid var(--accent) }
+.cp-beef { border: 2px solid var(--live); background: color-mix(in srgb, var(--live) 6%, var(--surface)) }
+.cp-beef h2 { color: var(--live); font-size: 30px; letter-spacing: -.01em; transform: rotate(-2deg); display: inline-block }
+.cp-beef .cp-vs i { color: var(--live) }
+.cp-beef blockquote { margin: 0 0 10px; font: 700 17px/1.45 var(--body) }
+.cp-callouts { margin-top: 12px; font-size: 14px; color: var(--muted) }
+.cp-callouts a { font-weight: 700; color: var(--fg) }
+.cp-callouts a:hover { color: var(--accent) }
+.cp-form fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px 14px; margin: 0; display: grid; gap: 12px; min-width: 0 }
+.cp-form legend { font: 800 15px/1 var(--display); text-transform: uppercase; padding: 0 6px }
+.cp-form fieldset.beef { border-color: var(--live) } .cp-form fieldset.beef legend { color: var(--live) }
+@media (max-width: 720px) { .cp-feud { grid-template-columns: minmax(0, 1fr) } }
 @media (max-width: 720px) { .cp-grid { grid-template-columns: minmax(0, 1fr) } .cp-form .row { grid-template-columns: minmax(0, 1fr) } }
 .chat-hero { margin: 18px 0 14px; padding: 26px 26px 22px; border-radius: calc(var(--r) + 6px); color: #fff; background: radial-gradient(90% 140% at 85% 0%, #4a3a0c 0%, #1a160b 45%, #07080b 100%) }
 .chat-hero .pre { font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: #fff }
@@ -1245,7 +1263,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     mountRoom(document.getElementById('chat-main'), 'league', { title: 'League chat' });
   }
   // ---- Coach profiles (Supabase table coach_profiles; only that coach or the commish can edit) ----
-  const CP_FIELDS = ['nickname', 'hometown', 'platform', 'gamertag', 'offense', 'defense', 'joined_season', 'accolades', 'bio', 'youtube_url', 'x_handle', 'tiktok_handle', 'discord_name'];
+  const CP_FIELDS = ['nickname', 'hometown', 'platform', 'gamertag', 'offense', 'defense', 'joined_season', 'accolades', 'bio', 'youtube_url', 'x_handle', 'tiktok_handle', 'discord_name', 'rival_login', 'rival_note', 'beef_with', 'beef'];
   let cpState = null;
   function coachHead(m, cp) {
     return `<section class="chan" style="${scVars(m)}"><div class="band" data-abbr="${esc(m.abbr)}"></div>
@@ -1259,10 +1277,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const hash = location.hash;
     app.innerHTML = `${banner()}<div class="coach-pg">${coachHead(m)}<div id="cp-main"><div class="cp-card cp-empty">Loading profile…</div></div></div>`;
     let client; try { client = await supa(); } catch (e) { document.getElementById('cp-main').innerHTML = '<div class="cp-card cp-empty">Profiles are offline right now.</div>'; return; }
-    const [res, p] = await Promise.all([client.from('coach_profiles').select('*').eq('twitch_login', m.login).maybeSingle(), loadMyProfile()]);
+    const [res, p, co] = await Promise.all([client.from('coach_profiles').select('*').eq('twitch_login', m.login).maybeSingle(), loadMyProfile(),
+      client.from('coach_profiles').select('twitch_login,rival_login,beef_with').or(`rival_login.eq.${m.login},beef_with.eq.${m.login}`)]);
     if (location.hash !== hash) return;
     const canEdit = !!(p && !p.banned && (p.role === 'commish' || (p.role === 'coach' && p.twitch_login === m.login)));
-    cpState = { m, cp: res.data || {}, canEdit, editing: false };
+    cpState = { m, cp: res.data || {}, canEdit, editing: false, callouts: (co && co.data) || [] };
     const head = app.querySelector('.coach-pg .chan'); if (head && cpState.cp.nickname) head.outerHTML = coachHead(m, cpState.cp);
     drawCoach();
   }
@@ -1277,6 +1296,17 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       cp.discord_name && `<span class="btn">Discord: ${esc(cp.discord_name)}</span>`].filter(Boolean).join('');
     const editBar = canEdit ? `<div class="cp-claim"><button type="button" class="btn primary" data-cp="edit">${has ? 'Edit profile' : 'Fill out your profile'}</button>${me && myProfile && myProfile.role === 'commish' && myProfile.twitch_login !== m.login ? '<span>Editing as commissioner</span>' : ''}</div>`
       : !me ? `<div class="cp-claim"><span>Is this you?</span>${((L.features && L.features.chatProviders) || ['twitch']).filter((x) => x === 'twitch').map(() => '<button type="button" class="btn" data-signin="twitch">Sign in with Twitch to edit</button>').join('')}</div>` : '';
+    const vs = (a, b) => `<div class="cp-vs"><a class="side" href="#coach-${slug(a.login)}">${avatar(a)}<span>${esc(a.school)}</span></a><i>VS</i><a class="side" href="#coach-${slug(b.login)}">${avatar(b)}<span>${esc(b.school)}</span></a></div>`;
+    const rival = cp.rival_login && members[cp.rival_login], beefW = cp.beef_with && members[cp.beef_with];
+    const named = (k) => cpState.callouts.filter((x) => x[k] === m.login && members[x.twitch_login]).map((x) => `<a href="#coach-${slug(x.twitch_login)}">${esc(members[x.twitch_login].display)}</a>`);
+    const rivalBy = named('rival_login'), beefBy = named('beef_with');
+    const feud = (rival || cp.rival_note || rivalBy.length || beefW || cp.beef || beefBy.length) ? `<div class="cp-feud">
+        <section class="cp-card cp-rival"><h2>Rivalry</h2>${rival ? vs(m, rival) : ''}${cp.rival_note ? `<p>${esc(cp.rival_note)}</p>` : ''}${!rival && !cp.rival_note ? '<p class="cp-empty">No rival named yet.</p>' : ''}
+          ${rivalBy.length ? `<div class="cp-callouts">Named as a rival by ${rivalBy.join(', ')}</div>` : ''}</section>
+        <section class="cp-card cp-beef"><h2>BEEF!</h2>${beefW ? vs(m, beefW) : ''}${cp.beef ? `<blockquote>“${esc(cp.beef)}”</blockquote>` : ''}${!beefW && !cp.beef ? '<p class="cp-empty">No beef… yet.</p>' : ''}
+          ${beefBy.length ? `<div class="cp-callouts">Got beef with them: ${beefBy.join(', ')}</div>` : ''}</section></div>` : '';
+    const others = Object.values(members).filter((x) => x.login !== m.login).sort((a, b) => a.school.localeCompare(b.school));
+    const pick = (k) => `<select name="${k}"><option value="">— nobody —</option>${others.map((x) => `<option value="${esc(x.login)}"${cp[k] === x.login ? ' selected' : ''}>${esc(x.school)} · ${esc(x.display)}</option>`).join('')}</select>`;
     let main;
     if (editing) {
       const v = (k) => esc(cp[k] == null ? '' : cp[k]);
@@ -1290,14 +1320,16 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <label>About the coach<textarea name="bio" maxlength="800" placeholder="Your story, your program, your rivals…">${v('bio')}</textarea></label>
         <div class="row">${inp('youtube_url', 'YouTube link', 'inputmode="url" autocapitalize="off" maxlength="200" placeholder="https://youtube.com/@yourchannel"')}${inp('x_handle', 'X handle', 'maxlength="16" placeholder="@handle"')}</div>
         <div class="row">${inp('tiktok_handle', 'TikTok handle', 'maxlength="25" placeholder="@handle"')}<span></span></div>
+        <fieldset><legend>Rivalry</legend><label>Your rival${pick('rival_login')}</label>${inp('rival_note', 'What it\'s about', 'maxlength="200" placeholder="e.g. Iron Bowl. Lost 3 straight. Not again."')}</fieldset>
+        <fieldset class="beef"><legend>BEEF!</legend><label>Who you\'ve got beef with${pick('beef_with')}</label><label>Say it<textarea name="beef" maxlength="300" style="min-height:80px" placeholder="Keep it football. Keep it league-friendly.">${v('beef')}</textarea></label></fieldset>
         <div class="bar"><button class="btn primary" type="submit">Save profile</button><button class="btn" type="button" data-cp="cancel">Cancel</button><span class="msg" aria-live="polite"></span></div></form>`;
     } else {
       const bio = cp.bio ? cp.bio.split(/\n{2,}|\r\n\r\n/).map((x) => `<p>${esc(x).replace(/\n/g, '<br>')}</p>`).join('') : '';
       const facts = [fact('Hometown', cp.hometown), fact('Platform', [cp.platform, cp.gamertag].filter(Boolean).join(' · ')), fact('Offense', cp.offense), fact('Defense', cp.defense),
         fact('In Blam since', cp.joined_season ? 'Season ' + cp.joined_season : ''), fact('Accolades', cp.accolades)].join('');
-      main = has ? `<div class="cp-grid"><section class="cp-card"><h2>About the coach</h2>${bio || '<p class="cp-empty">No bio yet.</p>'}${social ? `<div class="cp-social">${social}</div>` : ''}${editBar}</section>
+      main = feud + (has ? `<div class="cp-grid"><section class="cp-card"><h2>About the coach</h2>${bio || '<p class="cp-empty">No bio yet.</p>'}${social ? `<div class="cp-social">${social}</div>` : ''}${editBar}</section>
           <section class="cp-card"><h2>Program</h2>${facts ? `<dl class="cp-facts">${facts}</dl>` : '<p class="cp-empty">Nothing here yet.</p>'}</section></div>`
-        : `<div class="cp-card"><h2>Coach profile</h2><p class="cp-empty">${esc(m.display)} hasn't filled out a profile yet.</p>${editBar}</div>`;
+        : `<div class="cp-card"><h2>Coach profile</h2><p class="cp-empty">${esc(m.display)} hasn't filled out a profile yet.</p>${editBar}</div>`);
     }
     pg.querySelector('#cp-main').innerHTML = main;
     if (editing) pg.querySelector('#cp-form input')?.focus();
@@ -1323,6 +1355,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (error) {
       msg.className = 'msg err';
       msg.textContent = /youtube/.test(error.message) ? 'That YouTube link doesn\'t look right. Use a youtube.com or youtu.be link.'
+        : /no_self/.test(error.message) ? 'You can\'t pick yourself.'
         : /x_handle|tiktok/.test(error.message) ? 'Handles can only use letters, numbers, _ (and . for TikTok).'
         : /row-level security/.test(error.message) ? 'Only this coach or the commissioner can edit this profile.' : 'Couldn\'t save. Try again.';
       return;
