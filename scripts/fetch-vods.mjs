@@ -135,6 +135,16 @@ for (const v of videos) if (!v.tagged) {
     if (opp.weekFrom === 'title') { v.season = opp.season; v.week = opp.week; v.weekFrom = 'opponent'; }
   }
 }
+// Admin app: "add/hide <coach>'s latest stream" pins the newest broadcast that existed when the command was given
+for (const p of league.pinLatest || []) {
+  const at = Date.parse(p.at);
+  const mine = videos.filter(v => v.login.toLowerCase() === String(p.login).toLowerCase() && v.type === 'archive' && Date.parse(v.created) <= at)
+    .sort((a, b) => Date.parse(b.created) - Date.parse(a.created))[0];
+  if (!mine) continue;
+  if (p.hide) { mine.tagged = false; continue; }
+  mine.tagged = true;
+  if (p.week != null) { mine.season = p.season ?? league.season; mine.week = p.week; mine.weekFrom = 'admin'; }
+}
 for (let i = videos.length - 1; i >= 0; i--) { if (!videos[i].tagged) videos.splice(i, 1); else delete videos[i].tagged; }
 videos.sort((a, b) => Date.parse(b.created) - Date.parse(a.created));
 
