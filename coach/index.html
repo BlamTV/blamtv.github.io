@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blam Coach</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0e1218">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Blam Coach">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #0e1218; --surface: #161c24; --raise: #1f2731; --line: #29333f; --fg: #e9eef3; --muted: #8f9cab; --accent: #f3b234; --accent-ink: #14100a;
+  --live: #ff4d5e; --ok: #3fbf7f; --sc: #f3b234; --display: "Archivo", "Arial Black", sans-serif; --body: "Source Sans 3", system-ui, sans-serif; --r: 14px; color-scheme: dark }
+* { box-sizing: border-box }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.45 var(--body); -webkit-text-size-adjust: 100% }
+body { min-height: 100dvh; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) }
+a { color: var(--accent) }
+button { font: inherit; color: inherit; cursor: pointer }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px 40px }
+header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; max-width: 640px; margin: 0 auto }
+header img { width: 38px; height: 38px }
+header .brand { font: 800 20px/1 var(--display); text-transform: uppercase }
+header .brand span { background: var(--accent); color: var(--accent-ink); padding: 1px 5px 2px; border-radius: 4px; margin-left: 2px }
+header .brand small { display: block; font: 700 11px/1 var(--body); letter-spacing: .18em; color: var(--accent); margin-top: 4px }
+header .me { margin-left: auto; text-align: right; font-size: 13px; color: var(--muted) }
+header .me b { display: block; color: var(--fg) }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); font-weight: 700; text-decoration: none; color: var(--fg) }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.btn:disabled { opacity: .5 }
+.twitch { background: #9146ff; border-color: #9146ff; color: #fff }
+.hero { text-align: center; padding: 34px 18px }
+.hero h1 { font: 800 30px/1 var(--display); text-transform: uppercase; margin: 10px 0 8px }
+.hero h1 span { color: var(--accent) }
+.hero p { color: var(--muted); max-width: 40ch; margin: 0 auto 18px }
+.team { border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: var(--surface); margin: 6px 0 14px }
+.team .band { height: 64px; background: linear-gradient(120deg, var(--sc), color-mix(in srgb, var(--sc) 55%, #000)) }
+.team .body { display: flex; gap: 12px; align-items: flex-end; padding: 0 16px 14px; margin-top: -30px }
+.team .logo { width: 64px; height: 64px; border-radius: 50%; background: var(--raise); border: 3px solid var(--surface); object-fit: cover; flex: none }
+.team h1 { margin: 0; font: 800 24px/1.05 var(--display); text-transform: uppercase; overflow-wrap: anywhere }
+.team p { margin: 2px 0 0; color: var(--muted); font-size: 14px }
+fieldset { border: 1px solid var(--line); border-radius: var(--r); padding: 14px 14px 16px; margin: 0 0 14px; background: var(--surface); display: grid; gap: 14px; min-width: 0 }
+legend { font: 800 16px/1 var(--display); text-transform: uppercase; padding: 0 6px }
+fieldset.beef { border-color: var(--live) } fieldset.beef legend { color: var(--live); font-size: 20px }
+fieldset.rival { border-top: 4px solid var(--accent) }
+.row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px }
+@media (max-width: 480px) { .row { grid-template-columns: minmax(0, 1fr) } }
+label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); min-width: 0 }
+.field { display: flex; gap: 6px; align-items: flex-start }
+.field input, .field select, .field textarea, label > select, label > input { flex: 1; width: 100%; min-width: 0; font: 16px/1.4 var(--body); text-transform: none; letter-spacing: 0; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg) }
+.field textarea { min-height: 110px; resize: vertical }
+.dict { flex: none; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--raise); display: grid; place-items: center; color: var(--accent) }
+.dict svg { width: 20px; height: 20px }
+.dict.on { background: var(--live); border-color: var(--live); color: #fff }
+.savebar { position: sticky; bottom: 0; padding: 12px 0 calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--bg) 30%); display: flex; gap: 10px; align-items: center }
+.savebar .btn.primary { flex: 1 }
+.msg { font-size: 14px; color: var(--muted) }
+.msg.err { color: #ffb3bb } .msg.ok { color: #9be8c0 }
+.note { font-size: 14px; color: var(--muted); margin: 0 0 14px }
+.hidden { display: none !important }
+</style>
+</head>
+<body>
+<header>
+  <img src="../img/btv-seal.svg" alt="" width="38" height="38">
+  <div class="brand">Blam<span>TV</span><small>Coach</small></div>
+  <div class="me" id="me"></div>
+</header>
+<main class="wrap" id="app"><div class="hero"><p class="msg">Loading…</p></div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+(() => {
+  const SUPA = { url: 'https://euxhcrxitexflyvedaak.supabase.co', key: 'sb_publishable_MQT8iBshWIVsw6EjMyThIQ_E5gxF_GH' };
+  const app = document.getElementById('app'), meEl = document.getElementById('me');
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const MIC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>';
+  const FIELDS = ['nickname', 'hometown', 'platform', 'gamertag', 'offense', 'defense', 'joined_season', 'accolades', 'bio', 'youtube_url', 'x_handle', 'tiktok_handle', 'discord_name', 'rival_login', 'rival_note', 'beef_with', 'beef'];
+  let sb, session = null, prof = null, L = null, member = null, cp = {};
+
+  function signedOut(msg) {
+    meEl.innerHTML = '';
+    app.innerHTML = `<div class="hero"><img src="icon-192.png" alt="" width="84" height="84" style="border-radius:20px"><h1>Blam<span>TV</span> Coach</h1>
+      <p>${esc(msg || 'Fill out your coach profile: nickname, schemes, socials, your rival and your BEEF! Talk or type.')}</p>
+      <button class="btn twitch" id="signin">Sign in with Twitch</button></div>`;
+    document.getElementById('signin').onclick = () => sb.auth.signInWithOAuth({ provider: 'twitch', options: { redirectTo: location.origin + location.pathname } });
+  }
+
+  function form() {
+    const others = L.members.filter((x) => x.twitch.toLowerCase() !== member.twitch.toLowerCase()).sort((a, b) => a.school.localeCompare(b.school));
+    const v = (k) => esc(cp[k] == null ? '' : cp[k]);
+    const mic = (k) => SR ? `<button type="button" class="dict" data-dict="${k}" aria-label="Talk to fill this">${MIC}</button>` : '';
+    const inp = (k, label, extra = '') => `<label>${label}<span class="field"><input name="${k}" value="${v(k)}" ${extra}>${mic(k)}</span></label>`;
+    const area = (k, label, extra = '') => `<label>${label}<span class="field"><textarea name="${k}" ${extra}>${v(k)}</textarea>${mic(k)}</span></label>`;
+    const pick = (k) => `<select name="${k}"><option value="">— nobody —</option>${others.map((x) => `<option value="${esc(x.twitch.toLowerCase())}"${cp[k] === x.twitch.toLowerCase() ? ' selected' : ''}>${esc(x.school)} · ${esc(x.twitch)}</option>`).join('')}</select>`;
+    const conf = (L.conferences || []).find((c) => c.schools.includes(member.school));
+    document.documentElement.style.setProperty('--sc', member.color || '#f3b234');
+    app.innerHTML = `
+      <section class="team"><div class="band"></div><div class="body">
+        <img class="logo" src="${member.logo ? '../' + esc(member.logo) : '../img/btv-seal.svg'}" alt="">
+        <div><h1>${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}</h1><p>Head coach · ${esc(member.school)}${conf ? ` · Tier ${conf.tier} ${esc(conf.name)}` : ''}</p></div></div></section>
+      ${SR ? '<p class="note">Tap 🎤 next to any box and talk. You can always fix the words before saving.</p>' : '<p class="note">Tip: use the mic on your keyboard to talk instead of type.</p>'}
+      <form id="f">
+        <fieldset><legend>The basics</legend>
+          <div class="row">${inp('nickname', 'League nickname', 'maxlength="40" placeholder="e.g. Bojangles"')}${inp('hometown', 'Hometown', 'maxlength="60"')}</div>
+          <div class="row"><label>Platform<select name="platform"><option value="">—</option>${['PS5', 'Xbox', 'PC'].map((x) => `<option${cp.platform === x ? ' selected' : ''}>${x}</option>`).join('')}</select></label>${inp('gamertag', 'Gamertag / PSN', 'maxlength="40"')}</div>
+          <div class="row">${inp('offense', 'Offense', 'maxlength="60" placeholder="e.g. Spread option"')}${inp('defense', 'Defense', 'maxlength="60" placeholder="e.g. 3-3-5 Tite"')}</div>
+          <div class="row"><label>In Blam since season<input name="joined_season" value="${v('joined_season')}" type="number" min="1" max="50" inputmode="numeric"></label>${inp('discord_name', 'Discord name', 'maxlength="40"')}</div>
+          ${inp('accolades', 'Accolades', 'maxlength="400" placeholder="e.g. S2 Tier 3 champ, promoted twice"')}
+          ${area('bio', 'About the coach', 'maxlength="800" placeholder="Your story, your program, your rivals…"')}
+        </fieldset>
+        <fieldset class="rival"><legend>Rivalry</legend>
+          <label>Your rival${pick('rival_login')}</label>
+          ${inp('rival_note', "What it's about", 'maxlength="200" placeholder="e.g. Iron Bowl. Lost 3 straight. Not again."')}
+        </fieldset>
+        <fieldset class="beef"><legend>BEEF!</legend>
+          <label>Who you've got beef with${pick('beef_with')}</label>
+          ${area('beef', 'Say it', 'maxlength="300" placeholder="Keep it football. Keep it league-friendly."')}
+        </fieldset>
+        <fieldset><legend>Socials</legend>
+          ${inp('youtube_url', 'YouTube link', 'inputmode="url" autocapitalize="off" maxlength="200" placeholder="https://youtube.com/@yourchannel"')}
+          <div class="row">${inp('x_handle', 'X handle', 'maxlength="16" autocapitalize="off" placeholder="@handle"')}${inp('tiktok_handle', 'TikTok handle', 'maxlength="25" autocapitalize="off" placeholder="@handle"')}</div>
+        </fieldset>
+        <div class="savebar"><button class="btn primary" type="submit">Save my profile</button><span class="msg" id="msg" aria-live="polite"></span></div>
+      </form>`;
+    const f = document.getElementById('f');
+    f.querySelectorAll('[data-dict]').forEach((b) => (b.onclick = () => dictate(b, f.elements[b.dataset.dict])));
+    f.onsubmit = save;
+  }
+
+  let rec = null;
+  function dictate(btn, el) {
+    if (rec) { rec.stop(); return; }
+    rec = new SR(); rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = el.tagName === 'TEXTAREA';
+    const start = el.value ? el.value.replace(/\s*$/, ' ') : '';
+    btn.classList.add('on');
+    rec.onresult = (e) => {
+      let t = ''; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
+      t = t.trim(); if (!start && t) t = t.charAt(0).toUpperCase() + t.slice(1);
+      if (/handle|gamertag|discord_name/.test(el.name)) t = t.replace(/\s+/g, '').replace(/^at/i, '');
+      el.value = (start + t).slice(0, +(el.getAttribute('maxlength') || 800));
+    };
+    rec.onerror = (e) => { const m = document.getElementById('msg'); m.className = 'msg err'; m.textContent = e.error === 'not-allowed' ? 'Allow the microphone for this site in your browser settings.' : "Didn't catch that. Try again."; };
+    rec.onend = () => { btn.classList.remove('on'); rec = null; };
+    try { rec.start(); } catch (_) { rec = null; btn.classList.remove('on'); }
+  }
+
+  async function save(e) {
+    e.preventDefault();
+    const f = e.target, msg = document.getElementById('msg'), btn = f.querySelector('[type=submit]');
+    const row = { twitch_login: member.twitch.toLowerCase() };
+    for (const k of FIELDS) {
+      let x = (f.elements[k].value || '').trim();
+      if (k === 'x_handle' || k === 'tiktok_handle') x = x.replace(/^@/, '');
+      if (k === 'youtube_url' && x && !/^https?:\/\//i.test(x)) x = 'https://' + x;
+      if (k === 'youtube_url') x = x.replace(/^http:/i, 'https:');
+      row[k] = x === '' ? null : k === 'joined_season' ? parseInt(x, 10) || null : x;
+    }
+    btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Saving…';
+    const { data, error } = await sb.from('coach_profiles').upsert(row, { onConflict: 'twitch_login' }).select().maybeSingle();
+    btn.disabled = false;
+    if (error) {
+      msg.className = 'msg err';
+      msg.textContent = /youtube/.test(error.message) ? 'That YouTube link doesn\'t look right. Use a youtube.com or youtu.be link.'
+        : /no_self/.test(error.message) ? "You can't pick yourself."
+        : /x_handle|tiktok/.test(error.message) ? 'Handles can only use letters, numbers, _ (and . for TikTok).'
+        : /row-level security/.test(error.message) ? 'Only you (or an admin) can edit your profile.' : "Couldn't save. Try again.";
+      return;
+    }
+    cp = data || row; msg.className = 'msg ok'; msg.textContent = 'Saved ✓';
+    const h = app.querySelector('.team h1'); if (h) h.innerHTML = `${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}`;
+  }
+
+  async function boot() {
+    if (!window.supabase) { app.innerHTML = '<div class="hero"><p>Couldn\'t load. Check your connection and reload.</p></div>'; return; }
+    sb = window.supabase.createClient(SUPA.url, SUPA.key, { auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true } });
+    sb.auth.onAuthStateChange((_e, s) => { const was = session; session = s; if (was && !s) signedOut(); });
+    const { data } = await sb.auth.getSession(); session = data.session;
+    if (/[?&]code=/.test(location.search)) history.replaceState(null, '', location.pathname);
+    if (!session) return signedOut();
+    L = await fetch('../data/league.json?t=' + Date.now()).then((r) => r.json());
+    ({ data: prof } = await sb.from('profiles').select('display_name,twitch_login,role,is_admin').eq('id', session.user.id).maybeSingle());
+    meEl.innerHTML = `<b>${esc(prof?.twitch_login || prof?.display_name || 'Signed in')}</b><a href="#" id="signout">Sign out</a>`;
+    document.getElementById('signout').onclick = async (e) => { e.preventDefault(); await sb.auth.signOut(); };
+    member = prof && prof.twitch_login && L.members.find((m) => m.twitch.toLowerCase() === prof.twitch_login);
+    if (!member) {
+      app.innerHTML = `<div class="hero"><h1>Coaches only</h1><p>${esc(prof?.twitch_login || 'This Twitch account')} isn't on the Blam coach list. If you just took over a team, ask an admin to add you, then sign in again.</p>
+        ${prof && prof.is_admin ? '<a class="btn primary" href="../admin/">Open the Admin app</a>' : ''}</div>`;
+      return;
+    }
+    ({ data: cp } = await sb.from('coach_profiles').select('*').eq('twitch_login', member.twitch.toLowerCase()).maybeSingle());
+    cp = cp || {};
+    form();
+    if (prof.is_admin) app.insertAdjacentHTML('beforeend', '<p class="note" style="text-align:center"><a href="../admin/">Open the Admin app →</a></p>');
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
