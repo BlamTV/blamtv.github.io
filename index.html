@@ -287,6 +287,33 @@ a.tm:hover { background: var(--raise) }
 .ab-motto { margin: 30px 0 10px; padding: 26px 20px; border-radius: calc(var(--r) + 6px); background: #0b0c10; color: #fff; text-align: center }
 .ab-motto .n { font: 800 clamp(30px, 6vw, 60px)/.9 var(--display); letter-spacing: -.02em }
 .ab-motto .n span { color: #f3c23a }
+.ch.pro { position: relative }
+.ch.pro .cname { color: var(--fg); position: relative; z-index: 1; display: inline-flex; align-items: baseline; gap: 6px; max-width: 100%; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent); text-underline-offset: 3px; text-decoration-thickness: 2px }
+.ch.pro .cname:hover b { color: var(--accent) }
+.ch.pro .cname b { min-width: 0 }
+.ch.pro .ch-go::after { content: ""; position: absolute; inset: 0; border-radius: inherit }
+.coach-pg .chan .nick { display: block; margin-top: 2px; font: 800 clamp(16px, 2.4vw, 20px)/1.1 var(--display); text-transform: uppercase; color: var(--accent) }
+.coach-pg .chan .acts { display: flex; gap: 8px; flex-wrap: wrap }
+.cp-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: start }
+.cp-card { padding: 18px 20px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line) }
+.cp-card h2 { margin: 0 0 10px; font: 800 18px/1 var(--display); text-transform: uppercase; letter-spacing: .02em }
+.cp-card p { margin: 0 0 10px; line-height: 1.6 }
+.cp-facts { display: grid; gap: 10px; margin: 0 }
+.cp-facts div { display: grid; gap: 2px }
+.cp-facts dt { font: 600 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted) }
+.cp-facts dd { margin: 0; font-weight: 700; overflow-wrap: anywhere }
+.cp-social { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px }
+.cp-empty { color: var(--muted) }
+.cp-claim { margin-top: 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--muted) }
+.cp-form { display: grid; gap: 14px }
+.cp-form .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.cp-form label { display: grid; gap: 6px; font: 600 12px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted) }
+.cp-form input, .cp-form select, .cp-form textarea { font: 15px/1.4 var(--body); text-transform: none; letter-spacing: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); min-width: 0 }
+.cp-form textarea { min-height: 120px; resize: vertical }
+.cp-form .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+.cp-form .msg { font-size: 14px; color: var(--muted) }
+.cp-form .msg.err { color: var(--live) }
+@media (max-width: 720px) { .cp-grid { grid-template-columns: minmax(0, 1fr) } .cp-form .row { grid-template-columns: minmax(0, 1fr) } }
 .chat-hero { margin: 18px 0 14px; padding: 26px 26px 22px; border-radius: calc(var(--r) + 6px); color: #fff; background: radial-gradient(90% 140% at 85% 0%, #4a3a0c 0%, #1a160b 45%, #07080b 100%) }
 .chat-hero .pre { font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: #fff }
 .chat-hero .pre span { background: #f3b234; color: #111; padding: 0 5px 1px; margin-left: 3px; border-radius: 3px }
@@ -657,7 +684,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       .map(c => ({ title: `Tier ${c.tier} · ${c.name}`, list: all.filter(m => confOf(m) === c) })).filter(g => g.list.length);
     const rest = all.filter(m => !confOf(m));
     if (rest.length) groups.push({ title: groups.length ? 'Other' : '', list: rest });
-    const tile = m => `
+    const tile = m => profilesOn() ? `
+        <div class="ch pro${liveOf(m) ? ' on' : ''}" style="${scVars(m)}" data-q="${esc((m.display + ' ' + m.school + ' ' + m.abbr).toLowerCase())}">
+          ${avatar(m, 'md')}<span class="txt"><a class="cname" href="#coach-${slug(m.login)}" title="${esc(m.display)}'s coach profile"><b>${esc(m.display)}</b></a>${liveOf(m) ? '<span class="pill-live">LIVE</span>' : ''}
+          <a class="ch-go" href="#ch-${slug(m.login)}" aria-label="${esc(m.display)} videos"><span>${esc(m.school)}</span>
+          <span class="n">${m.count} video${m.count === 1 ? '' : 's'}</span></a></span></div>` : `
         <a class="ch${liveOf(m) ? ' on' : ''}" href="#ch-${slug(m.login)}" style="${scVars(m)}" data-q="${esc((m.display + ' ' + m.school + ' ' + m.abbr).toLowerCase())}">
           ${avatar(m, 'md')}<span class="txt"><b>${esc(m.display)}${liveOf(m) ? '<span class="pill-live">LIVE</span>' : ''}</b><span>${esc(m.school)}</span>
           <span class="n">${m.count} video${m.count === 1 ? '' : 's'}</span></span></a>`;
@@ -689,7 +720,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <section class="chan" style="${scVars(m)}"><div class="band" data-abbr="${esc(m.abbr)}"></div>
         <div class="body">${avatar(m, 'lg')}<div class="txt"><h1>${esc(m.display)}</h1>
           <p>${esc(m.school)}${confOf(m) ? ' · ' + esc(confOf(m).name) : ''} · Season ${L.season} · ${list.length} video${list.length === 1 ? '' : 's'}${isLive ? ' · <span class="pill-live">LIVE</span>' : ''}</p></div>
-          <a class="btn" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">Open on Twitch ↗</a></div></section>
+          ${profilesOn() ? `<a class="btn primary" href="#coach-${slug(m.login)}">Coach profile</a>` : ''}<a class="btn" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">Open on Twitch ↗</a></div></section>
       ${groups.length ? groups.map(g => `<h2 class="section-h">${esc(g.key)}</h2>${grid(g.items, false)}`).join('')
         : `<div class="empty-state"><b>No saved streams</b>${esc(m.display)} has no past broadcasts on Twitch right now. In Twitch settings, they can turn on <em>Store past broadcasts</em> so games get saved.</div>`}`;
   }
@@ -1130,7 +1161,19 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     lib: 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js' };
   let sb = null, me = null, myProfile = null, chatSub = null, lastSend = 0;
   const profCache = {};
-  const chatPreview = (() => { const q = /[?&]preview=chat\b/.test(location.search); try { if (q) sessionStorage.setItem('btv-preview-chat', '1'); return q || sessionStorage.getItem('btv-preview-chat') === '1'; } catch (e) { return q; } })();
+  // Private previews: ?preview=chat, ?preview=profiles, or ?preview=chat,profiles (sticks for this browser tab)
+  const previews = (() => {
+    const q = ((location.search.match(/[?&]preview=([a-z,]+)/) || [])[1] || '').split(',').filter(Boolean);
+    try {
+      const s = new Set((sessionStorage.getItem('btv-preview') || '').split(',').filter(Boolean));
+      if (sessionStorage.getItem('btv-preview-chat') === '1') s.add('chat');
+      q.forEach((x) => s.add(x)); if (q.length) sessionStorage.setItem('btv-preview', [...s].join(','));
+      return s;
+    } catch (e) { return new Set(q); }
+  })();
+  const chatPreview = previews.has('chat') || previews.has('all');
+  // Coach profiles: built and switched OFF. Turn on with league.json "features": { "profiles": true }.
+  const profilesOn = () => !!(L.features && L.features.profiles) || previews.has('profiles') || previews.has('all');
   const chatOn = () => !!(L.features && L.features.chat) || chatPreview;
   const commentsOn = () => !!(L.features && L.features.comments) || chatPreview;
   const loadScript = (src) => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
@@ -1139,7 +1182,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (!window.supabase) await loadScript(SUPA.lib);
     sb = window.supabase.createClient(SUPA.url, SUPA.key, { auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true } });
     const { data } = await sb.auth.getSession(); me = data.session ? data.session.user : null;
-    sb.auth.onAuthStateChange((_e, session) => { const id = session ? session.user.id : null; if (id !== (me && me.id)) { me = session ? session.user : null; myProfile = null; if (document.querySelector('.chatbox')) render(); } });
+    sb.auth.onAuthStateChange((_e, session) => { const id = session ? session.user.id : null; if (id !== (me && me.id)) { me = session ? session.user : null; myProfile = null; if (document.querySelector('.chatbox, .coach-pg')) render(); } });
     return sb;
   }
   async function loadMyProfile() {
@@ -1201,6 +1244,93 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     app.innerHTML = `<section class="chat-hero"><div class="pre">Blam<span>TV</span></div><h1>Blam Chat</h1><p>The league's own chat room. Coaches get their team badge automatically when they sign in with Twitch.</p></section><div id="chat-main"></div>`;
     mountRoom(document.getElementById('chat-main'), 'league', { title: 'League chat' });
   }
+  // ---- Coach profiles (Supabase table coach_profiles; only that coach or the commish can edit) ----
+  const CP_FIELDS = ['nickname', 'hometown', 'platform', 'gamertag', 'offense', 'defense', 'joined_season', 'accolades', 'bio', 'youtube_url', 'x_handle', 'tiktok_handle', 'discord_name'];
+  let cpState = null;
+  function coachHead(m, cp) {
+    return `<section class="chan" style="${scVars(m)}"><div class="band" data-abbr="${esc(m.abbr)}"></div>
+      <div class="body">${avatar(m, 'lg')}<div class="txt"><h1>${esc(m.display)}</h1>${cp && cp.nickname ? `<span class="nick">“${esc(cp.nickname)}”</span>` : ''}
+        <p>Head coach · ${esc(m.school)}${confOf(m) ? ' · Tier ' + confOf(m).tier + ' ' + esc(confOf(m).name) : ''}${liveOf(m) ? ' · <span class="pill-live">LIVE</span>' : ''}</p></div>
+        <div class="acts"><a class="btn" href="#ch-${slug(m.login)}">${m.count} video${m.count === 1 ? '' : 's'}</a><a class="btn" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">Twitch ↗</a></div></div></section>`;
+  }
+  async function viewCoach(s) {
+    const m = bySlug[s];
+    if (!m) { app.innerHTML = `<div class="empty-state"><b>Coach not found</b>That coach isn't on the Blam League list. <a href="#channels">See all channels</a></div>`; return; }
+    const hash = location.hash;
+    app.innerHTML = `${banner()}<div class="coach-pg">${coachHead(m)}<div id="cp-main"><div class="cp-card cp-empty">Loading profile…</div></div></div>`;
+    let client; try { client = await supa(); } catch (e) { document.getElementById('cp-main').innerHTML = '<div class="cp-card cp-empty">Profiles are offline right now.</div>'; return; }
+    const [res, p] = await Promise.all([client.from('coach_profiles').select('*').eq('twitch_login', m.login).maybeSingle(), loadMyProfile()]);
+    if (location.hash !== hash) return;
+    const canEdit = !!(p && !p.banned && (p.role === 'commish' || (p.role === 'coach' && p.twitch_login === m.login)));
+    cpState = { m, cp: res.data || {}, canEdit, editing: false };
+    const head = app.querySelector('.coach-pg .chan'); if (head && cpState.cp.nickname) head.outerHTML = coachHead(m, cpState.cp);
+    drawCoach();
+  }
+  function drawCoach() {
+    const { m, cp, canEdit, editing } = cpState, pg = app.querySelector('.coach-pg'); if (!pg) return;
+    const has = CP_FIELDS.some((k) => cp[k] != null && cp[k] !== '');
+    const fact = (label, v) => v ? `<div><dt>${label}</dt><dd>${esc(v)}</dd></div>` : '';
+    const social = [
+      cp.youtube_url && `<a class="btn" href="${esc(cp.youtube_url)}" target="_blank" rel="noopener nofollow">YouTube ↗</a>`,
+      cp.x_handle && `<a class="btn" href="https://x.com/${esc(cp.x_handle)}" target="_blank" rel="noopener nofollow">X @${esc(cp.x_handle)} ↗</a>`,
+      cp.tiktok_handle && `<a class="btn" href="https://www.tiktok.com/@${esc(cp.tiktok_handle)}" target="_blank" rel="noopener nofollow">TikTok ↗</a>`,
+      cp.discord_name && `<span class="btn">Discord: ${esc(cp.discord_name)}</span>`].filter(Boolean).join('');
+    const editBar = canEdit ? `<div class="cp-claim"><button type="button" class="btn primary" data-cp="edit">${has ? 'Edit profile' : 'Fill out your profile'}</button>${me && myProfile && myProfile.role === 'commish' && myProfile.twitch_login !== m.login ? '<span>Editing as commissioner</span>' : ''}</div>`
+      : !me ? `<div class="cp-claim"><span>Is this you?</span>${((L.features && L.features.chatProviders) || ['twitch']).filter((x) => x === 'twitch').map(() => '<button type="button" class="btn" data-signin="twitch">Sign in with Twitch to edit</button>').join('')}</div>` : '';
+    let main;
+    if (editing) {
+      const v = (k) => esc(cp[k] == null ? '' : cp[k]);
+      const inp = (k, label, extra = '') => `<label>${label}<input name="${k}" value="${v(k)}" ${extra}></label>`;
+      main = `<form class="cp-card cp-form" id="cp-form"><h2>Edit coach profile</h2>
+        <div class="row">${inp('nickname', 'League nickname', 'maxlength="40" placeholder="e.g. Bojangles"')}${inp('hometown', 'Hometown', 'maxlength="60"')}</div>
+        <div class="row"><label>Platform<select name="platform"><option value="">—</option>${['PS5', 'Xbox', 'PC'].map((x) => `<option${cp.platform === x ? ' selected' : ''}>${x}</option>`).join('')}</select></label>${inp('gamertag', 'Gamertag / PSN', 'maxlength="40"')}</div>
+        <div class="row">${inp('offense', 'Offense', 'maxlength="60" placeholder="e.g. Spread option"')}${inp('defense', 'Defense', 'maxlength="60" placeholder="e.g. 3-3-5 Tite"')}</div>
+        <div class="row">${inp('joined_season', 'In Blam since season', 'type="number" min="1" max="50" inputmode="numeric"')}${inp('discord_name', 'Discord name', 'maxlength="40"')}</div>
+        <label>Accolades<input name="accolades" value="${v('accolades')}" maxlength="400" placeholder="e.g. S2 Tier 3 champ, promoted twice"></label>
+        <label>About the coach<textarea name="bio" maxlength="800" placeholder="Your story, your program, your rivals…">${v('bio')}</textarea></label>
+        <div class="row">${inp('youtube_url', 'YouTube link', 'inputmode="url" autocapitalize="off" maxlength="200" placeholder="https://youtube.com/@yourchannel"')}${inp('x_handle', 'X handle', 'maxlength="16" placeholder="@handle"')}</div>
+        <div class="row">${inp('tiktok_handle', 'TikTok handle', 'maxlength="25" placeholder="@handle"')}<span></span></div>
+        <div class="bar"><button class="btn primary" type="submit">Save profile</button><button class="btn" type="button" data-cp="cancel">Cancel</button><span class="msg" aria-live="polite"></span></div></form>`;
+    } else {
+      const bio = cp.bio ? cp.bio.split(/\n{2,}|\r\n\r\n/).map((x) => `<p>${esc(x).replace(/\n/g, '<br>')}</p>`).join('') : '';
+      const facts = [fact('Hometown', cp.hometown), fact('Platform', [cp.platform, cp.gamertag].filter(Boolean).join(' · ')), fact('Offense', cp.offense), fact('Defense', cp.defense),
+        fact('In Blam since', cp.joined_season ? 'Season ' + cp.joined_season : ''), fact('Accolades', cp.accolades)].join('');
+      main = has ? `<div class="cp-grid"><section class="cp-card"><h2>About the coach</h2>${bio || '<p class="cp-empty">No bio yet.</p>'}${social ? `<div class="cp-social">${social}</div>` : ''}${editBar}</section>
+          <section class="cp-card"><h2>Program</h2>${facts ? `<dl class="cp-facts">${facts}</dl>` : '<p class="cp-empty">Nothing here yet.</p>'}</section></div>`
+        : `<div class="cp-card"><h2>Coach profile</h2><p class="cp-empty">${esc(m.display)} hasn't filled out a profile yet.</p>${editBar}</div>`;
+    }
+    pg.querySelector('#cp-main').innerHTML = main;
+    if (editing) pg.querySelector('#cp-form input')?.focus();
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-cp]'); if (!b || !cpState) return;
+    cpState.editing = b.dataset.cp === 'edit'; drawCoach();
+  });
+  document.addEventListener('submit', async (e) => {
+    const f = e.target.closest('#cp-form'); if (!f || !cpState || !sb) return; e.preventDefault();
+    const msg = f.querySelector('.msg'), btn = f.querySelector('[type=submit]');
+    const row = { twitch_login: cpState.m.login };
+    for (const k of CP_FIELDS) {
+      let x = (f.elements[k].value || '').trim();
+      if (k === 'x_handle' || k === 'tiktok_handle') x = x.replace(/^@/, '');
+      if (k === 'youtube_url' && x && !/^https?:\/\//i.test(x)) x = 'https://' + x;
+      if (k === 'youtube_url') x = x.replace(/^http:/i, 'https:');
+      row[k] = x === '' ? null : k === 'joined_season' ? parseInt(x, 10) || null : x;
+    }
+    btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Saving…';
+    const { data, error } = await sb.from('coach_profiles').upsert(row, { onConflict: 'twitch_login' }).select().maybeSingle();
+    btn.disabled = false;
+    if (error) {
+      msg.className = 'msg err';
+      msg.textContent = /youtube/.test(error.message) ? 'That YouTube link doesn\'t look right. Use a youtube.com or youtu.be link.'
+        : /x_handle|tiktok/.test(error.message) ? 'Handles can only use letters, numbers, _ (and . for TikTok).'
+        : /row-level security/.test(error.message) ? 'Only this coach or the commissioner can edit this profile.' : 'Couldn\'t save. Try again.';
+      return;
+    }
+    cpState.cp = data || row; cpState.editing = false; drawCoach();
+    const head = app.querySelector('.coach-pg .chan'); if (head) head.outerHTML = coachHead(cpState.m, cpState.cp);
+  });
+
   document.addEventListener('click', async (e) => {
     const s = e.target.closest('[data-signin]'); if (s) { e.preventDefault(); signIn(s.dataset.signin); return; }
     if (e.target.closest('[data-signout]')) { e.preventDefault(); if (sb) await sb.auth.signOut(); return; }
@@ -1223,7 +1353,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function render() {
     const h = location.hash.slice(1);
     let m;
-    const isCh = h === 'channels' || h.startsWith('ch-');
+    const isCh = h === 'channels' || h.startsWith('ch-') || h.startsWith('coach-');
     const isHl = h === 'highlights' || /^hl-\d+$/.test(h);
     const isCity = h === 'city' || h.startsWith('city-');
     if (nilStop) { nilStop(); nilStop = null; }
@@ -1248,6 +1378,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if ((m = h.match(/^hl-(\d+)$/))) viewHighlight(h);
     else if (h === 'channels') viewChannels();
     else if ((m = h.match(/^ch-([a-z0-9-]+)$/))) viewChannel(m[1]);
+    else if ((m = h.match(/^coach-([a-z0-9-]+)$/)) && profilesOn()) viewCoach(m[1]);
     else if ((m = h.match(/^v-(\d+)$/))) viewWatch(m[1]);
     else if ((m = h.match(/^both-(v\d+|c[a-z0-9_]+)-(v\d+|c[a-z0-9_]+)$/))) viewBoth(m[1], m[2]);
     else if ((m = h.match(/^week-(\d+)$/))) viewWeek(+m[1]);
