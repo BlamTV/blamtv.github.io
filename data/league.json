@@ -2,7 +2,7 @@
   "name": "Blam League",
   "game": "College Football 27",
   "season": 4,
-  "features": { "chat": false, "comments": false, "chatProviders": ["twitch"] },
+  "features": { "chat": false, "comments": false, "profiles": false, "chatProviders": ["twitch"] },
 
   "weeks": [
     { "season": 4, "week": 0, "start": "2026-10-09T20:00:00-05:00" },
