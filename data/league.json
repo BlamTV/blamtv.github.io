@@ -15,7 +15,9 @@
     { "season": 4, "week": 7, "start": "2026-10-23T20:00:00-05:00" },
     { "season": 4, "week": 8, "start": "2026-10-25T20:00:00-05:00" },
     { "season": 4, "week": 9, "start": "2026-10-27T20:00:00-05:00" },
-    { "season": 4, "week": 10, "start": "2026-10-30T22:00:00-05:00" }
+    { "season": 4, "week": 10, "start": "2026-10-30T22:00:00-05:00" },
+    { "season": 4, "week": 11, "start": "2026-11-01T20:30:00-06:00" },
+    { "season": 4, "week": 12, "start": "2026-11-03T21:00:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -31,6 +33,13 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 11, "games": [
+      ["USC", "Auburn"], ["Utah", "Nebraska"], ["Navy", "Georgia"], ["Ohio State", "Maryland"],
+      ["Rutgers", "Virginia Tech"], ["North Carolina", "Georgia Tech"], ["Pitt", "UCLA"], ["Penn State", "Florida"],
+      ["TCU", "Baylor"], ["Indiana", "Oregon"], ["NC State", "Louisville"], ["Iowa", "Texas Tech"],
+      ["Memphis", "LSU"], ["Stanford", "West Virginia"], ["Arizona State", "Washington"], ["Virginia", "Illinois"],
+      ["Oregon State", "Clemson"], ["Notre Dame", "Florida State"], ["Oklahoma", "Texas A&M"], ["Ole Miss", "Alabama"]
+    ]},
     { "season": 4, "week": 10, "games": [
       ["Clemson", "Penn State"], ["Miami", "Indiana"], ["Georgia", "Florida"], ["Missouri", "Texas"],
       ["Nebraska", "Virginia"], ["Illinois", "Utah"], ["Rutgers", "Stanford"], ["West Virginia", "SMU"],
@@ -54,7 +63,7 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 10, "away": "Alabama", "home": "Florida State", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 11, "away": "Ohio State", "home": "Maryland", "kickoff": "2026-11-02T23:35:00-05:00", "tz": "America/New_York", "tzLabel": "ET" },
 
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
