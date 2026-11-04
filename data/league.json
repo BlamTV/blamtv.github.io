@@ -33,6 +33,13 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 12, "games": [
+      ["UCLA", "Georgia Tech"], ["Pitt", "North Carolina"], ["NC State", "Iowa"], ["Nebraska", "Illinois"],
+      ["Texas", "Indiana"], ["Georgia", "Notre Dame"], ["SMU", "Virginia Tech"], ["Cal", "Stanford"],
+      ["South Carolina", "Oregon"], ["Louisville", "Texas Tech"], ["Utah", "Virginia"], ["Florida", "Clemson"],
+      ["Purdue", "Penn State"], ["Ole Miss", "Florida State"], ["Alabama", "Navy"], ["LSU", "Oklahoma"],
+      ["West Virginia", "Rutgers"], ["Maryland", "USC"], ["Auburn", "Washington"], ["Ohio State", "TCU"]
+    ]},
     { "season": 4, "week": 11, "games": [
       ["USC", "Auburn"], ["Utah", "Nebraska"], ["Navy", "Georgia"], ["Ohio State", "Maryland"],
       ["Rutgers", "Virginia Tech"], ["North Carolina", "Georgia Tech"], ["Pitt", "UCLA"], ["Penn State", "Florida"],
@@ -63,7 +70,7 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 11, "away": "Ohio State", "home": "Maryland", "kickoff": "2026-11-02T23:35:00-05:00", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 12, "away": "Ohio State", "home": "TCU", "kickoff": "2026-11-04T11:25:00-05:00", "tz": "America/New_York", "tzLabel": "ET" },
 
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
