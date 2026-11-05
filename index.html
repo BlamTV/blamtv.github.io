@@ -455,6 +455,25 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-next small { display: block; font: 800 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent) }
 .mg-next b { display: block; margin-top: 8px; font: 800 clamp(20px, 3vw, 26px)/1.05 var(--display); text-transform: uppercase }
 .mg-next span { display: block; margin-top: 6px; color: var(--muted); font-size: 15px }
+.mg-poll { margin: 22px 0; padding: 18px; border-radius: calc(var(--r) + 4px); background: linear-gradient(160deg, #14100a, #1d2430); color: #fff; border: 1px solid #f3b23466 }
+.mg-poll-h small { display: block; font: 800 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: #f3c23a }
+.mg-poll-h b { display: block; margin: 8px 0 14px; font: 800 clamp(22px, 3.4vw, 30px)/1.05 var(--display); text-transform: uppercase }
+.mg-poll-o { display: grid; gap: 8px }
+.mg-poll-o button { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: var(--r); border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); color: #fff; font: inherit; text-align: left; cursor: pointer }
+.mg-poll-o button:hover { border-color: #f3b234 }
+.mg-poll-o .bar { position: absolute; inset: 0; z-index: -1 }
+.mg-poll-o .bar i { display: block; height: 100%; width: 0; background: rgba(243,178,52,.22); transition: width .5s ease }
+.mg-poll-o .mine .bar i { background: rgba(243,178,52,.42) }
+.mg-poll-o .mine { border-color: #f3b234; box-shadow: inset 0 0 0 1px #f3b234 }
+.mg-poll-o .no { flex: 0 0 auto; width: 22px; font: 800 18px/1 var(--display); font-style: normal; color: #f3c23a }
+.mg-poll-o .av { flex: 0 0 auto }
+.mg-poll-o .nm { flex: 1; min-width: 0 }
+.mg-poll-o .nm b { display: block; font: 800 16px/1.15 var(--display); text-transform: uppercase }
+.mg-poll-o .nm small { display: block; margin-top: 3px; font-size: 13px; color: #c9d1db }
+.mg-poll-o .pct { flex: 0 0 auto; font: 800 20px/1 var(--display); font-style: normal }
+.mg-poll-o .mine .pct::before { content: "✓ "; color: #f3c23a }
+.mg-poll.busy { opacity: .7; pointer-events: none }
+.mg-poll-f { margin: 12px 0 0 !important; font-size: 13px !important; color: #c9d1db }
 @media (max-width: 560px) { .mg-pl { padding: 16px 14px } .mg-pl .av { width: 56px; height: 56px } .mg-rk { font-size: 32px } }
 .mg-sign { margin: 30px 0 10px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; font: 800 14px/1.3 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--accent) }
 .mg-tbl { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
@@ -1153,6 +1172,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       if (b.stats) return `${b.title ? `<div class="mg-st-h">${esc(b.title)}</div>` : ''}<div class="mg-st">${b.stats.map(([k, v, hot]) => `<div${hot ? ' class="hot"' : ''}><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('')}</div>`;
       if (b.next) return `<div class="mg-next"><small>${esc(b.label || 'Next up')}</small><b>${esc(b.next)}</b>${b.p ? `<span>${esc(b.p)}</span>` : ''}</div>`;
       if (b.sign) return `<div class="mg-sign">${esc(b.sign)}</div>`;
+      if (b.poll) return `<div class="mg-poll" data-poll="${esc(b.poll)}"><div class="mg-poll-h"><small>${esc(b.label || 'Poll')}</small><b>${esc(b.q)}</b></div><div class="mg-poll-o">${b.options.map(([oid, name, school], n) => { const m = teamOf(school); return `<button type="button" data-opt="${esc(oid)}" aria-pressed="false"><span class="bar"><i></i></span><em class="no">${n + 1}</em>${m ? avatar(m) : ''}<span class="nm"><b>${esc(name)}</b><small>${esc(school || '')}</small></span><em class="pct"></em></button>`; }).join('')}</div><p class="mg-poll-f">Loading votes…</p></div>`;
       if (b.table) {
         const T = b.table;
         return `<div class="mg-tbl"><table><thead><tr>${T.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${T.rows.map(r => `<tr>${r.map((c, i) => {
@@ -1178,6 +1198,46 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         ${(a.blocks || []).map(block).join('\n')}
       </article>
       ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}">${x.cover ? `<img src="${esc(x.cover)}" alt="" loading="lazy">` : ''}<small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}</a>`).join('')}</div>` : ''}`;
+    app.querySelectorAll('.mg-poll').forEach(initPoll);
+  }
+  // Magazine polls: anonymous, one vote per browser (random id in localStorage), changeable.
+  // Supabase: poll_options (poll_id, option_id, label) + rpc cast_vote / poll_results; raw votes are not readable.
+  function pollVoter() {
+    try { let v = localStorage.getItem('btv-voter'); if (!v) { v = crypto.randomUUID(); localStorage.setItem('btv-voter', v); } return v; }
+    catch (e) { return window.btvVoter || (window.btvVoter = crypto.randomUUID()); }
+  }
+  function pollMine(id, val) {
+    try { if (val !== undefined) localStorage.setItem('btv-poll-' + id, val); return localStorage.getItem('btv-poll-' + id); }
+    catch (e) { if (val !== undefined) (window.btvPolls = window.btvPolls || {})[id] = val; return (window.btvPolls || {})[id] || null; }
+  }
+  async function initPoll(el) {
+    const id = el.dataset.poll, foot = el.querySelector('.mg-poll-f');
+    const paint = rows => {
+      const tot = rows.reduce((s, r) => s + Number(r.votes), 0), mine = pollMine(id);
+      el.classList.toggle('voted', !!mine);
+      for (const r of rows) {
+        const btn = el.querySelector(`[data-opt="${r.option_id}"]`); if (!btn) continue;
+        const pc = tot ? Math.round(Number(r.votes) * 100 / tot) : 0;
+        btn.querySelector('.bar i').style.width = mine ? pc + '%' : '0';
+        btn.querySelector('.pct').textContent = mine ? pc + '%' : '';
+        btn.classList.toggle('mine', r.option_id === mine); btn.setAttribute('aria-pressed', r.option_id === mine);
+      }
+      foot.textContent = mine ? `${tot} vote${tot === 1 ? '' : 's'} · tap another player to change your vote` : `${tot} vote${tot === 1 ? '' : 's'} so far · tap a player to vote and see the results`;
+    };
+    try {
+      const c = await supa();
+      const { data, error } = await c.rpc('poll_results', { p_poll: id });
+      if (error) throw error;
+      paint(data || []);
+      el.querySelectorAll('button[data-opt]').forEach(btn => btn.onclick = async () => {
+        if (el.classList.contains('busy')) return;
+        el.classList.add('busy');
+        const r = await c.rpc('cast_vote', { p_poll: id, p_option: btn.dataset.opt, p_voter: pollVoter() });
+        el.classList.remove('busy');
+        if (r.error) { foot.textContent = "Your vote didn't go through. Try again."; return; }
+        pollMine(id, btn.dataset.opt); paint(r.data || []);
+      });
+    } catch (e) { foot.textContent = 'The poll is offline right now. Check back soon.'; }
   }
 
   // About: the league's mission statement (commissioner's words, verbatim)
