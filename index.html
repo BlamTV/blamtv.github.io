@@ -398,6 +398,62 @@ footer .wrap { padding-block: 24px 28px; display: flex; gap: 16px 32px; flex-wra
 footer .slogan { width: 200px; max-width: 100%; height: auto; filter: var(--logo-filter) }
 footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+/* BLAM Magazine */
+.mg-mast { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); margin: 18px 0 8px; padding: 22px 28px 26px; color: #fff; text-align: center;
+  background: radial-gradient(120% 160% at 50% -20%, #4a3a0c 0%, #17130a 50%, #07080b 100%); border-top: 6px solid #f3b234 }
+.mg-mast::after { content: ""; position: absolute; inset: auto 0 0 0; height: 6px; background: repeating-linear-gradient(90deg, #f3b234 0 2px, transparent 2px 18px); opacity: .55 }
+.mg-top { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(243,178,52,.35); font: 800 11px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: #f3c23a }
+.mg-mast h1 { margin: 16px 0 0; font: 800 clamp(40px, 9vw, 104px)/.88 var(--display); letter-spacing: -.035em; text-transform: uppercase; text-shadow: 0 4px 0 #6a4a00, 0 10px 30px rgba(0,0,0,.5) }
+.mg-mast h1 span { color: #f3c23a }
+.mg-tag { margin-top: 12px; font: 700 clamp(12px, 1.8vw, 15px)/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: #ddd3b6 }
+.mg-art { margin: 26px auto 0 }
+.mg-kick { font: 800 12px/1.2 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent) }
+.mg-title { margin: 10px 0 0; font: 800 clamp(30px, 5.4vw, 56px)/.95 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance }
+.mg-dek { margin: 14px 0 0 !important; font-size: 20px !important; line-height: 1.45 !important; color: var(--muted) }
+.mg-by { margin: 14px 0 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted) }
+.mg-by b { color: var(--fg) }
+.mg-h { margin: 38px 0 14px; padding-top: 16px; border-top: 3px solid var(--fg); font: 800 clamp(22px, 3.2vw, 30px)/1.05 var(--display); text-transform: uppercase; text-wrap: balance }
+.mg-h3 { margin: 26px 0 10px; font: 800 18px/1.15 var(--display); text-transform: uppercase; color: var(--accent) }
+.mg-ic { margin-right: 10px }
+.mg-item { margin: 0 0 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
+.mg-item h4 { margin: 0 0 6px; font: 800 16px/1.2 var(--display); text-transform: uppercase }
+.mg-item p { margin: 0 !important; font-size: 16px !important }
+.mg-box { margin: 18px 0; padding: 16px 18px; border-radius: var(--r); background: var(--raise); border-left: 5px solid var(--accent) }
+.mg-box b { font: 800 13px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--accent) }
+.mg-box p { margin: 8px 0 0 !important }
+.mg-note { font-size: 14px !important; color: var(--muted); font-style: italic }
+.mg-sign { margin: 30px 0 10px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; font: 800 14px/1.3 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--accent) }
+.mg-tbl { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
+.mg-tbl table { width: 100%; border-collapse: collapse; font-size: 15px }
+.mg-tbl th { text-align: left; padding: 10px 12px; font: 800 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line) }
+.mg-tbl td { padding: 8px 12px; border-bottom: 1px solid var(--line); white-space: nowrap }
+.mg-tbl tr:last-child td { border-bottom: 0 }
+.mg-meter { display: flex; align-items: center; gap: 10px; min-width: 150px }
+.mg-meter span { flex: 1; height: 8px; border-radius: 99px; background: var(--raise); overflow: hidden }
+.mg-meter i { display: block; height: 100% }
+.mg-meter b { font-variant-numeric: tabular-nums; min-width: 3ch; text-align: right }
+.mg-meter.hot i { background: var(--live) } .mg-meter.hot b { color: var(--live) }
+.mg-meter.warm i { background: var(--accent) }
+.mg-meter.ok i { background: var(--muted) }
+.mg-team { display: inline-flex; align-items: center; gap: 8px; min-width: 0 }
+.mg-team .av { width: 26px; height: 26px; flex: none; font-size: 9px }
+.mg-bk { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; margin: 10px 0 20px }
+.mg-bk-h { font: 800 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px }
+.mg-game { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); margin-bottom: 8px; overflow: hidden }
+.mg-vs { font: 800 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 0 12px 0 46px }
+.mg-seed { display: flex; align-items: center; gap: 10px; padding: 8px 12px }
+.mg-seed em { font: 800 15px/1 var(--display); font-style: normal; color: var(--accent); min-width: 24px; text-align: right }
+.mg-seed .mg-team { flex: 1 }
+.mg-seed small { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 14px }
+.mg-byes { border: 1px solid var(--accent); border-radius: var(--r); background: var(--surface); overflow: hidden }
+.mg-byes .mg-seed + .mg-seed { border-top: 1px solid var(--line) }
+.mg-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px }
+.mg-card { display: grid; gap: 6px; padding: 16px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
+.mg-card:hover { border-color: var(--accent) }
+.mg-card small { font: 800 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent) }
+.mg-card b { font: 800 19px/1.1 var(--display); text-transform: uppercase }
+.mg-card span { color: var(--muted); font-size: 14px }
+@media (max-width: 700px) { .mg-bk { grid-template-columns: 1fr } .mg-top span:last-child { display: none } .mg-top { justify-content: center } }
 </style>
 </head>
 <body>
@@ -433,6 +489,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#highlights" id="nav-hl">Highlights</a>
       <a href="#city" id="nav-city">BlamCity</a>
       <a href="#chat" id="nav-chat" hidden>Chat</a>
+      <a href="#mag" id="nav-mag">Magazine</a>
       <a href="#about" id="nav-about">About</a>
     </nav>
   </div>
@@ -1019,6 +1076,58 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         return `<a class="mini" href="#${inCity ? 'city' : 'live'}-${esc(mm.login)}"><div class="thumb"><div class="city-off">${esc(mm.abbr || 'BTV')}</div><img class="city-img" src="${cityThumb(mm.login, 320, 180)}" alt="" loading="lazy" onerror="this.remove()"><span class="tag lv">● Live</span></div><div><h3>${esc(x.title)}</h3><p>${esc(mm.display)}</p></div></a>`; }).join('') || '<p class="meta">Nobody else is out right now.</p>'}</div></aside></div>`;
   }
 
+  // BLAM Magazine: league news issues from data/magazine.json (#mag = newest issue, #mag-<id> = one issue)
+  let MAG = null;
+  async function viewMagazine(id) {
+    const want = location.hash;
+    if (!MAG) {
+      app.innerHTML = `<div class="empty-state">Loading BLAM Magazine…</div>`;
+      try { MAG = await getJSON('data/magazine.json'); } catch (e) { MAG = { issues: [] }; }
+      if (location.hash !== want) return;
+    }
+    const issues = [...(MAG.issues || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    const head = `<section class="mg-mast"><div class="mg-top"><span>BLAM TV</span><span>League news &amp; storylines</span></div>
+      <h1>BLAM <span>Magazine</span></h1>
+      <div class="mg-tag">Your League. Your Games. Your Stories.</div></section>`;
+    if (!issues.length) { app.innerHTML = head + `<div class="empty-state"><b>First issue coming soon</b>Check back for league news.</div>`; return; }
+    const a = issues.find(x => x.id === id) || issues[0];
+    const team = name => { const m = teamOf(name); return m ? `<span class="mg-team">${avatar(m)}<b>${esc(name)}</b></span>` : `<span class="mg-team"><b>${esc(name)}</b></span>`; };
+    const icon = b => b.icon ? `<span class="mg-ic" aria-hidden="true">${esc(b.icon)}</span>` : '';
+    const block = b => {
+      if (b.h) return `<h2 class="mg-h">${icon(b)}${esc(b.h)}</h2>`;
+      if (b.h3) return `<h3 class="mg-h3">${icon(b)}${esc(b.h3)}</h3>`;
+      if (b.pull) return `<div class="ab-pull">${esc(b.pull)} <span>${esc(b.pull2 || '')}</span></div>`;
+      if (b.item) return `<div class="mg-item"><h4>${esc(b.item)}</h4><p>${esc(b.p)}</p></div>`;
+      if (b.box) return `<div class="mg-box"><b>${esc(b.box)}</b><p>${esc(b.p)}</p></div>`;
+      if (b.note) return `<p class="mg-note">Note: ${esc(b.note)}</p>`;
+      if (b.sign) return `<div class="mg-sign">${esc(b.sign)}</div>`;
+      if (b.table) {
+        const T = b.table;
+        return `<div class="mg-tbl"><table><thead><tr>${T.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${T.rows.map(r => `<tr>${r.map((c, i) => {
+          if (i === T.meter) { const n = parseFloat(c) || 0; const lv = n < 30 ? 'hot' : n < 40 ? 'warm' : 'ok'; return `<td class="mg-meter ${lv}"><span><i style="width:${Math.min(100, n)}%"></i></span><b>${esc(c)}</b></td>`; }
+          return i === 1 ? `<td>${team(c)}</td>` : `<td>${esc(c)}</td>`;
+        }).join('')}</tr>`).join('')}</tbody></table></div>`;
+      }
+      if (b.bracket) {
+        const B = b.bracket;
+        const seed = s => `<div class="mg-seed"><em>${esc(s[0])}</em>${team(s[1])}<small>${esc(s[2])}</small></div>`;
+        return `<div class="mg-bk"><div><div class="mg-bk-h">First round</div>${B.games.map(g => `<div class="mg-game">${seed(g[0])}<div class="mg-vs">vs</div>${seed(g[1])}</div>`).join('')}</div>
+          <div><div class="mg-bk-h">First-round byes</div><div class="mg-byes">${B.byes.map(seed).join('')}</div></div></div>`;
+      }
+      return `<p${b.lead ? ' class="lead"' : ''}>${esc(b.p)}</p>`;
+    };
+    const when = a.date ? new Date(a.date).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+    const others = issues.filter(x => x !== a);
+    app.innerHTML = head + `<article class="ab mg-art">
+        <div class="mg-kick">${esc([a.edition, a.kicker, a.season].filter(Boolean).join(' · '))}</div>
+        <h1 class="mg-title">${esc(a.title)}</h1>
+        ${a.dek ? `<p class="mg-dek">${esc(a.dek)}</p>` : ''}
+        <div class="mg-by">${a.author ? `By <b>${esc(a.author)}</b>` : ''}${a.author && when ? ' · ' : ''}${esc(when)}</div>
+        ${(a.blocks || []).map(block).join('\n')}
+      </article>
+      ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}"><small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}</a>`).join('')}</div>` : ''}`;
+  }
+
   // About: the league's mission statement (commissioner's words, verbatim)
   function viewAbout() {
     const tiers = [...(L.conferences || [])].sort((a, b) => a.tier - b.tier);
@@ -1393,10 +1502,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
     if (chatSub && sb) { sb.removeChannel(chatSub); chatSub = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat');
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat' && h !== 'mag' && !h.startsWith('mag-'));
     document.getElementById('nav-chat').toggleAttribute('aria-current', h === 'chat');
     document.getElementById('nav-city').toggleAttribute('aria-current', isCity);
     document.getElementById('nav-about').toggleAttribute('aria-current', h === 'about');
+    document.getElementById('nav-mag').toggleAttribute('aria-current', h === 'mag' || h.startsWith('mag-'));
     document.getElementById('nav-nil').toggleAttribute('aria-current', h === 'nil');
     document.getElementById('nav-hl').toggleAttribute('aria-current', isHl);
     document.getElementById('nav-channels').toggleAttribute('aria-current', isCh);
@@ -1405,6 +1515,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (h === 'highlights') viewHighlights();
     else if (h === 'city') viewCity();
     else if (h === 'about') viewAbout();
+    else if (h === 'mag') viewMagazine();
+    else if ((m = h.match(/^mag-([a-z0-9-]+)$/))) viewMagazine(m[1]);
     else if (h === 'chat' && chatOn()) viewChat();
     else if ((m = h.match(/^city-([a-z0-9_]+)$/))) viewCityStream(m[1]);
     else if ((m = h.match(/^live-([a-z0-9_]+)$/))) viewCityStream(m[1], false);
