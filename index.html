@@ -407,6 +407,9 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-mast h1 span { color: #f3c23a }
 .mg-tag { margin-top: 12px; font: 700 clamp(12px, 1.8vw, 15px)/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase; color: #ddd3b6 }
 .mg-art { margin: 26px auto 0 }
+.mg-cover { display: block; margin: 14px 0 0; border-radius: calc(var(--r) + 4px); overflow: hidden; border: 1px solid var(--line); background: #07080b }
+.mg-cover img { display: block; width: 100%; height: auto }
+.mg-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px }
 .mg-kick { font: 800 12px/1.2 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent) }
 .mg-title { margin: 10px 0 0; font: 800 clamp(30px, 5.4vw, 56px)/.95 var(--display); letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance }
 .mg-dek { margin: 14px 0 0 !important; font-size: 20px !important; line-height: 1.45 !important; color: var(--muted) }
@@ -1118,14 +1121,14 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     };
     const when = a.date ? new Date(a.date).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' }) : '';
     const others = issues.filter(x => x !== a);
-    app.innerHTML = head + `<article class="ab mg-art">
+    app.innerHTML = head + `${a.cover ? `<a class="mg-cover" href="${esc(a.cover)}" target="_blank" rel="noopener"><img src="${esc(a.cover)}" alt="${esc(a.coverAlt || a.title)}"></a>` : ''}<article class="ab mg-art">
         <div class="mg-kick">${esc([a.edition, a.kicker, a.season].filter(Boolean).join(' · '))}</div>
         <h1 class="mg-title">${esc(a.title)}</h1>
         ${a.dek ? `<p class="mg-dek">${esc(a.dek)}</p>` : ''}
         <div class="mg-by">${a.author ? `By <b>${esc(a.author)}</b>` : ''}${a.author && when ? ' · ' : ''}${esc(when)}</div>
         ${(a.blocks || []).map(block).join('\n')}
       </article>
-      ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}"><small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}</a>`).join('')}</div>` : ''}`;
+      ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}">${x.cover ? `<img src="${esc(x.cover)}" alt="" loading="lazy">` : ''}<small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}</a>`).join('')}</div>` : ''}`;
   }
 
   // About: the league's mission statement (commissioner's words, verbatim)
