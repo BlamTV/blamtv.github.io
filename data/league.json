@@ -17,7 +17,8 @@
     { "season": 4, "week": 9, "start": "2026-10-27T20:00:00-05:00" },
     { "season": 4, "week": 10, "start": "2026-10-30T22:00:00-05:00" },
     { "season": 4, "week": 11, "start": "2026-11-01T20:30:00-06:00" },
-    { "season": 4, "week": 12, "start": "2026-11-03T21:00:00-06:00" }
+    { "season": 4, "week": 12, "start": "2026-11-03T21:00:00-06:00" },
+    { "season": 4, "week": 13, "start": "2026-11-04T22:40:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -33,6 +34,14 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 13, "games": [
+      ["Ole Miss", "Mississippi State"], ["Iowa", "Nebraska"], ["Northwestern", "Illinois"], ["Ohio State", "Michigan"],
+      ["Georgia", "Georgia Tech"], ["Navy", "LSU"], ["NC State", "North Carolina"], ["Oregon", "Texas"],
+      ["Oklahoma", "Memphis"], ["Maryland", "TCU"], ["Texas Tech", "Pitt"], ["Washington", "Baylor"],
+      ["Louisville", "Kentucky"], ["Florida State", "Florida"], ["Alabama", "Auburn"], ["Clemson", "South Carolina"],
+      ["West Virginia", "Utah"], ["Notre Dame", "Stanford"], ["UCLA", "USC"], ["Purdue", "Indiana"],
+      ["Penn State", "Oregon State"]
+    ]},
     { "season": 4, "week": 12, "games": [
       ["UCLA", "Georgia Tech"], ["Pitt", "North Carolina"], ["NC State", "Iowa"], ["Nebraska", "Illinois"],
       ["Texas", "Indiana"], ["Georgia", "Notre Dame"], ["SMU", "Virginia Tech"], ["Cal", "Stanford"],
@@ -71,7 +80,34 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 12, "away": "Ohio State", "home": "TCU", "kickoff": "2026-11-04T11:25:00-05:00", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 13, "away": "Maryland", "home": "TCU", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
+
+  "rivalries": [
+    { "teams": ["Alabama", "Auburn"], "name": "Iron Bowl" },
+    { "teams": ["Florida State", "Florida"], "name": "Sunshine Showdown" },
+    { "teams": ["Clemson", "South Carolina"], "name": "Palmetto Bowl" },
+    { "teams": ["UCLA", "USC"], "name": "Victory Bell" },
+    { "teams": ["Iowa", "Nebraska"], "name": "Heroes Game" },
+    { "teams": ["Ohio State", "Michigan"], "name": "The Game" },
+    { "teams": ["Ole Miss", "Mississippi State"], "name": "Egg Bowl" },
+    { "teams": ["Georgia", "Georgia Tech"], "name": "Clean, Old-Fashioned Hate" },
+    { "teams": ["Illinois", "Northwestern"], "name": "Land of Lincoln Trophy" },
+    { "teams": ["North Carolina", "NC State"], "name": "In-state rivalry" },
+    { "teams": ["Louisville", "Kentucky"], "name": "Governor's Cup" },
+    { "teams": ["Notre Dame", "Stanford"], "name": "Legends Trophy" },
+    { "teams": ["Indiana", "Purdue"], "name": "Old Oaken Bucket" },
+    { "teams": ["Texas", "Oklahoma"], "name": "Red River Rivalry" },
+    { "teams": ["Notre Dame", "USC"], "name": "Jeweled Shillelagh" },
+    { "teams": ["Pitt", "West Virginia"], "name": "Backyard Brawl" },
+    { "teams": ["Florida", "Georgia"], "name": "Florida–Georgia" },
+    { "teams": ["Auburn", "Georgia"], "name": "Deep South's Oldest Rivalry" },
+    { "teams": ["LSU", "Ole Miss"], "name": "Magnolia Bowl" },
+    { "teams": ["Stanford", "Cal"], "name": "Big Game" },
+    { "teams": ["Washington", "Washington State"], "name": "Apple Cup" },
+    { "teams": ["Utah", "BYU"], "name": "Holy War" },
+    { "teams": ["Iowa", "Iowa State"], "name": "Cy-Hawk Trophy" },
+    { "teams": ["Virginia Tech", "Virginia"], "name": "Commonwealth Clash" }
+  ],
 
   "recruits": [
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
