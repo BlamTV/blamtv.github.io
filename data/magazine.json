@@ -3,7 +3,7 @@
     {
       "id": "heisman-watch",
       "edition": "Issue 2",
-      "kicker": "Heisman Watch · Part 1",
+      "kicker": "Heisman Watch Special Report",
       "title": "The Race for the Heisman",
       "dek": "Four stars. Three schools. One trophy. Who deserves college football's highest honor?",
       "author": "BLAM News",
@@ -142,12 +142,419 @@
           "pull2": "the challengers?"
         },
         {
-          "next": "🚀 No. 2 — Danny Podlesny, Ole Miss",
-          "label": "Coming in Part 2",
-          "p": "The Touchdown Machine. Plus the second Ole Miss receiver and Georgia's running back."
+          "h": "The Touchdown Machine",
+          "icon": "🚀"
         },
         {
-          "sign": "BLAM TV — Your League. Your Games. Your Stories."
+          "player": {
+            "rank": "#2",
+            "tag": "Heisman Watch No. 2",
+            "name": "Danny Podlesny",
+            "school": "Ole Miss",
+            "pos": "Wide Receiver",
+            "cls": "Sophomore",
+            "ovr": "87",
+            "coach": "Shuffl3 Man"
+          }
+        },
+        {
+          "stats": [
+            [
+              "Receptions",
+              "68"
+            ],
+            [
+              "Receiving yards",
+              "1,802",
+              true
+            ],
+            [
+              "Receiving TDs",
+              "22",
+              true
+            ],
+            [
+              "Longest reception",
+              "86 yds"
+            ],
+            [
+              "Drops",
+              "2"
+            ]
+          ],
+          "title": "2029 season statistics"
+        },
+        {
+          "pull": "Twenty-two receiving touchdowns.",
+          "pull2": "Read that again. TWENTY-TWO."
+        },
+        {
+          "p": "Ole Miss sophomore Danny Podlesny has been terrorizing opposing secondaries throughout the 2029 season."
+        },
+        {
+          "p": "With 1,802 receiving yards on just 68 catches, Podlesny is averaging an incredible 26.5 yards per reception."
+        },
+        {
+          "p": "That's not simply moving the chains. That's turning routine passing plays into nightmares for defensive coordinators."
+        },
+        {
+          "p": "Every time Podlesny touches the football, there's a legitimate possibility that he's taking it to the house. And with 22 receiving touchdowns, he has established himself as one of the most dangerous scoring threats in the league."
+        },
+        {
+          "h3": "Last game: Florida State 24, Ole Miss 23",
+          "icon": "🏈"
+        },
+        {
+          "stats": [
+            [
+              "Receptions",
+              "5"
+            ],
+            [
+              "Receiving yards",
+              "85"
+            ],
+            [
+              "Receiving TD",
+              "1"
+            ]
+          ]
+        },
+        {
+          "p": "Despite the narrow defeat, Podlesny remains second in the Heisman Watch."
+        },
+        {
+          "p": "But there's another interesting storyline developing in Oxford. He's not the only Ole Miss receiver competing for the trophy."
+        },
+        {
+          "box": "🎙️ BLAM News take",
+          "p": "Podlesny might be the most explosive offensive player in the field. His touchdown production is difficult to ignore, and if the award were decided strictly by scoring impact, he'd have a powerful argument."
+        },
+        {
+          "h": "The Bulldog Workhorse",
+          "icon": "🐶"
+        },
+        {
+          "player": {
+            "rank": "#3",
+            "tag": "Heisman Watch No. 3",
+            "name": "Jerrick Gibson",
+            "school": "Georgia",
+            "pos": "Halfback",
+            "cls": "Redshirt Senior",
+            "ovr": "94",
+            "coach": "Tmac17225"
+          }
+        },
+        {
+          "stats": [
+            [
+              "Rushing attempts",
+              "171"
+            ],
+            [
+              "Rushing yards",
+              "1,535",
+              true
+            ],
+            [
+              "Rushing TDs",
+              "16"
+            ],
+            [
+              "Receptions",
+              "33"
+            ],
+            [
+              "Receiving yards",
+              "333"
+            ],
+            [
+              "Scrimmage yards",
+              "1,868",
+              true
+            ]
+          ],
+          "title": "2029 season statistics"
+        },
+        {
+          "p": "Georgia's Jerrick Gibson has been putting in WORK."
+        },
+        {
+          "p": "While the quarterbacks and wide receivers dominate much of the Heisman conversation, Gibson has built his candidacy through consistent production on the ground."
+        },
+        {
+          "p": "The Bulldogs' senior running back has rushed for 1,535 yards and 16 touchdowns while averaging approximately 9.0 yards per carry. That's an incredible level of efficiency for a player with 171 rushing attempts."
+        },
+        {
+          "p": "But Gibson isn't limited to running between the tackles. His 33 receptions and 333 receiving yards bring his total production to 1,868 yards from scrimmage."
+        },
+        {
+          "p": "And at 94 overall, Gibson is the highest-rated player among the four current Heisman candidates."
+        },
+        {
+          "h3": "Last game: Georgia 35, Notre Dame 13",
+          "icon": "🏈"
+        },
+        {
+          "stats": [
+            [
+              "Rushing yards",
+              "86"
+            ],
+            [
+              "Receiving yards",
+              "49"
+            ]
+          ]
+        },
+        {
+          "p": "While he didn't deliver his most explosive performance, his contributions helped the Bulldogs secure another victory."
+        },
+        {
+          "box": "🎙️ BLAM News take",
+          "p": "Gibson has a legitimate argument as the most complete traditional running back in the race. His combination of rushing efficiency, receiving ability, and touchdown production makes him a serious contender."
+        },
+        {
+          "pull": "Don't count out",
+          "pull2": "the Bulldogs' workhorse."
+        },
+        {
+          "h": "The Other Nightmare in Oxford",
+          "icon": "🔥"
+        },
+        {
+          "player": {
+            "rank": "#4",
+            "tag": "Heisman Watch No. 4",
+            "name": "Caleb Cunningham",
+            "school": "Ole Miss",
+            "pos": "Wide Receiver",
+            "cls": "Senior",
+            "ovr": "91",
+            "coach": "Shuffl3 Man"
+          }
+        },
+        {
+          "stats": [
+            [
+              "Receptions",
+              "70"
+            ],
+            [
+              "Receiving yards",
+              "1,637",
+              true
+            ],
+            [
+              "Receiving TDs",
+              "14"
+            ],
+            [
+              "Longest reception",
+              "82 yds"
+            ],
+            [
+              "Drops",
+              "3"
+            ]
+          ],
+          "title": "2029 season statistics"
+        },
+        {
+          "p": "Imagine being a defensive coordinator preparing to face Ole Miss. You spend the entire week developing a game plan to contain Danny Podlesny."
+        },
+        {
+          "p": "And then you remember Caleb Cunningham is lining up on the opposite side. Good luck with that."
+        },
+        {
+          "p": "Cunningham has assembled an outstanding senior campaign, recording 70 receptions for 1,637 yards and 14 touchdowns. He's averaging approximately 23.4 yards per reception, making him another dangerous deep-ball threat in the Rebels' offense."
+        },
+        {
+          "p": "And while his teammate Podlesny currently sits ahead of him in the Heisman standings, Cunningham has an argument of his own. With a 91 overall rating, he brings elite talent and consistent production to an Ole Miss offense featuring two of the nation's most dangerous receivers."
+        },
+        {
+          "h3": "Last game vs. Florida State",
+          "icon": "🏈"
+        },
+        {
+          "stats": [
+            [
+              "Receptions",
+              "5"
+            ],
+            [
+              "Receiving yards",
+              "74"
+            ]
+          ]
+        },
+        {
+          "box": "🎙️ BLAM News take",
+          "p": "Cunningham might be overshadowed by his own teammate, but his numbers would make him a headline attraction at almost any other program. The biggest question might be whether having two Heisman candidates helps Ole Miss or divides the spotlight between them."
+        },
+        {
+          "h": "By the Numbers: The Heisman Showdown",
+          "icon": "📊"
+        },
+        {
+          "table": {
+            "cols": [
+              "Candidate",
+              "School",
+              "Pos",
+              "Signature production"
+            ],
+            "rows": [
+              [
+                "Hauss Hejny",
+                "West Virginia",
+                "QB",
+                "3,679 pass + rush yards"
+              ],
+              [
+                "Danny Podlesny",
+                "Ole Miss",
+                "WR",
+                "1,802 receiving yards, 22 TD"
+              ],
+              [
+                "Jerrick Gibson",
+                "Georgia",
+                "HB",
+                "1,868 scrimmage yards, 16 rush TD"
+              ],
+              [
+                "Caleb Cunningham",
+                "Ole Miss",
+                "WR",
+                "1,637 receiving yards, 14 TD"
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Three statistics that stand out",
+          "icon": "🔎"
+        },
+        {
+          "item": "Hejny's 3,679 yards of offense",
+          "p": "West Virginia's quarterback has been producing at an extraordinary level as both a passer and runner."
+        },
+        {
+          "item": "Podlesny's 22 receiving touchdowns",
+          "p": "Twenty-two receiving touchdowns on 68 catches means approximately one out of every three receptions has resulted in six points."
+        },
+        {
+          "item": "Ole Miss has TWO Heisman candidates",
+          "p": "Podlesny and Cunningham have combined for 138 receptions, 3,439 receiving yards and 36 receiving touchdowns. Those are astonishing numbers for two players sharing the same offense."
+        },
+        {
+          "stats": [
+            [
+              "Combined receptions",
+              "138"
+            ],
+            [
+              "Combined receiving yards",
+              "3,439",
+              true
+            ],
+            [
+              "Combined receiving TDs",
+              "36",
+              true
+            ]
+          ],
+          "title": "Podlesny + Cunningham"
+        },
+        {
+          "h": "BLAM News Heisman Verdict",
+          "icon": "🎙️"
+        },
+        {
+          "p": "With the regular season nearing its conclusion, BLAM News sees a compelling argument for each of the four candidates."
+        },
+        {
+          "table": {
+            "cols": [
+              "Award",
+              "School",
+              "Player"
+            ],
+            "rows": [
+              [
+                "Most complete offensive threat",
+                "West Virginia",
+                "Hauss Hejny"
+              ],
+              [
+                "Most explosive scoring threat",
+                "Ole Miss",
+                "Danny Podlesny"
+              ],
+              [
+                "Premier running back",
+                "Georgia",
+                "Jerrick Gibson"
+              ],
+              [
+                "Underrated superstar",
+                "Ole Miss",
+                "Caleb Cunningham"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "But if the Heisman Trophy were awarded today, based on the available statistics and current standings, our editorial selection would be:"
+        },
+        {
+          "pull": "🏆 Hauss Hejny —",
+          "pull2": "West Virginia"
+        },
+        {
+          "p": "The Mountaineers' undefeated record, combined with Hejny's dual-threat production and exceptional passing efficiency, gives him the strongest overall case."
+        },
+        {
+          "p": "However, this race is far from settled. Podlesny's touchdown numbers could make him impossible to ignore. Gibson has the production to challenge the leaders. And Cunningham remains one explosive performance away from changing the conversation."
+        },
+        {
+          "p": "Four candidates. Three programs. One trophy. Only one will be remembered as the 2029 Heisman winner.",
+          "lead": true
+        },
+        {
+          "h": "BLAM League — We Want to Hear From You!",
+          "icon": "🗣️"
+        },
+        {
+          "p": "Coaches, it's time to settle the debate. Who deserves the 2029 Heisman Trophy?"
+        },
+        {
+          "item": "👑 Hauss Hejny — West Virginia",
+          "p": "The dual-threat king carrying an undefeated program."
+        },
+        {
+          "item": "🚀 Danny Podlesny — Ole Miss",
+          "p": "The touchdown machine with 22 receiving scores."
+        },
+        {
+          "item": "🐶 Jerrick Gibson — Georgia",
+          "p": "The 94-overall workhorse with 1,868 scrimmage yards."
+        },
+        {
+          "item": "🔥 Caleb Cunningham — Ole Miss",
+          "p": "The other nightmare in Oxford."
+        },
+        {
+          "p": "Is the Heisman about individual statistics? Is it about carrying your team to an undefeated season? Or should the most explosive player in college football take home the hardware?"
+        },
+        {
+          "p": "Let the debate begin. This has been another edition of BLAM News.",
+          "lead": true
+        },
+        {
+          "sign": "📺 BLAM TV — Your League. Your Games. Your Stories."
         }
       ]
     },
