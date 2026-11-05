@@ -437,6 +437,25 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-box b { font: 800 13px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--accent) }
 .mg-box p { margin: 8px 0 0 !important }
 .mg-note { font-size: 14px !important; color: var(--muted); font-style: italic }
+.mg-pl { position: relative; display: flex; align-items: center; gap: 16px; margin: 18px 0 14px; padding: 18px; border-radius: calc(var(--r) + 4px); background: linear-gradient(120deg, #14100a, #1d2430); color: #fff; border: 1px solid #f3b23455 }
+.mg-pl .av { width: 72px; height: 72px; flex: 0 0 auto }
+.mg-pl small { font: 800 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: #f3c23a }
+.mg-pl h4 { margin: 6px 0 4px; font: 800 clamp(24px, 4vw, 34px)/.95 var(--display); text-transform: uppercase }
+.mg-pl span { font-size: 14px; color: #c9d1db }
+.mg-pl-f { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px }
+.mg-pl-f em { font: 700 12px/1 var(--body); font-style: normal; padding: 5px 8px; border-radius: 999px; background: rgba(255,255,255,.1); color: #fff }
+.mg-rk { position: absolute; top: 10px; right: 14px; font: 800 44px/1 var(--display); color: #f3b234; opacity: .9 }
+.mg-st-h { margin: 16px 0 8px; font: 800 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted) }
+.mg-st { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; margin: 0 0 18px }
+.mg-st div { padding: 12px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line) }
+.mg-st div.hot { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent) }
+.mg-st b { display: block; font: 800 24px/1 var(--display) }
+.mg-st span { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); line-height: 1.25 }
+.mg-next { margin: 30px 0 10px; padding: 18px; border-radius: calc(var(--r) + 4px); border: 2px dashed var(--accent); text-align: center }
+.mg-next small { display: block; font: 800 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent) }
+.mg-next b { display: block; margin-top: 8px; font: 800 clamp(20px, 3vw, 26px)/1.05 var(--display); text-transform: uppercase }
+.mg-next span { display: block; margin-top: 6px; color: var(--muted); font-size: 15px }
+@media (max-width: 560px) { .mg-pl { padding: 16px 14px } .mg-pl .av { width: 56px; height: 56px } .mg-rk { font-size: 32px } }
 .mg-sign { margin: 30px 0 10px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; font: 800 14px/1.3 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--accent) }
 .mg-tbl { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface) }
 .mg-tbl table { width: 100%; border-collapse: collapse; font-size: 15px }
@@ -1127,6 +1146,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       if (b.item) return `<div class="mg-item"><h4>${esc(b.item)}</h4><p>${esc(b.p)}</p></div>`;
       if (b.box) return `<div class="mg-box"><b>${esc(b.box)}</b><p>${esc(b.p)}</p></div>`;
       if (b.note) return `<p class="mg-note">Note: ${esc(b.note)}</p>`;
+      if (b.player) {
+        const P = b.player, m = teamOf(P.school);
+        return `<div class="mg-pl">${P.rank ? `<span class="mg-rk">${esc(P.rank)}</span>` : ''}${m ? avatar(m, 'lg') : ''}<div><small>${esc(P.tag || '')}</small><h4>${esc(P.name)}</h4><span>${esc([P.school, P.pos, P.cls].filter(Boolean).join(' · '))}</span><div class="mg-pl-f">${P.ovr ? `<em>${esc(P.ovr)} OVR</em>` : ''}${P.coach ? `<em>Coach ${esc(P.coach)}</em>` : ''}</div></div></div>`;
+      }
+      if (b.stats) return `${b.title ? `<div class="mg-st-h">${esc(b.title)}</div>` : ''}<div class="mg-st">${b.stats.map(([k, v, hot]) => `<div${hot ? ' class="hot"' : ''}><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('')}</div>`;
+      if (b.next) return `<div class="mg-next"><small>${esc(b.label || 'Next up')}</small><b>${esc(b.next)}</b>${b.p ? `<span>${esc(b.p)}</span>` : ''}</div>`;
       if (b.sign) return `<div class="mg-sign">${esc(b.sign)}</div>`;
       if (b.table) {
         const T = b.table;
