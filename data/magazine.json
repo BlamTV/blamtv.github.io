@@ -1,6 +1,157 @@
 {
   "issues": [
     {
+      "id": "heisman-watch",
+      "edition": "Issue 2",
+      "kicker": "Heisman Watch · Part 1",
+      "title": "The Race for the Heisman",
+      "dek": "Four stars. Three schools. One trophy. Who deserves college football's highest honor?",
+      "author": "BLAM News",
+      "date": "2026-11-05T14:10:00-06:00",
+      "season": "2029 College Football Season",
+      "cover": "img/blam-news-issue-002.webp",
+      "coverAlt": "The Heisman Memorial Trophy on display",
+      "blocks": [
+        {
+          "p": "The championship race isn't the only battle heating up across the BLAM League.",
+          "lead": true
+        },
+        {
+          "p": "While programs fight for playoff positioning and national championship glory, four of college football's brightest stars are competing for something equally prestigious:"
+        },
+        {
+          "pull": "The 2029",
+          "pull2": "Heisman Trophy."
+        },
+        {
+          "p": "And this year's race has a little bit of everything."
+        },
+        {
+          "p": "A dual-threat quarterback carrying an undefeated West Virginia program. Two explosive Ole Miss receivers rewriting the conversation around offensive production. And a Georgia running back putting together a season that demands national attention."
+        },
+        {
+          "p": "With the regular season approaching its conclusion, the question is simple: who has truly been the most outstanding player in college football?"
+        },
+        {
+          "p": "Let's examine the four candidates currently leading the race."
+        },
+        {
+          "h": "The Dual-Threat King of Morgantown",
+          "icon": "👑"
+        },
+        {
+          "player": {
+            "rank": "#1",
+            "tag": "Heisman Watch No. 1",
+            "name": "Hauss Hejny",
+            "school": "West Virginia",
+            "pos": "Quarterback",
+            "cls": "Redshirt Senior",
+            "ovr": "84",
+            "coach": "LA ChillGuy2680"
+          }
+        },
+        {
+          "stats": [
+            [
+              "Passing yards",
+              "1,884"
+            ],
+            [
+              "Passing TDs",
+              "18"
+            ],
+            [
+              "Interceptions",
+              "2"
+            ],
+            [
+              "Completion %",
+              "78%"
+            ],
+            [
+              "Rushing yards",
+              "1,795",
+              true
+            ],
+            [
+              "Rushing attempts",
+              "129"
+            ],
+            [
+              "Pass + rush yards",
+              "3,679",
+              true
+            ]
+          ],
+          "title": "2029 season statistics"
+        },
+        {
+          "p": "West Virginia's undefeated season has been one of the biggest stories in the BLAM League. And standing at the center of that success is quarterback Hauss Hejny."
+        },
+        {
+          "p": "Forget the traditional definition of a quarterback. Hejny is an offensive weapon capable of beating opponents through the air or on the ground."
+        },
+        {
+          "p": "With 1,884 passing yards and an astonishing 1,795 rushing yards, the Mountaineers' signal-caller has accumulated 3,679 yards of total offense through those two categories alone."
+        },
+        {
+          "p": "His 78% completion percentage and just two interceptions demonstrate that he's doing more than simply relying on his athleticism. He's protecting the football while producing explosive plays."
+        },
+        {
+          "p": "And his latest performance against Rutgers only strengthened his case."
+        },
+        {
+          "h3": "Last game: West Virginia 45, Rutgers 17",
+          "icon": "🏈"
+        },
+        {
+          "stats": [
+            [
+              "Completions",
+              "13 of 18"
+            ],
+            [
+              "Passing yards",
+              "138"
+            ],
+            [
+              "Passing TD",
+              "1"
+            ],
+            [
+              "Rushing yards",
+              "130",
+              true
+            ],
+            [
+              "Rushing TD",
+              "1"
+            ]
+          ]
+        },
+        {
+          "p": "The Mountaineers remain undefeated at 11–0, and their quarterback currently occupies the top position in the Heisman Watch."
+        },
+        {
+          "box": "🎙️ BLAM News take",
+          "p": "Hejny has the strongest all-around résumé in the current field. His combination of rushing production, passing efficiency, and team success makes him the player everyone else is chasing."
+        },
+        {
+          "pull": "But can he hold off",
+          "pull2": "the challengers?"
+        },
+        {
+          "next": "🚀 No. 2 — Danny Podlesny, Ole Miss",
+          "label": "Coming in Part 2",
+          "p": "The Touchdown Machine. Plus the second Ole Miss receiver and Georgia's running back."
+        },
+        {
+          "sign": "BLAM TV — Your League. Your Games. Your Stories."
+        }
+      ]
+    },
+    {
       "id": "hot-seat-playoff-watch",
       "edition": "Issue 1",
       "kicker": "Special Report",
