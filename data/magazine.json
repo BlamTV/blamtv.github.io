@@ -1,0 +1,308 @@
+{
+  "issues": [
+    {
+      "id": "hot-seat-playoff-watch",
+      "edition": "Issue 1",
+      "kicker": "Special Report",
+      "title": "The Hot Seat & Playoff Watch",
+      "dek": "The playoff picture is taking shape. The coaching carousel is heating up. And for some BLAM League coaches, the pressure is officially on.",
+      "author": "PKSHADOWMAN",
+      "date": "2026-11-02T16:36:00-06:00",
+      "season": "2029 College Football Season",
+      "blocks": [
+        {
+          "p": "Welcome to the first edition of BLAM News, where we cover the biggest storylines, league developments, coaching drama, and everything happening across the BLAM League.",
+          "lead": true
+        },
+        {
+          "p": "As the 2029 season approaches its postseason, two major questions are beginning to emerge:"
+        },
+        {
+          "pull": "Who's going to survive the coaching carousel,",
+          "pull2": "and who's going to survive the playoff race?"
+        },
+        {
+          "p": "Let's get into it."
+        },
+        {
+          "h": "The Coaching Hot Seat",
+          "icon": "🔥"
+        },
+        {
+          "p": "The latest National coaching job-security report has revealed some concerning numbers. Twelve head coaches currently appear on the job-security watchlist, with several sitting below 30%."
+        },
+        {
+          "p": "Here are the coaches currently facing the most pressure:"
+        },
+        {
+          "table": {
+            "cols": [
+              "Coach",
+              "Program",
+              "Job security"
+            ],
+            "meter": 2,
+            "rows": [
+              [
+                "E. Drinkwitz",
+                "Texas A&M",
+                "13%"
+              ],
+              [
+                "J. Brohm",
+                "Tennessee",
+                "18%"
+              ],
+              [
+                "B. Harbaugh",
+                "Iowa",
+                "23%"
+              ],
+              [
+                "M. M.",
+                "Texas",
+                "28%"
+              ],
+              [
+                "C. Johnson",
+                "Louisville",
+                "29%"
+              ],
+              [
+                "D. Doeren",
+                "NC State",
+                "37%"
+              ],
+              [
+                "G. Boyett",
+                "Arizona State",
+                "37%"
+              ],
+              [
+                "F. Bump",
+                "Utah",
+                "40%"
+              ],
+              [
+                "M. Cloud",
+                "Michigan",
+                "43%"
+              ],
+              [
+                "D. Fowler",
+                "Boston College",
+                "43%"
+              ],
+              [
+                "B. Brennan",
+                "Arizona",
+                "44%"
+              ],
+              [
+                "M. Addai",
+                "North Carolina",
+                "44%"
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "The five programs to watch",
+          "icon": "🚨"
+        },
+        {
+          "item": "Texas A&M — E. Drinkwitz (13%)",
+          "p": "At just 13% job security, Drinkwitz currently sits at the bottom of the report. Despite a career record of 73–63, the pressure in College Station is clearly worth watching."
+        },
+        {
+          "item": "Tennessee — J. Brohm (18%)",
+          "p": "Brohm has accumulated 111 career wins, but his current job-security reading is only 18%. That's a concerning position for a coach with that much experience."
+        },
+        {
+          "item": "Iowa — B. Harbaugh (23%)",
+          "p": "With a 16–30 career record and a 23% job-security reading, Iowa's situation deserves attention as the season winds down."
+        },
+        {
+          "item": "Texas — M. M. (28%)",
+          "p": "Texas currently sits at 28%. With a 27–24 career record, the question is whether the program can turn things around before the offseason."
+        },
+        {
+          "item": "Louisville — C. Johnson (29%)",
+          "p": "Louisville rounds out the five lowest readings. Johnson currently has a 13–32 career record, making this one of the more interesting situations to monitor."
+        },
+        {
+          "h3": "The rest of the watchlist",
+          "icon": "👀"
+        },
+        {
+          "p": "NC State, Arizona State, Utah, Michigan, Boston College, Arizona, and North Carolina also appear on the report."
+        },
+        {
+          "p": "Their job-security readings range from 37% to 44%. While these numbers aren't as low as the five programs above, they're worth monitoring as the season approaches its conclusion."
+        },
+        {
+          "box": "BLAM News takeaway",
+          "p": "The offseason could bring some serious changes to the coaching landscape. Whether these coaches can turn things around remains to be seen. One thing is certain: nobody wants to be looking for a new job when the season ends."
+        },
+        {
+          "note": "These are in-game job-security readings, not confirmed firings."
+        },
+        {
+          "h": "The 2029 College Football Playoff Watch",
+          "icon": "🏆"
+        },
+        {
+          "p": "Now let's talk football."
+        },
+        {
+          "p": "The 2029 playoff bracket is beginning to take shape, and the competition for a national championship is getting serious."
+        },
+        {
+          "p": "With four teams receiving first-round byes, eight others will have to fight their way through the opening round."
+        },
+        {
+          "bracket": {
+            "byes": [
+              [
+                "1",
+                "Alabama",
+                "10–0"
+              ],
+              [
+                "2",
+                "TCU",
+                "10–0"
+              ],
+              [
+                "3",
+                "Maryland",
+                "8–1"
+              ],
+              [
+                "4",
+                "Ohio State",
+                "8–1"
+              ]
+            ],
+            "games": [
+              [
+                [
+                  "12",
+                  "Pittsburgh",
+                  "8–2"
+                ],
+                [
+                  "5",
+                  "West Virginia",
+                  "10–0"
+                ]
+              ],
+              [
+                [
+                  "9",
+                  "Penn State",
+                  "6–3"
+                ],
+                [
+                  "8",
+                  "Virginia Tech",
+                  "8–2"
+                ]
+              ],
+              [
+                [
+                  "11",
+                  "Auburn",
+                  "8–2"
+                ],
+                [
+                  "6",
+                  "Florida State",
+                  "7–3"
+                ]
+              ],
+              [
+                [
+                  "10",
+                  "Indiana",
+                  "6–3"
+                ],
+                [
+                  "7",
+                  "Oregon",
+                  "7–2"
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "h3": "Matchups worth watching",
+          "icon": "🔥"
+        },
+        {
+          "item": "#9 Penn State vs. #8 Virginia Tech",
+          "p": "One of the most interesting first-round matchups on the board. Penn State and Virginia Tech are both looking to extend their seasons, but only one can advance. The Hokies enter at 8–2, and the Vick Era has put Virginia Tech in position to compete for a championship."
+        },
+        {
+          "item": "#12 Pittsburgh vs. #5 West Virginia",
+          "p": "A postseason rivalry matchup with plenty of potential drama. West Virginia enters undefeated at 10–0, while Pittsburgh comes in at 8–2. The question is whether Pitt can disrupt an undefeated season."
+        },
+        {
+          "item": "#11 Auburn vs. #6 Florida State",
+          "p": "Two programs with 8–2 and 7–3 records, respectively. Both have an opportunity to make a statement, but the margin for error is gone."
+        },
+        {
+          "item": "#10 Indiana vs. #7 Oregon",
+          "p": "Indiana has an opportunity to make some noise against Oregon. With both teams entering the bracket, this matchup could have significant implications for the next round."
+        },
+        {
+          "h": "The Vick Era: Virginia Tech in the Playoff Picture",
+          "icon": "🦃"
+        },
+        {
+          "p": "Let's give the Hokies some attention."
+        },
+        {
+          "p": "Virginia Tech currently sits at the No. 8 seed with an 8–2 record."
+        },
+        {
+          "p": "The road ahead won't be easy. Penn State is waiting in the first round, and a win would move the Hokies one step closer to a potential quarterfinal matchup."
+        },
+        {
+          "pull": "The goal is simple:",
+          "pull2": "survive and advance."
+        },
+        {
+          "p": "The Vick Era has put Virginia Tech in the conversation. Now it's time to see how far the Hokies can take it."
+        },
+        {
+          "h": "BLAM News: Final Word",
+          "icon": "🎙️"
+        },
+        {
+          "p": "The 2029 season is approaching its most important stretch."
+        },
+        {
+          "p": "Some programs are preparing for a championship run. Others are fighting to keep their coaches employed. And somewhere in the middle, the coaching carousel is waiting to make its next move."
+        },
+        {
+          "p": "Will the undefeated teams maintain their momentum? Will a lower seed pull off an upset? And which coaches will still be standing when the offseason arrives?"
+        },
+        {
+          "p": "The playoff race is heating up. The hot seats are getting hotter. And in the BLAM League, the offseason might be just as entertaining as the games themselves."
+        },
+        {
+          "p": "This has been your first edition of BLAM NEWS."
+        },
+        {
+          "p": "Stay tuned. We're just getting started.",
+          "lead": true
+        },
+        {
+          "sign": "BLAM TV — Your League. Your Games. Your Stories."
+        }
+      ]
+    }
+  ]
+}
