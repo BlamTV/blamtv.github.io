@@ -531,20 +531,31 @@
           "p": "Coaches, it's time to settle the debate. Who deserves the 2029 Heisman Trophy?"
         },
         {
-          "item": "👑 Hauss Hejny — West Virginia",
-          "p": "The dual-threat king carrying an undefeated program."
-        },
-        {
-          "item": "🚀 Danny Podlesny — Ole Miss",
-          "p": "The touchdown machine with 22 receiving scores."
-        },
-        {
-          "item": "🐶 Jerrick Gibson — Georgia",
-          "p": "The 94-overall workhorse with 1,868 scrimmage yards."
-        },
-        {
-          "item": "🔥 Caleb Cunningham — Ole Miss",
-          "p": "The other nightmare in Oxford."
+          "poll": "heisman-2029",
+          "label": "BLAM News Heisman Poll",
+          "q": "Who will win the Heisman?",
+          "options": [
+            [
+              "hejny",
+              "Hauss Hejny",
+              "West Virginia"
+            ],
+            [
+              "podlesny",
+              "Danny Podlesny",
+              "Ole Miss"
+            ],
+            [
+              "gibson",
+              "Jerrick Gibson",
+              "Georgia"
+            ],
+            [
+              "cunningham",
+              "Caleb Cunningham",
+              "Ole Miss"
+            ]
+          ]
         },
         {
           "p": "Is the Heisman about individual statistics? Is it about carrying your team to an undefeated season? Or should the most explosive player in college football take home the hardware?"
