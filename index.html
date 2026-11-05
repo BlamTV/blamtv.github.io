@@ -457,7 +457,13 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-next span { display: block; margin-top: 6px; color: var(--muted); font-size: 15px }
 .mg-poll { margin: 22px 0; padding: 18px; border-radius: calc(var(--r) + 4px); background: linear-gradient(160deg, #14100a, #1d2430); color: #fff; border: 1px solid #f3b23466 }
 .mg-poll-h small { display: block; font: 800 11px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: #f3c23a }
-.mg-poll-h b { display: block; margin: 8px 0 14px; font: 800 clamp(22px, 3.4vw, 30px)/1.05 var(--display); text-transform: uppercase }
+.mg-poll-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px }
+.mg-poll-tot { flex: 0 0 auto; min-width: 74px; padding: 8px 10px; border-radius: var(--r); background: #f3b234; color: #14100a; text-align: center }
+.mg-poll-tot strong { display: block; font: 800 28px/1 var(--display) }
+.mg-poll-tot span { display: block; margin-top: 3px; font: 800 10px/1 var(--body); letter-spacing: .14em; text-transform: uppercase }
+.mg-poll-o .res { flex: 0 0 auto; text-align: right }
+.mg-poll-o .cnt { display: block; margin-top: 3px; font-size: 12px; color: #c9d1db }
+.mg-poll-h b { display: block; margin: 8px 0 0; font: 800 clamp(22px, 3.4vw, 30px)/1.05 var(--display); text-transform: uppercase }
 .mg-poll-o { display: grid; gap: 8px }
 .mg-poll-o button { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: var(--r); border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); color: #fff; font: inherit; text-align: left; cursor: pointer }
 .mg-poll-o button:hover { border-color: #f3b234 }
@@ -1172,7 +1178,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       if (b.stats) return `${b.title ? `<div class="mg-st-h">${esc(b.title)}</div>` : ''}<div class="mg-st">${b.stats.map(([k, v, hot]) => `<div${hot ? ' class="hot"' : ''}><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('')}</div>`;
       if (b.next) return `<div class="mg-next"><small>${esc(b.label || 'Next up')}</small><b>${esc(b.next)}</b>${b.p ? `<span>${esc(b.p)}</span>` : ''}</div>`;
       if (b.sign) return `<div class="mg-sign">${esc(b.sign)}</div>`;
-      if (b.poll) return `<div class="mg-poll" data-poll="${esc(b.poll)}"><div class="mg-poll-h"><small>${esc(b.label || 'Poll')}</small><b>${esc(b.q)}</b></div><div class="mg-poll-o">${b.options.map(([oid, name, school], n) => { const m = teamOf(school); return `<button type="button" data-opt="${esc(oid)}" aria-pressed="false"><span class="bar"><i></i></span><em class="no">${n + 1}</em>${m ? avatar(m) : ''}<span class="nm"><b>${esc(name)}</b><small>${esc(school || '')}</small></span><em class="pct"></em></button>`; }).join('')}</div><p class="mg-poll-f">Loading votes…</p></div>`;
+      if (b.poll) return `<div class="mg-poll" data-poll="${esc(b.poll)}"><div class="mg-poll-h"><div><small>${esc(b.label || 'Poll')}</small><b>${esc(b.q)}</b></div><div class="mg-poll-tot" aria-live="polite"><strong>–</strong><span>votes</span></div></div><div class="mg-poll-o">${b.options.map(([oid, name, school], n) => { const m = teamOf(school); return `<button type="button" data-opt="${esc(oid)}" aria-pressed="false"><span class="bar"><i></i></span><em class="no">${n + 1}</em>${m ? avatar(m) : ''}<span class="nm"><b>${esc(name)}</b><small>${esc(school || '')}</small></span><span class="res"><em class="pct"></em><small class="cnt"></small></span></button>`; }).join('')}</div><p class="mg-poll-f">Loading votes…</p></div>`;
       if (b.table) {
         const T = b.table;
         return `<div class="mg-tbl"><table><thead><tr>${T.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${T.rows.map(r => `<tr>${r.map((c, i) => {
@@ -1220,8 +1226,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         const pc = tot ? Math.round(Number(r.votes) * 100 / tot) : 0;
         btn.querySelector('.bar i').style.width = mine ? pc + '%' : '0';
         btn.querySelector('.pct').textContent = mine ? pc + '%' : '';
+        btn.querySelector('.cnt').textContent = mine ? `${Number(r.votes)} vote${Number(r.votes) === 1 ? '' : 's'}` : '';
         btn.classList.toggle('mine', r.option_id === mine); btn.setAttribute('aria-pressed', r.option_id === mine);
       }
+      el.querySelector('.mg-poll-tot strong').textContent = tot.toLocaleString();
+      el.querySelector('.mg-poll-tot span').textContent = tot === 1 ? 'vote' : 'votes';
       foot.textContent = mine ? `${tot} vote${tot === 1 ? '' : 's'} · tap another player to change your vote` : `${tot} vote${tot === 1 ? '' : 's'} so far · tap a player to vote and see the results`;
     };
     try {
@@ -1229,6 +1238,13 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const { data, error } = await c.rpc('poll_results', { p_poll: id });
       if (error) throw error;
       paint(data || []);
+      // keep the count live while the poll is on screen
+      const tick = setInterval(async () => {
+        if (!el.isConnected) return clearInterval(tick);
+        if (document.hidden || el.classList.contains('busy')) return;
+        const r = await c.rpc('poll_results', { p_poll: id });
+        if (!r.error && el.isConnected) paint(r.data || []);
+      }, 20e3);
       el.querySelectorAll('button[data-opt]').forEach(btn => btn.onclick = async () => {
         if (el.classList.contains('busy')) return;
         el.classList.add('busy');
