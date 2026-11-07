@@ -1787,7 +1787,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     // Only BLAM-titled streams count as league live (banner, matchups, LIVE tags); the rest go to BlamCity
     const must = (L.titleMustIncludeAny || []).map(s => String(s).toLowerCase()).filter(Boolean);
     const isBlam = t => !must.length || must.some(k => String(t || '').toLowerCase().includes(k));
-    D.cityLive = D.live.filter(s => !isBlam(s.title)); D.live = D.live.filter(s => isBlam(s.title));
+    // Same rescue rule as the updater: an untitled live stream counts if another coach's BLAM live title names this coach's school and they went live within 30 min
+    const rEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), rAfter = '(?![A-Za-z])(?!\\s+(?:State|St\\.?|Tech|A&M|Christian|Southern|Atlantic|International)\\b)';
+    const liveRe = {}; for (const m of L.members || []) { const n = [m.school, ...(m.abbr && m.abbr.length >= 3 && m.abbr !== 'OSU' ? [m.abbr] : []), ...(m.aliases || [])]; liveRe[m.twitch.toLowerCase()] = new RegExp('(^|[^A-Za-z])(?:' + n.map(rEsc).join('|') + ')' + rAfter, 'i'); }
+    const blamLive = D.live.filter(s => isBlam(s.title));
+    const liveOk = s => isBlam(s.title) || blamLive.some(w => { const re = liveRe[s.login.toLowerCase()]; return re && w.login.toLowerCase() !== s.login.toLowerCase() && re.test(' ' + w.title + ' ') && Math.abs(Date.parse(w.started) - Date.parse(s.started)) <= 30 * 60e3; });
+    D.cityLive = D.live.filter(s => !liveOk(s)); D.live = D.live.filter(liveOk);
     const cityTab = document.getElementById('nav-city');
     if (cityTab && D.cityLive.length) { cityTab.classList.add('hot'); cityTab.title = `${D.cityLive.length} live in BlamCity`; cityTab.insertAdjacentHTML('beforeend', '<span class="streetz">StreetzActive</span>'); }
     for (const mm of L.members) {
