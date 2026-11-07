@@ -18,7 +18,8 @@
     { "season": 4, "week": 10, "start": "2026-10-30T22:00:00-05:00" },
     { "season": 4, "week": 11, "start": "2026-11-01T20:30:00-06:00" },
     { "season": 4, "week": 12, "start": "2026-11-03T21:00:00-06:00" },
-    { "season": 4, "week": 13, "start": "2026-11-04T22:40:00-06:00" }
+    { "season": 4, "week": 13, "start": "2026-11-04T22:40:00-06:00" },
+    { "season": 4, "week": 14, "label": "Championship Week", "chip": "Champ", "start": "2026-11-06T17:15:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -34,6 +35,9 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 14, "championship": true, "games": [
+      ["Florida State", "Alabama"], ["TCU", "Maryland"], ["Florida", "Oregon"], ["Virginia Tech", "West Virginia"], ["South Carolina", "Pitt"]
+    ] },
     { "season": 4, "week": 13, "games": [
       ["Ole Miss", "Mississippi State"], ["Iowa", "Nebraska"], ["Northwestern", "Illinois"], ["Ohio State", "Michigan"],
       ["Georgia", "Georgia Tech"], ["Navy", "LSU"], ["NC State", "North Carolina"], ["Oregon", "Texas"],
@@ -80,7 +84,39 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 13, "away": "Maryland", "home": "TCU", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 14, "away": "TCU", "home": "Maryland", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
+
+  "playoff": {
+    "season": 4, "fromWeek": 14, "title": "Season 4 Playoff",
+    "site": "Miami, FL", "venue": "Hard Rock Stadium",
+    "seeds": [
+      { "seed": 1, "school": "Alabama", "record": "12-0", "aq": true },
+      { "seed": 2, "school": "Maryland", "record": "11-1", "aq": true },
+      { "seed": 3, "school": "West Virginia", "record": "12-0", "aq": true },
+      { "seed": 4, "school": "Oregon", "record": "10-2", "aq": true },
+      { "seed": 5, "school": "Virginia Tech", "record": "10-2" },
+      { "seed": 6, "school": "TCU", "record": "11-1" },
+      { "seed": 7, "school": "Florida State", "record": "9-3" },
+      { "seed": 8, "school": "Ohio State", "record": "9-3" },
+      { "seed": 9, "school": "Illinois", "record": "8-4" },
+      { "seed": 10, "school": "Clemson", "record": "9-3" },
+      { "seed": 11, "school": "Pitt", "record": "9-3", "aq": true },
+      { "seed": 12, "school": "Indiana", "record": "8-4" }
+    ],
+    "games": [
+      { "id": "r1-1", "round": 1, "top": 12, "bot": 5 },
+      { "id": "r1-2", "round": 1, "top": 9, "bot": 8 },
+      { "id": "r1-3", "round": 1, "top": 11, "bot": 6 },
+      { "id": "r1-4", "round": 1, "top": 10, "bot": 7 },
+      { "id": "qf-1", "round": 2, "top": "r1-1", "bot": 4 },
+      { "id": "qf-2", "round": 2, "top": "r1-2", "bot": 1 },
+      { "id": "qf-3", "round": 2, "top": "r1-3", "bot": 3 },
+      { "id": "qf-4", "round": 2, "top": "r1-4", "bot": 2 },
+      { "id": "sf-1", "round": 3, "top": "qf-1", "bot": "qf-2" },
+      { "id": "sf-2", "round": 3, "top": "qf-3", "bot": "qf-4" },
+      { "id": "nc", "round": 4, "top": "sf-1", "bot": "sf-2" }
+    ]
+  },
 
   "rivalries": [
     { "teams": ["Alabama", "Auburn"], "name": "Iron Bowl" },
