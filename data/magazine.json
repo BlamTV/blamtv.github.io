@@ -1,6 +1,148 @@
 {
   "issues": [
     {
+      "id": "who-ends-the-dynasty",
+      "edition": "Issue 3",
+      "kicker": "Championship Contender Snapshot",
+      "title": "Who Ends the Dynasty?",
+      "dek": "Three undefeated programs. Multiple dangerous challengers. One national championship.",
+      "author": "BLAM News",
+      "date": "2026-11-06T18:26:00-06:00",
+      "season": "2029 College Football Season",
+      "cover": "img/blam-news-issue-003.webp",
+      "coverAlt": "The national championship trophy on the field before a title game",
+      "blocks": [
+        {
+          "h": "Championship Contender Snapshot",
+          "icon": "📊"
+        },
+        {
+          "table": {
+            "cols": [
+              "Program",
+              "Record",
+              "Point differential"
+            ],
+            "rows": [
+              [
+                "Alabama",
+                "11–0",
+                "Not provided"
+              ],
+              [
+                "TCU",
+                "11–0",
+                "+414"
+              ],
+              [
+                "West Virginia",
+                "11–0",
+                "+199"
+              ],
+              [
+                "Maryland",
+                "10–1",
+                "+213"
+              ],
+              [
+                "Florida",
+                "9–2",
+                "+203"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "The biggest statistical headline?",
+          "lead": true
+        },
+        {
+          "pull": "TCU’s +414 point differential",
+          "pull2": "is more than double West Virginia’s +199."
+        },
+        {
+          "p": "But the most important statistic in the entire league still belongs to Alabama:"
+        },
+        {
+          "stats": [
+            [
+              "Consecutive national championships",
+              "3",
+              true
+            ],
+            [
+              "TCU point differential",
+              "+414",
+              true
+            ],
+            [
+              "West Virginia point differential",
+              "+199"
+            ]
+          ],
+          "title": "By the numbers"
+        },
+        {
+          "box": "Three consecutive national championships.",
+          "p": "And until someone knocks the Crimson Tide off the throne, Alabama remains the team everyone is chasing."
+        },
+        {
+          "h": "The Big Question: Who Ends the Dynasty?",
+          "icon": "🎙️"
+        },
+        {
+          "p": "Three undefeated programs. Multiple dangerous challengers. One national championship.",
+          "lead": true
+        },
+        {
+          "p": "As the 2029 season approaches its most important stretch, the BLAM League finds itself staring at a potentially historic postseason."
+        },
+        {
+          "item": "Will Alabama capture a fourth consecutive national championship?",
+          "p": ""
+        },
+        {
+          "item": "Will TCU’s historic scoring dominance translate into postseason success?",
+          "p": ""
+        },
+        {
+          "item": "Can West Virginia complete an undefeated championship run?",
+          "p": ""
+        },
+        {
+          "item": "Will Maryland shock the nation?",
+          "p": ""
+        },
+        {
+          "item": "Or could Florida, Auburn, Oregon, Virginia Tech, Ohio State, or Clemson turn the entire playoff picture upside down?",
+          "p": ""
+        },
+        {
+          "p": "One thing is certain."
+        },
+        {
+          "pull": "The regular season builds reputations.",
+          "pull2": "The postseason builds legacies."
+        },
+        {
+          "p": "And for the coaches of the BLAM League, the time for talking is running out."
+        },
+        {
+          "p": "Soon, the scoreboard will do all the talking."
+        },
+        {
+          "p": "This has been BLAM NEWS — Edition 03."
+        },
+        {
+          "p": "Stay tuned. The road to the throne is just getting started.",
+          "lead": true
+        },
+        {
+          "sign": "BLAM TV — Your League. Your Games. Your Stories."
+        }
+      ]
+    },
+    {
       "id": "heisman-watch",
       "edition": "Issue 2",
       "kicker": "Heisman Watch Special Report",
