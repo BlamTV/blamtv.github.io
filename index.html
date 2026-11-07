@@ -370,6 +370,18 @@ a.tm:hover { background: var(--raise) }
 .csign { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--muted) }
 .cnote { color: var(--muted); font-size: 14px; text-align: center; padding: 20px }
 @media (max-width: 480px) { nav.tabs { overflow-x: auto; scrollbar-width: none } nav.tabs::-webkit-scrollbar { display: none } }
+/* Phones: tabs in a 4-column grid so every tab is visible and easy to tap; header scrolls away instead of sticking */
+@media (max-width: 480px) {
+  header.top { position: static }
+  header.top .wrap { gap: 10px }
+  nav.tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; overflow: visible; width: 100%; margin: 0 0 4px }
+  nav.tabs a { font-size: min(11.5px, 2.95vw); letter-spacing: 0; padding: 11px 1px; text-align: center; white-space: nowrap; background: var(--raise); border-radius: 999px }
+  nav.tabs a[hidden] { display: none }
+  nav.tabs a .streetz { top: -8px; left: auto; right: -2px; transform: none; font-size: 8px; padding: 2px 5px }
+  footer .wrap { flex-direction: column; align-items: flex-start }
+  footer .slogan { width: 170px }
+  footer .lines { width: 100% }
+}
 .ab-motto .m { margin-top: 14px; display: flex; gap: 10px 22px; justify-content: center; flex-wrap: wrap; font: 800 clamp(14px, 2.2vw, 19px)/1.1 var(--display); text-transform: uppercase; color: #f3c23a }
 @media (max-width: 560px) { .ab-hero { padding: 28px 20px 30px } .ladder .arrows { width: 78px } .ladder .arrows div { font-size: 9.5px; letter-spacing: 0; padding: 6px 4px } .rung small { display: none } .rung b { min-width: 60px; font-size: 19px } }
 .city-hero { position: relative; overflow: hidden; border-radius: var(--r); margin-top: 18px; min-height: 300px; display: flex; align-items: flex-start;
