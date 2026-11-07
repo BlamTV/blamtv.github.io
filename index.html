@@ -1792,7 +1792,16 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const liveRe = {}; for (const m of L.members || []) { const n = [m.school, ...(m.abbr && m.abbr.length >= 3 && m.abbr !== 'OSU' ? [m.abbr] : []), ...(m.aliases || [])]; liveRe[m.twitch.toLowerCase()] = new RegExp('(^|[^A-Za-z])(?:' + n.map(rEsc).join('|') + ')' + rAfter, 'i'); }
     const blamLive = D.live.filter(s => isBlam(s.title));
     const liveOk = s => isBlam(s.title) || blamLive.some(w => { const re = liveRe[s.login.toLowerCase()]; return re && w.login.toLowerCase() !== s.login.toLowerCase() && re.test(' ' + w.title + ' ') && Math.abs(Date.parse(w.started) - Date.parse(s.started)) <= 30 * 60e3; });
-    D.cityLive = D.live.filter(s => !liveOk(s)); D.live = D.live.filter(liveOk);
+    // ...or if this week's schedule pairs the coach with a member who went live with BLAM within 30 min (untitled stream, opponent's title doesn't name the school)
+    const schoolOf = l => ((L.members.find(m => m.twitch.toLowerCase() === String(l).toLowerCase()) || {}).school || '').toLowerCase();
+    const curGames = weekGames(L.season, seasonWeeks()[0]);
+    const paired = s => {
+      const sc = schoolOf(s.login), g = sc && curGames.find(([a, h]) => a.toLowerCase() === sc || h.toLowerCase() === sc);
+      if (!g) return false;
+      const opp = (g[0].toLowerCase() === sc ? g[1] : g[0]).toLowerCase();
+      return blamLive.some(b => schoolOf(b.login) === opp && Math.abs(Date.parse(b.started) - Date.parse(s.started)) <= 30 * 60e3);
+    };
+    D.cityLive = D.live.filter(s => !liveOk(s) && !paired(s)); D.live = D.live.filter(s => liveOk(s) || paired(s));
     const cityTab = document.getElementById('nav-city');
     if (cityTab && D.cityLive.length) { cityTab.classList.add('hot'); cityTab.title = `${D.cityLive.length} live in BlamCity`; cityTab.insertAdjacentHTML('beforeend', '<span class="streetz">StreetzActive</span>'); }
     for (const mm of L.members) {
