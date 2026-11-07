@@ -135,6 +135,21 @@ for (const v of videos) if (!v.tagged) {
     if (opp.weekFrom === 'title') { v.season = opp.season; v.week = opp.week; v.weekFrom = 'opponent'; }
   }
 }
+// Also keep an untagged stream when the schedule says this coach plays a member whose tagged stream started within 30 min
+// (e.g. Pitt's stream titled just "Coach_barbermike707" during South Carolina's "Blam tv week 14").
+const schoolOfLogin = Object.fromEntries(league.members.map(m => [m.twitch.toLowerCase(), m.school.toLowerCase()]));
+const loginOfSchool = Object.fromEntries(league.members.map(m => [m.school.toLowerCase(), m.twitch.toLowerCase()]));
+for (const v of videos) if (!v.tagged && v.type === 'archive') {
+  const sc = schoolOfLogin[v.login]; if (!sc) continue;
+  const sch = (league.schedule || []).find(x => x.season === v.season && x.week === v.week); if (!sch) continue;
+  const g = (sch.games || []).find(([a, h]) => a.toLowerCase() === sc || h.toLowerCase() === sc); if (!g) continue;
+  const oppLogin = loginOfSchool[(g[0].toLowerCase() === sc ? g[1] : g[0]).toLowerCase()]; if (!oppLogin) continue;
+  const opp = tagged.find(w => w.login === oppLogin && w.type === 'archive' && sameKickoff(v, w));
+  if (opp) {
+    v.tagged = true; v.rescuedBy = opp.id;
+    if (opp.weekFrom === 'title') { v.season = opp.season; v.week = opp.week; v.weekFrom = 'opponent'; }
+  }
+}
 // Admin app: "add/hide <coach>'s latest stream" pins the newest broadcast that existed when the command was given
 for (const p of league.pinLatest || []) {
   const at = Date.parse(p.at);
