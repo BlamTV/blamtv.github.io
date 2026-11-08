@@ -152,6 +152,13 @@
   ],
 
   "recruits": [
+    { "name": "Earl Bynum", "position": "LT", "archetype": "Pass Protector", "size": "6'7\" · 281 lbs", "stars": 5, "hometown": "Mesa, AZ", "school": "Oklahoma", "status": "Committed", "nil": "180", "note": "Nat #31 · State #1 · LT #4", "image": "img/recruits/earl-bynum.webp" },
+    { "name": "Doug Gold", "position": "LT", "archetype": "Pass Protector", "size": "6'7\" · 292 lbs", "stars": 5, "hometown": "Miami, FL", "school": "Alabama", "status": "Committed", "nil": "140", "note": "Nat #25 · State #4 · LT #6", "image": "img/recruits/doug-gold.webp" },
+    { "name": "George Lorenz", "position": "REDG", "archetype": "Speed Rusher", "size": "6'2\" · 248 lbs", "stars": 5, "hometown": "Hollywood, FL", "school": "Alabama", "status": "Top 3", "nil": "200", "note": "Nat #17 · State #6 · REDG #4 · Star dev", "image": "img/recruits/george-lorenz.webp" },
+    { "name": "Duke Reeshad", "position": "LT", "archetype": "Raw Strength", "size": "6'8\" · 325 lbs", "stars": 5, "hometown": "Youngstown, OH", "school": "Ohio State", "status": "Top 3", "nil": "170", "note": "Nat #17 · State #2 · LT #3", "image": "img/recruits/duke-reeshad.webp" },
+    { "name": "Stephen Burks", "position": "CB", "archetype": "Bump and Run", "size": "5'11\" · 208 lbs", "stars": 5, "hometown": "Fairburn, GA", "school": "Clemson", "status": "Top 3", "nil": "190", "note": "Nat #16 · State #2 · CB #2", "image": "img/recruits/stephen-burks.webp" },
+    { "name": "Jeffrey Dimento", "position": "CB", "archetype": "Zone", "size": "6'3\" · 192 lbs", "stars": 4, "hometown": "Ocala, FL", "school": "Clemson", "status": "Top 3", "nil": "75", "note": "Nat #94 · State #19 · CB #11", "image": "img/recruits/jeffrey-dimento.webp" },
+    { "name": "Henry Foucha", "position": "CB", "archetype": "Zone", "size": "6'3\" · 196 lbs", "stars": 4, "hometown": "Winter Haven, FL", "school": "Clemson", "status": "Top 3", "nil": "100", "note": "Nat #229 · State #33 · CB #23", "image": "img/recruits/henry-foucha.webp" },
     { "name": "Alex Valenzuela", "position": "WR", "size": "5'8\" · 184 lbs", "stars": 4, "school": "Stanford", "status": "Top 3", "note": "Nat #129 · State #1 · WR #29", "image": "img/recruits/alex-valenzuela.webp" },
     { "name": "Darren Schwartz", "position": "WR", "size": "6'5\" · 190 lbs", "stars": 4, "school": "Stanford", "status": "Top 3", "note": "Nat #90 · State #9 · WR #20", "image": "img/recruits/darren-schwartz.webp" },
     { "name": "Jimmie Nicholson", "position": "QB", "archetype": "Pocket Passer", "size": "6'4\" · 183 lbs", "stars": 5, "hometown": "Spanish Fort, AL", "school": "Alabama", "status": "Committed", "nil": "200", "image": "img/recruits/jimmie-nicholson.webp" },
