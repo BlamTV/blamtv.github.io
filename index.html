@@ -411,6 +411,7 @@ a.tm:hover { background: var(--raise) }
 .city-hero.has-vid::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(11,10,20,.85) 0, rgba(11,10,20,.55) 34%, rgba(11,10,20,0) 62%) }
 .city-hero.has-vid .city-copy { z-index: 2 }
 .city-hero.has-vid { min-height: 340px }
+@media (min-width: 641px) { .city-hero.has-vid .city-copy .k { display: none } .city-hero.has-vid .city-copy .s { margin-top: 0 } }
 @media (max-width: 640px) { .city-hero.has-vid::after { display: none } .city-hero.has-vid { min-height: 480px } .city-hero.has-vid .city-copy { padding-bottom: 260px }
   .city-hero .city-vid { top: auto; bottom: 0; height: 58%; object-position: 50% 40%; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26%); mask-image: linear-gradient(180deg, transparent 0, #000 26%) } }
 @media (prefers-reduced-motion: reduce) { .city-hero .city-vid { transition: none } }
