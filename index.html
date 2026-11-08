@@ -479,6 +479,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-poll-o { display: grid; gap: 8px }
 .mg-poll-o button { position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: var(--r); border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); color: #fff; font: inherit; text-align: left; cursor: pointer }
 .mg-poll-o button:hover { border-color: #f3b234 }
+.mg-poll.closed .mg-poll-o button { cursor: default; opacity: 1 }
+.mg-poll.closed .mg-poll-o button:hover { border-color: rgba(255,255,255,.16) }
+.mg-poll.closed .go { display: none }
+.mg-poll.closed .mg-poll-o button.mine { border-color: rgba(255,255,255,.16) }
 .mg-poll-o .bar { position: absolute; inset: 0; z-index: -1 }
 .mg-poll-o .bar i { display: block; height: 100%; width: 0; background: rgba(243,178,52,.22); transition: width .5s ease }
 .mg-poll-o .mine .bar i { background: rgba(243,178,52,.42) }
@@ -500,9 +504,9 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-poll-o .go { display: inline-block; font: 800 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; background: #f3b234; color: #14100a; padding: 9px 13px; border-radius: 999px }
 .mg-poll.voted .go { display: none }
 .mg-poll.voted .mg-poll-how { color: #c9d1db !important; font-weight: 600 !important }
-.mg-poll:not(.voted) { box-shadow: 0 0 0 2px #f3b234, 0 10px 30px rgba(243,178,52,.2); animation: pollglow 2.4s ease-in-out infinite }
+.mg-poll:not(.voted):not(.closed) { box-shadow: 0 0 0 2px #f3b234, 0 10px 30px rgba(243,178,52,.2); animation: pollglow 2.4s ease-in-out infinite }
 @keyframes pollglow { 50% { box-shadow: 0 0 0 2px #f3b234, 0 10px 38px rgba(243,178,52,.42) } }
-@media (prefers-reduced-motion: reduce) { .mg-poll:not(.voted) { animation: none } }
+@media (prefers-reduced-motion: reduce) { .mg-poll:not(.voted):not(.closed) { animation: none } }
 .mg-poll-jump { display: flex; align-items: center; gap: 8px 12px; flex-wrap: wrap; width: 100%; margin: -8px 0 22px; padding: 12px 14px; border-radius: var(--r); border: 1.5px solid #f3b234; background: color-mix(in srgb, #f3b234 12%, var(--surface)); color: var(--fg); font: 600 15px/1.3 var(--body); text-align: left; cursor: pointer }
 .mg-poll-jump b { flex: 1; min-width: 170px }
 .mg-poll-jump span { font: 800 13px/1 var(--display); text-transform: uppercase; letter-spacing: .08em; background: #f3b234; color: #14100a; padding: 9px 13px; border-radius: 999px; white-space: nowrap }
@@ -1289,7 +1293,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       if (b.stats) return `${b.title ? `<div class="mg-st-h">${esc(b.title)}</div>` : ''}<div class="mg-st">${b.stats.map(([k, v, hot]) => `<div${hot ? ' class="hot"' : ''}><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('')}</div>`;
       if (b.next) return `<div class="mg-next"><small>${esc(b.label || 'Next up')}</small><b>${esc(b.next)}</b>${b.p ? `<span>${esc(b.p)}</span>` : ''}</div>`;
       if (b.sign) return `<div class="mg-sign">${esc(b.sign)}</div>`;
-      if (b.poll) return `<div class="mg-poll" data-poll="${esc(b.poll)}"><div class="mg-poll-h"><div><span class="mg-poll-tag">🗳️ ${esc(b.label || 'Fan poll')}</span><b>${esc(b.q)}</b></div><div class="mg-poll-tot" aria-live="polite"><strong>–</strong><span>votes</span></div></div><p class="mg-poll-how">👇 Tap a player to cast your vote. Results show right after.</p><div class="mg-poll-o">${b.options.map(([oid, name, school], n) => { const m = teamOf(school); return `<button type="button" data-opt="${esc(oid)}" aria-pressed="false"><span class="bar"><i></i></span><em class="no">${n + 1}</em>${m ? avatar(m) : ''}<span class="nm"><b>${esc(name)}</b><small>${esc(school || '')}</small></span><span class="res"><span class="go">Vote</span><em class="pct"></em><small class="cnt"></small></span></button>`; }).join('')}</div><p class="mg-poll-f">Loading votes…</p></div>`;
+      if (b.poll) return `<div class="mg-poll${b.closed ? ' closed' : ''}" data-poll="${esc(b.poll)}"${b.closed ? ' data-closed="1"' : ''}><div class="mg-poll-h"><div><span class="mg-poll-tag">🗳️ ${esc(b.label || 'Fan poll')}${b.closed ? ' · Final results' : ''}</span><b>${esc(b.q)}</b></div><div class="mg-poll-tot" aria-live="polite"><strong>–</strong><span>votes</span></div></div><p class="mg-poll-how">${b.closed ? '🔒 Voting is closed. Here\'s how the fans voted.' : '👇 Tap a player to cast your vote. Results show right after.'}</p><div class="mg-poll-o">${b.options.map(([oid, name, school], n) => { const m = teamOf(school); return `<button type="button" data-opt="${esc(oid)}" aria-pressed="false"${b.closed ? ' disabled' : ''}><span class="bar"><i></i></span><em class="no">${n + 1}</em>${m ? avatar(m) : ''}<span class="nm"><b>${esc(name)}</b><small>${esc(school || '')}</small></span><span class="res"><span class="go">Vote</span><em class="pct"></em><small class="cnt"></small></span></button>`; }).join('')}</div><p class="mg-poll-f">Loading votes…</p></div>`;
       if (b.table) {
         const T = b.table;
         return `<div class="mg-tbl"><table><thead><tr>${T.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${T.rows.map(r => `<tr>${r.map((c, i) => {
@@ -1312,11 +1316,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <h1 class="mg-title">${esc(a.title)}</h1>
         ${a.dek ? `<p class="mg-dek">${esc(a.dek)}</p>` : ''}
         <div class="mg-by">${a.author ? `By <b>${esc(a.author)}</b>` : ''}${a.author && when ? ' · ' : ''}${esc(when)}</div>
-        ${(a.blocks || []).filter(x => x.poll).slice(0, 1).map(x => `<button type="button" class="mg-poll-jump" data-jump>🗳️ <b>Fan poll: ${esc(x.q)}</b><span>Vote now ↓</span></button>`).join('')}
-        ${(a.blocks || []).some(x => x.poll) ? '' : issues.filter(x => x !== a).map(x => [x, (x.blocks || []).find(y => y.poll)]).filter(([, y]) => y).slice(0, 1).map(([x, y]) => `<a class="mg-poll-jump" href="#mag-${esc(x.id)}">🗳️ <b>Fan poll still open: ${esc(y.q)}</b><span>Go vote →</span></a>`).join('')}
+        ${(a.blocks || []).filter(x => x.poll).slice(0, 1).map(x => `<button type="button" class="mg-poll-jump" data-jump>🗳️ <b>${x.closed ? 'Final poll results' : 'Fan poll'}: ${esc(x.q)}</b><span>${x.closed ? 'See results ↓' : 'Vote now ↓'}</span></button>`).join('')}
+        ${(a.blocks || []).some(x => x.poll) ? '' : issues.filter(x => x !== a).map(x => [x, (x.blocks || []).find(y => y.poll && !y.closed)]).filter(([, y]) => y).slice(0, 1).map(([x, y]) => `<a class="mg-poll-jump" href="#mag-${esc(x.id)}">🗳️ <b>Fan poll still open: ${esc(y.q)}</b><span>Go vote →</span></a>`).join('')}
         ${(a.blocks || []).map(block).join('\n')}
       </article>
-      ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}">${x.cover ? `<img src="${esc(x.cover)}" alt="" loading="lazy">` : ''}<small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}${(x.blocks || []).some(y => y.poll) ? '<em class="mg-card-poll">🗳️ Fan poll · vote</em>' : ''}</a>`).join('')}</div>` : ''}`;
+      ${others.length ? `<h2 class="section-h">More issues</h2><div class="mg-list">${others.map(x => `<a class="mg-card" href="#mag-${esc(x.id)}">${x.cover ? `<img src="${esc(x.cover)}" alt="" loading="lazy">` : ''}<small>${esc([x.edition, x.kicker].filter(Boolean).join(' · '))}</small><b>${esc(x.title)}</b>${x.dek ? `<span>${esc(x.dek)}</span>` : ''}${(x.blocks || []).some(y => y.poll && !y.closed) ? '<em class="mg-card-poll">🗳️ Fan poll · vote</em>' : (x.blocks || []).some(y => y.poll) ? '<em class="mg-card-poll">🗳️ Poll results</em>' : ''}</a>`).join('')}</div>` : ''}`;
     app.querySelectorAll('.mg-poll').forEach(initPoll);
     app.querySelectorAll('[data-jump]').forEach(b => b.onclick = () => { const p = app.querySelector('.mg-poll'); if (p) p.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); });
   }
@@ -1331,28 +1335,29 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     catch (e) { if (val !== undefined) (window.btvPolls = window.btvPolls || {})[id] = val; return (window.btvPolls || {})[id] || null; }
   }
   async function initPoll(el) {
-    const id = el.dataset.poll, foot = el.querySelector('.mg-poll-f');
+    const id = el.dataset.poll, foot = el.querySelector('.mg-poll-f'), closed = !!el.dataset.closed;
     const paint = rows => {
-      const tot = rows.reduce((s, r) => s + Number(r.votes), 0), mine = pollMine(id);
-      el.classList.toggle('voted', !!mine);
-      const jump = document.querySelector('.mg-poll-jump span'); if (jump) jump.textContent = mine ? 'See results ↓' : 'Vote now ↓';
+      const tot = rows.reduce((s, r) => s + Number(r.votes), 0), mine = pollMine(id), show = !!mine || closed;
+      el.classList.toggle('voted', show);
+      const jump = document.querySelector('.mg-poll-jump span'); if (jump) jump.textContent = show ? 'See results ↓' : 'Vote now ↓';
       for (const r of rows) {
         const btn = el.querySelector(`[data-opt="${r.option_id}"]`); if (!btn) continue;
         const pc = tot ? Math.round(Number(r.votes) * 100 / tot) : 0;
-        btn.querySelector('.bar i').style.width = mine ? pc + '%' : '0';
-        btn.querySelector('.pct').textContent = mine ? pc + '%' : '';
-        btn.querySelector('.cnt').textContent = mine ? `${Number(r.votes)} vote${Number(r.votes) === 1 ? '' : 's'}` : '';
+        btn.querySelector('.bar i').style.width = show ? pc + '%' : '0';
+        btn.querySelector('.pct').textContent = show ? pc + '%' : '';
+        btn.querySelector('.cnt').textContent = show ? `${Number(r.votes)} vote${Number(r.votes) === 1 ? '' : 's'}` : '';
         btn.classList.toggle('mine', r.option_id === mine); btn.setAttribute('aria-pressed', r.option_id === mine);
       }
       el.querySelector('.mg-poll-tot strong').textContent = tot.toLocaleString();
       el.querySelector('.mg-poll-tot span').textContent = tot === 1 ? 'vote' : 'votes';
-      foot.textContent = mine ? `${tot} vote${tot === 1 ? '' : 's'} · tap another player to change your vote` : `${tot} vote${tot === 1 ? '' : 's'} so far · tap a player to vote and see the results`;
+      foot.textContent = closed ? `Final: ${tot} vote${tot === 1 ? '' : 's'} · voting is closed` : mine ? `${tot} vote${tot === 1 ? '' : 's'} · tap another player to change your vote` : `${tot} vote${tot === 1 ? '' : 's'} so far · tap a player to vote and see the results`;
     };
     try {
       const c = await supa();
       const { data, error } = await c.rpc('poll_results', { p_poll: id });
       if (error) throw error;
       paint(data || []);
+      if (closed) return;
       // keep the count live while the poll is on screen
       const tick = setInterval(async () => {
         if (!el.isConnected) return clearInterval(tick);
