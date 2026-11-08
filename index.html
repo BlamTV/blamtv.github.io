@@ -405,6 +405,15 @@ a.tm:hover { background: var(--raise) }
   background: radial-gradient(120% 90% at 80% 0%, #3b2a6b 0, #1a1433 45%, #0b0a14 100%); color: #fff }
 .city-hero svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 40%; display: block }
 .city-copy { position: relative; z-index: 1; padding: 26px 30px 140px }
+.city-hero .city-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity .6s ease; pointer-events: none }
+.city-hero.has-vid .city-vid { opacity: 1 }
+.city-hero.has-vid > svg { display: none }
+.city-hero.has-vid::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(11,10,20,.85) 0, rgba(11,10,20,.55) 34%, rgba(11,10,20,0) 62%) }
+.city-hero.has-vid .city-copy { z-index: 2 }
+.city-hero.has-vid { min-height: 340px }
+@media (max-width: 640px) { .city-hero.has-vid::after { display: none } .city-hero.has-vid { min-height: 480px } .city-hero.has-vid .city-copy { padding-bottom: 260px }
+  .city-hero .city-vid { top: auto; bottom: 0; height: 58%; object-position: 50% 40%; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26%); mask-image: linear-gradient(180deg, transparent 0, #000 26%) } }
+@media (prefers-reduced-motion: reduce) { .city-hero .city-vid { transition: none } }
 .city-copy .k { font: 800 clamp(40px, 7.6vw, 86px)/.86 var(--display); letter-spacing: -.03em; text-transform: uppercase; color: #fff; text-shadow: 0 4px 0 #6a4a00, 0 10px 30px rgba(0,0,0,.5) }
 .city-copy .k span { color: #f3c23a }
 .city-copy .s { display: inline-block; margin-top: 10px; font: 800 clamp(15px, 2.6vw, 22px)/1 var(--display); text-transform: uppercase; background: #f3b234; color: #111; padding: 6px 11px 7px; border-radius: 4px; transform: rotate(-2deg) }
@@ -1271,13 +1280,25 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
   function viewCity() {
     const list = D.cityLive || [];
-    app.innerHTML = `${liveStrip()}<section class="city-hero" aria-label="BlamCity">${citySkyline()}
+    app.innerHTML = `${liveStrip()}<section class="city-hero" aria-label="BlamCity">${citySkyline()}<video id="city-vid" class="city-vid" src="vid/city-banner_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="city-copy"><div class="k">Blam<span>City</span></div><div class="s">After hours</div>
         <p>Coaches live right now outside of league games. Other games, hangouts, whatever they're on.</p></div></section>
       <h2 class="section-h">Live in BlamCity</h2>
       ${list.length ? `<div class="grid">${list.map(cityCard).join('')}</div>`
         : `<div class="empty-state"><b>The city's quiet</b>Nobody's live outside a league game right now. When a coach goes live without BLAM in the title, the stream shows up here with a live preview.</div>`}
       <div class="hl-how">League games still go on the <a href="#" style="color:var(--accent)">Weeks</a> page. Put <b>BLAM</b> in your stream title for those. ${D.updated ? `Checked ${ago(D.updated)}; the list refreshes about every 10 minutes.` : ''}</div>`;
+    // Realistic drive-up-to-the-sign video banner (ComfyUI, MiniMax H3). Uses the silent file, else the one with sound; falls back to the drawn skyline.
+    const cv = document.getElementById('city-vid');
+    if (cv) {
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      cv.muted = true;
+      cv.onerror = () => { if (!cv.dataset.alt) { cv.dataset.alt = '1'; cv.src = 'vid/city-banner-sound_00001_.mp4'; } else cv.remove(); };
+      cv.addEventListener('loadeddata', () => {
+        if (!cv.isConnected) return;
+        cv.closest('.city-hero').classList.add('has-vid');
+        if (still) { cv.currentTime = 1.5; } else { const p = cv.play(); if (p) p.catch(() => {}); }
+      }, { once: true });
+    }
   }
   // Twitch chat beside live streams (people chat with their Twitch accounts)
   const isDark = () => { const t = document.documentElement.dataset.theme; return t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches); };
