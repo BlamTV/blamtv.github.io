@@ -19,7 +19,8 @@
     { "season": 4, "week": 11, "start": "2026-11-01T20:30:00-06:00" },
     { "season": 4, "week": 12, "start": "2026-11-03T21:00:00-06:00" },
     { "season": 4, "week": 13, "start": "2026-11-04T22:40:00-06:00" },
-    { "season": 4, "week": 14, "label": "Championship Week", "chip": "Champ", "start": "2026-11-06T17:15:00-06:00" }
+    { "season": 4, "week": 14, "label": "Championship Week", "chip": "Champ", "start": "2026-11-06T17:15:00-06:00" },
+    { "season": 4, "week": 15, "label": "Playoff · First Round", "chip": "Playoff", "start": "2026-11-07T21:45:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -35,6 +36,9 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 15, "games": [
+      ["Pitt", "West Virginia"], ["Illinois", "Ohio State"], ["Clemson", "Maryland"], ["Florida", "Oregon"]
+    ] },
     { "season": 4, "week": 14, "championship": true, "games": [
       ["Florida State", "Alabama"], ["TCU", "Maryland"], ["Florida", "Oregon"], ["Virginia Tech", "West Virginia"], ["South Carolina", "Pitt"]
     ] },
@@ -90,24 +94,24 @@
     "season": 4, "fromWeek": 14, "title": "Season 4 Playoff",
     "site": "Miami, FL", "venue": "Hard Rock Stadium",
     "seeds": [
-      { "seed": 1, "school": "Alabama", "record": "12-0", "aq": true },
-      { "seed": 2, "school": "Maryland", "record": "11-1", "aq": true },
-      { "seed": 3, "school": "West Virginia", "record": "12-0", "aq": true },
-      { "seed": 4, "school": "Oregon", "record": "10-2", "aq": true },
-      { "seed": 5, "school": "Virginia Tech", "record": "10-2" },
-      { "seed": 6, "school": "TCU", "record": "11-1" },
-      { "seed": 7, "school": "Florida State", "record": "9-3" },
+      { "seed": 1, "school": "TCU", "record": "12-1", "aq": true },
+      { "seed": 2, "school": "Virginia Tech", "record": "11-2", "aq": true },
+      { "seed": 3, "school": "Alabama", "record": "12-1" },
+      { "seed": 4, "school": "Florida State", "record": "10-3", "aq": true },
+      { "seed": 5, "school": "West Virginia", "record": "12-1" },
+      { "seed": 6, "school": "Maryland", "record": "11-2" },
+      { "seed": 7, "school": "Oregon", "record": "10-3" },
       { "seed": 8, "school": "Ohio State", "record": "9-3" },
       { "seed": 9, "school": "Illinois", "record": "8-4" },
-      { "seed": 10, "school": "Clemson", "record": "9-3" },
-      { "seed": 11, "school": "Pitt", "record": "9-3", "aq": true },
-      { "seed": 12, "school": "Indiana", "record": "8-4" }
+      { "seed": 10, "school": "Florida", "record": "10-3", "aq": true },
+      { "seed": 11, "school": "Clemson", "record": "9-3" },
+      { "seed": 12, "school": "Pitt", "record": "9-4", "aq": true }
     ],
     "games": [
-      { "id": "r1-1", "round": 1, "top": 12, "bot": 5 },
-      { "id": "r1-2", "round": 1, "top": 9, "bot": 8 },
-      { "id": "r1-3", "round": 1, "top": 11, "bot": 6 },
-      { "id": "r1-4", "round": 1, "top": 10, "bot": 7 },
+      { "id": "r1-1", "round": 1, "top": 12, "bot": 5, "week": 15 },
+      { "id": "r1-2", "round": 1, "top": 9, "bot": 8, "week": 15 },
+      { "id": "r1-3", "round": 1, "top": 11, "bot": 6, "week": 15 },
+      { "id": "r1-4", "round": 1, "top": 10, "bot": 7, "week": 15 },
       { "id": "qf-1", "round": 2, "top": "r1-1", "bot": 4 },
       { "id": "qf-2", "round": 2, "top": "r1-2", "bot": 1 },
       { "id": "qf-3", "round": 2, "top": "r1-3", "bot": 3 },
