@@ -189,7 +189,7 @@
     { "twitch": "Ykla_2144",           "school": "West Virginia",  "abbr": "WVU",  "color": "#002855", "logo": "img/teams/west-virginia.webp" },
     { "twitch": "r3al3st260",          "school": "Alabama",        "abbr": "BAMA", "color": "#9E1B32", "logo": "img/teams/alabama.webp" },
     { "twitch": "bignu225",            "school": "Nebraska",       "abbr": "NEB",  "color": "#E41C38", "logo": "img/teams/nebraska.webp" },
-    { "twitch": "dubshow23",           "school": "TCU",            "abbr": "TCU",  "color": "#4D1979" },
+    { "twitch": "dubshow23",           "school": "TCU",            "abbr": "TCU",  "color": "#4D1979", "logo": "img/teams/tcu.webp" },
     { "twitch": "coach_barbermike707", "school": "Pitt",           "abbr": "PITT", "color": "#003594", "logo": "img/teams/pitt.webp" },
     { "twitch": "purpdollas7",         "school": "UCLA",           "abbr": "UCLA", "color": "#2D68C4", "logo": "img/teams/ucla.webp" },
     { "twitch": "cantguardmac13",      "school": "Indiana",        "abbr": "IU",   "color": "#990000", "logo": "img/teams/indiana.webp" },
