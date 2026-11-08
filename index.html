@@ -1178,7 +1178,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   let hlStop = null;
   function viewHighlights() {
     const list = highlights();
-    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas><video id="hl-vid" class="hl-vid" src="vid/hl-banner-web_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas><video id="hl-vid" class="hl-vid" src="vid/hl-banner-video_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="hl-copy"><div class="pre">Blam<span>TV</span></div><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
       <h2 class="section-h">Latest highlights</h2>
       ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
