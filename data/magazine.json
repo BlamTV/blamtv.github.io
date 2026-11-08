@@ -1,6 +1,273 @@
 {
   "issues": [
     {
+      "id": "road-to-miami",
+      "edition": "Issue 4",
+      "kicker": "2029 College Football Playoff Preview",
+      "title": "The Road to Miami",
+      "dek": "12 Teams. One Championship. No Room for Mistakes.",
+      "author": "BLAM News",
+      "date": "2026-11-07T21:50:00-06:00",
+      "season": "2029 College Football Season",
+      "blocks": [
+        {
+          "lead": true,
+          "p": "The 2029 College Football Playoff field is officially set, and the road to the national championship in Miami is about to begin."
+        },
+        {
+          "p": "With four teams earning first-round byes and eight others preparing for postseason battles, the stakes have never been higher. Some programs are chasing redemption, others are looking to complete historic seasons, and one team is looking to prove that its championship run was no fluke."
+        },
+        {
+          "p": "Let’s break down the bracket."
+        },
+        {
+          "bracket": {
+            "byes": [
+              [
+                "1",
+                "TCU",
+                "12–1"
+              ],
+              [
+                "2",
+                "Virginia Tech",
+                "11–2"
+              ],
+              [
+                "3",
+                "Alabama",
+                "12–1"
+              ],
+              [
+                "4",
+                "Florida State",
+                "10–3"
+              ]
+            ],
+            "games": [
+              [
+                [
+                  "12",
+                  "Pitt",
+                  "9–4"
+                ],
+                [
+                  "5",
+                  "West Virginia",
+                  "12–1"
+                ]
+              ],
+              [
+                [
+                  "9",
+                  "Illinois",
+                  "8–4"
+                ],
+                [
+                  "8",
+                  "Ohio State",
+                  "9–3"
+                ]
+              ],
+              [
+                [
+                  "11",
+                  "Clemson",
+                  "9–3"
+                ],
+                [
+                  "6",
+                  "Maryland",
+                  "11–2"
+                ]
+              ],
+              [
+                [
+                  "10",
+                  "Florida",
+                  "10–3"
+                ],
+                [
+                  "7",
+                  "Oregon",
+                  "10–3"
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "h": "The Four Teams on Bye",
+          "icon": "🎟️"
+        },
+        {
+          "p": "Four programs have earned a direct ticket to the quarterfinals:"
+        },
+        {
+          "table": {
+            "cols": [
+              "Seed",
+              "Team",
+              "Record"
+            ],
+            "rows": [
+              [
+                "#1",
+                "TCU",
+                "12–1"
+              ],
+              [
+                "#2",
+                "Virginia Tech",
+                "11–2"
+              ],
+              [
+                "#3",
+                "Alabama",
+                "12–1"
+              ],
+              [
+                "#4",
+                "Florida State",
+                "10–3"
+              ]
+            ]
+          }
+        },
+        {
+          "lead": true,
+          "p": "Virginia Tech enters as the No. 2 seed."
+        },
+        {
+          "p": "After capturing the Big 12 Championship with a 31–21 victory over previously undefeated No. 3 West Virginia, the Hokies have earned a valuable first-round bye."
+        },
+        {
+          "pull": "The Vick Era is officially entering championship territory.",
+          "pull2": "Two more wins separate Virginia Tech from the national championship game."
+        },
+        {
+          "p": "But the road won’t be easy."
+        },
+        {
+          "h": "First-Round Matchups",
+          "icon": "🏈"
+        },
+        {
+          "lead": true,
+          "p": "Eight teams will battle for the opportunity to advance."
+        },
+        {
+          "item": "#12 Pittsburgh (9–4) vs. #5 West Virginia (12–1)",
+          "p": "The Backyard Brawl takes on postseason significance. West Virginia enters with a 12–1 record and the Heisman Trophy-winning quarterback, but the Mountaineers are coming off a painful Big 12 Championship loss to Virginia Tech. Can they regroup and keep their championship hopes alive?"
+        },
+        {
+          "item": "#9 Illinois (8–4) vs. #8 Ohio State (9–3)",
+          "p": "Ohio State gets the home-seed advantage, but Illinois has an opportunity to make a statement. This matchup could be one of the most competitive games of the opening round."
+        },
+        {
+          "item": "#11 Clemson (9–3) vs. #6 Maryland (11–2)",
+          "p": "Maryland has put together an impressive 11-win season, but Clemson is no stranger to postseason pressure. The Tigers will have to bring their best to pull off the upset."
+        },
+        {
+          "item": "#10 Florida (10–3) vs. #7 Oregon (10–3)",
+          "p": "Two 10-win programs collide. Florida and Oregon both have the talent to make a deep run, but only one will move forward."
+        },
+        {
+          "h": "The Storylines to Watch",
+          "icon": "🎙️"
+        },
+        {
+          "h3": "The Heisman Winner’s Redemption Tour"
+        },
+        {
+          "p": "West Virginia’s quarterback took home college football’s most prestigious individual award. Now he faces a different challenge: leading his team through the playoff after suffering a championship defeat."
+        },
+        {
+          "p": "The Mountaineers have a dangerous offense, and nobody should overlook them."
+        },
+        {
+          "h3": "The Vick Era Is Within Reach"
+        },
+        {
+          "p": "Virginia Tech sits at No. 2 nationally with an 11–2 record and a first-round bye."
+        },
+        {
+          "p": "The Hokies already have a Big 12 Championship trophy in their possession. Now they’re chasing something bigger."
+        },
+        {
+          "box": "The question is simple: Can the Vick Era finish the job?",
+          "p": ""
+        },
+        {
+          "h3": "Who Can Stop TCU and Alabama?"
+        },
+        {
+          "p": "Both programs enter at 12–1 and have earned top-three seeds. With first-round byes, they’ll have additional time to prepare for their quarterfinal opponents."
+        },
+        {
+          "p": "Neither team should be taken lightly."
+        },
+        {
+          "h": "The Road to Miami",
+          "icon": "🌴"
+        },
+        {
+          "p": "The quarterfinals will narrow the field from eight teams to four. The remaining programs will then battle in the semifinals for a chance to compete for the national championship."
+        },
+        {
+          "p": "And the final destination?"
+        },
+        {
+          "stats": [
+            [
+              "Teams in the field",
+              "12",
+              true
+            ],
+            [
+              "First-round byes",
+              "4"
+            ],
+            [
+              "Final destination",
+              "Hard Rock Stadium",
+              true
+            ],
+            [
+              "City",
+              "Miami, FL"
+            ]
+          ],
+          "title": "By the numbers"
+        },
+        {
+          "pull": "One team will leave Miami as national champion.",
+          "pull2": "Eleven others will be left wondering what could have been."
+        },
+        {
+          "h": "BLAM News Prediction",
+          "icon": "🔮"
+        },
+        {
+          "lead": true,
+          "p": "Virginia Tech has the talent, the momentum, and the No. 2 seed. The Hokies have already proven they can take down an undefeated top-three opponent on the biggest stage in their conference."
+        },
+        {
+          "p": "But the postseason is a different animal."
+        },
+        {
+          "pull": "The Big 12 Championship was a statement.",
+          "pull2": "The national championship would be a legacy."
+        },
+        {
+          "p": "The Vick Era is hunting for something bigger."
+        },
+        {
+          "sign": "BLAM TV — Your League. Your Games. Your Stories."
+        }
+      ]
+    },
+    {
       "id": "who-ends-the-dynasty",
       "edition": "Issue 3",
       "kicker": "Championship Contender Snapshot",
