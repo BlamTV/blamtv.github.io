@@ -1144,7 +1144,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <span>${[r.position, r.archetype, r.size].filter(Boolean).map(esc).join(' · ')}</span>${r.hometown ? `<span>${esc(r.hometown)}</span>` : ''}${r.nil ? `<span class="nilv">NIL ${esc(r.nil)}</span>` : ''}
         ${r.school ? `<span class="to">${m ? avatar(m) : ''}${esc(r.status || 'Committed')} · ${esc(r.school)}</span>` : ''}
         ${r.note ? `<span>${esc(r.note)}</span>` : ''}</div></article>`; };
-    app.innerHTML = `<section class="nil-hero" aria-label="NIL: Spend Dat Ish"><canvas id="nil-canvas"></canvas><video id="nil-vid" class="nil-vid" src="vid/nil-banner_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+    app.innerHTML = `<section class="nil-hero" aria-label="NIL: Spend Dat Ish"><canvas id="nil-canvas"></canvas><video id="nil-vid" class="nil-vid" src="vid/nil-banner-video_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="nil-copy"><div class="k">NIL</div><div class="s">Spend Dat Ish</div><p>The recruits coming in to the Blam League. Who's getting paid, and where they're signing.</p></div>${HAND_SVG}</section>
       <h2 class="section-h">Incoming recruits</h2>
       ${list.length ? `<div class="rc-grid">${list.map(card).join('')}</div>`
