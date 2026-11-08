@@ -122,12 +122,16 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .byline .who .av { font-size: 10px }
 
 .chan { position: relative; border-radius: calc(var(--r) + 4px); overflow: hidden; margin-bottom: 26px; background: var(--surface); border: 1px solid var(--line) }
+.ch-intro { max-width: 860px; margin: -10px 0 26px; border-radius: calc(var(--r) + 4px); overflow: hidden; background: #000; border: 1px solid var(--line) }
+.ch-intro video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 72vh; background: #000; object-fit: contain }
+.ch-intro .cap { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface); font-weight: 700; font-size: 15px }
+.ch-intro .cap span { flex: none; white-space: nowrap; font: 800 11px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; background: #f3b234; color: #111; padding: 5px 7px; border-radius: 4px }
 .chan .band { height: 92px; background: linear-gradient(120deg, var(--sc), color-mix(in srgb, var(--sc) 60%, #000)); position: relative }
 .chan .band::after { content: attr(data-abbr); position: absolute; right: 18px; bottom: -10px; font: 800 76px/1 var(--display); color: var(--ink); opacity: .22 }
 .chan .body { display: flex; gap: 16px; align-items: flex-end; padding: 0 18px 18px; margin-top: -42px; flex-wrap: wrap; position: relative }
 .chan h1 { margin: 0; font: 800 clamp(26px, 5vw, 42px)/1.05 var(--display); letter-spacing: -.01em; text-transform: uppercase; overflow-wrap: anywhere }
 .chan p { margin: 4px 0 0; color: var(--muted) }
-.chan .txt { min-width: 0; flex: 1 }
+.chan .txt { min-width: 0; flex: 1 1 220px }
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 999px; background: var(--raise); font-weight: 700; font-size: 14px; border: 1px solid var(--line) }
 .btn:hover { border-color: var(--muted) }
 .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
@@ -994,6 +998,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       });
     });
   }
+  // Coach intro video: league.json member "intro": { "url": "vid/x.mp4", "poster": "vid/x.jpg", "title": "..." }
+  function introBlock(m) {
+    const it = m && m.intro; if (!it || !it.url) return '';
+    return `<section class="ch-intro"><video src="${esc(it.url)}"${it.poster ? ` poster="${esc(it.poster)}"` : ''} controls playsinline preload="metadata"></video><div class="cap"><span>Coach intro</span>${esc(it.title || '')}</div></section>`;
+  }
   function viewChannel(s) {
     const m = bySlug[s];
     if (!m) { app.innerHTML = `<div class="empty-state"><b>Channel not found</b>That coach isn't on the Blam League list. <a href="#channels">See all channels</a></div>`; return; }
@@ -1009,7 +1018,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <div class="body">${avatar(m, 'lg')}<div class="txt"><h1>${esc(m.display)}</h1>
           <p>${esc(m.school)}${confOf(m) ? ' · ' + esc(confOf(m).name) : ''} · Season ${L.season} · ${list.length} video${list.length === 1 ? '' : 's'}${isLive ? ' · <span class="pill-live">LIVE</span>' : ''}</p></div>
           ${profilesOn() ? `<a class="btn primary" href="#coach-${slug(m.login)}">Coach profile</a>` : ''}<a class="btn" href="https://www.twitch.tv/${esc(m.login)}" target="_blank" rel="noopener">Open on Twitch ↗</a></div></section>
-      ${groups.length ? groups.map(g => `<h2 class="section-h">${esc(g.key)}</h2>${grid(g.items, false)}`).join('')
+      ${introBlock(m)}${groups.length ? groups.map(g => `<h2 class="section-h">${esc(g.key)}</h2>${grid(g.items, false)}`).join('')
         : `<div class="empty-state"><b>No saved streams</b>${esc(m.display)} has no past broadcasts on Twitch right now. In Twitch settings, they can turn on <em>Store past broadcasts</em> so games get saved.</div>`}`;
   }
 
@@ -1699,7 +1708,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const m = bySlug[s];
     if (!m) { app.innerHTML = `<div class="empty-state"><b>Coach not found</b>That coach isn't on the Blam League list. <a href="#channels">See all channels</a></div>`; return; }
     const hash = location.hash;
-    app.innerHTML = `${banner()}<div class="coach-pg">${coachHead(m)}<div id="cp-main"><div class="cp-card cp-empty">Loading profile…</div></div></div>`;
+    app.innerHTML = `${banner()}<div class="coach-pg">${coachHead(m)}${introBlock(m)}<div id="cp-main"><div class="cp-card cp-empty">Loading profile…</div></div></div>`;
     let client; try { client = await supa(); } catch (e) { document.getElementById('cp-main').innerHTML = '<div class="cp-card cp-empty">Profiles are offline right now.</div>'; return; }
     const [res, p, co] = await Promise.all([client.from('coach_profiles').select('*').eq('twitch_login', m.login).maybeSingle(), loadMyProfile(),
       client.from('coach_profiles').select('twitch_login,rival_login,beef_with').or(`rival_login.eq.${m.login},beef_with.eq.${m.login}`)]);
