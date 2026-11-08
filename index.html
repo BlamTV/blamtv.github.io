@@ -255,13 +255,21 @@ a.tm:hover { background: var(--raise) }
 .hl-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); min-height: 240px; margin-bottom: 26px; display: flex; align-items: center;
   background: radial-gradient(90% 120% at 78% 0%, #4a3a0c 0%, #1a160b 42%, #07080b 100%); color: #fff; isolation: isolate }
 .hl-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none }
+.hl-hero .hl-vid { position: absolute; z-index: 2; top: 0; right: 0; height: 100%; width: 72%; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity .6s ease; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%) }
+.hl-hero.has-vid { min-height: 300px }
+.hl-hero.has-vid .hl-vid { opacity: 1 }
+.hl-hero.has-vid .hl-copy { text-shadow: 0 2px 12px rgba(0,0,0,.6) }
+@media (prefers-reduced-motion: reduce) { .hl-hero .hl-vid { transition: none } }
 .hl-copy { position: relative; z-index: 3; padding: 26px 28px; max-width: 58% }
 .hl-copy .k { font: 800 clamp(44px, 8.6vw, 100px)/.84 var(--display); letter-spacing: -.03em; color: #f3c23a; text-transform: uppercase; text-shadow: 0 4px 0 #7a5a00, 0 10px 30px rgba(0,0,0,.5) }
 .hl-copy .s { font: 800 clamp(18px, 3.4vw, 32px)/1 var(--display); text-transform: uppercase; margin-top: 10px; transform: rotate(-2deg); display: inline-block; background: #fff; color: #0b0d10; padding: 6px 12px 7px; border-radius: 4px }
 .hl-copy .pre { font: 800 clamp(22px, 3.8vw, 40px)/1 var(--display); text-transform: uppercase; letter-spacing: .01em; color: #fff; margin-bottom: 6px }
 .hl-copy .pre span { background: #f3b234; color: #111; padding: 0 6px 2px; margin-left: 4px; border-radius: 4px }
 .hl-copy p { margin: 14px 0 0; color: #e8dfc4; font-size: 15px; max-width: 34ch }
-@media (max-width: 640px) { .hl-copy { max-width: 100%; padding: 22px 18px 170px } .hl-hero { align-items: flex-start; min-height: 420px } }
+@media (max-width: 640px) { .hl-copy { max-width: 100%; padding: 22px 18px 170px } .hl-hero { align-items: flex-start; min-height: 420px }
+  .hl-hero.has-vid { min-height: 460px } .hl-hero .hl-vid { top: auto; bottom: 0; left: 0; width: 100%; height: 62%; object-position: 50% 35%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 32%); mask-image: linear-gradient(180deg, transparent 0, #000 32%) } }
 .hl-how { margin-top: 26px; padding: 14px 16px; border-radius: var(--r); background: var(--raise); font-size: 14px; color: var(--muted) }
 .hl-how b { color: var(--fg) }
 .ph .ph-kind { position: absolute; top: 8px; left: 8px; font: 700 10px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; background: rgba(8,10,14,.82); color: #fff; padding: 4px 6px; border-radius: 4px }
@@ -1170,7 +1178,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   let hlStop = null;
   function viewHighlights() {
     const list = highlights();
-    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas>
+    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas><video id="hl-vid" class="hl-vid" src="vid/hl-banner-web_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="hl-copy"><div class="pre">Blam<span>TV</span></div><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
       <h2 class="section-h">Latest highlights</h2>
       ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
@@ -1178,6 +1186,20 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <div class="hl-how"><b>Coaches, get your plays on here:</b> save a Highlight on Twitch with <b>BLAM</b> in the title and it shows up automatically,
         or send your YouTube or Twitch clip link to the commissioner.</div>`;
     hlStop = startHighStep(document.getElementById('hl-canvas'));
+    // Realistic high-step video banner (ComfyUI, MiniMax H3). Falls back to the drawn banner if it can't load.
+    const hv = document.getElementById('hl-vid');
+    if (hv) {
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      hv.muted = true;
+      hv.onerror = () => hv.remove();
+      hv.addEventListener('loadeddata', () => {
+        if (!hv.isConnected) return;
+        if (hlStop) { hlStop(); hlStop = null; }
+        const cv = document.getElementById('hl-canvas'); if (cv) cv.style.display = 'none';
+        hv.closest('.hl-hero').classList.add('has-vid');
+        if (still) { hv.currentTime = 0.4; } else { const p = hv.play(); if (p) p.catch(() => {}); }
+      }, { once: true });
+    }
   }
   function viewHighlight(key) {
     const list = highlights(), h = list.find(x => x.key === key);
