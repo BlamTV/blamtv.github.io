@@ -95,7 +95,7 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 14, "away": "TCU", "home": "Maryland", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
+  "gameOfWeek": { "season": 4, "week": 16, "away": "Maryland", "home": "Alabama", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
 
   "playoff": {
     "season": 4, "fromWeek": 14, "title": "Season 4 Playoff",
