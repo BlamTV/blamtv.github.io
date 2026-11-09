@@ -1,6 +1,543 @@
 {
   "issues": [
     {
+      "id": "the-future-is-now",
+      "edition": "Issue 5",
+      "kicker": "All-American Special Edition",
+      "title": "The Future Is Now",
+      "dek": "Hauss Hejny Headlines a Star-Studded All-American Lineup as College Football’s Best Look to Cement Their Legacies in BLAM History",
+      "author": "BLAM News",
+      "date": "2026-11-09T17:30:00-06:00",
+      "season": "2029 College Football Season",
+      "cover": "img/blam-news-issue-005.webp",
+      "coverAlt": "BLAM Magazine cover: Season 4 All-Americans in their team uniforms, with Heisman winner Hauss Hejny holding the trophy in front",
+      "blocks": [
+        {
+          "h": "The Best of the Best",
+          "icon": "🏈"
+        },
+        {
+          "p": "The lights are brighter. The expectations are higher. And the talent across the BLAM College Football League has never looked more dangerous.",
+          "lead": true
+        },
+        {
+          "p": "As Season 4 unfolds, BLAM NEWS proudly unveils its latest magazine cover, celebrating an extraordinary collection of All-American talent representing some of college football’s most competitive programs."
+        },
+        {
+          "p": "From dominant defensive linemen and lockdown cornerbacks to explosive linebackers and a Heisman Trophy-winning quarterback, this group represents the standard of excellence that every program in BLAM is chasing."
+        },
+        {
+          "p": "But among these stars, one name commands the spotlight."
+        },
+        {
+          "pull": "Hauss Hejny. West Virginia. Heisman Trophy winner.",
+          "pull2": "And he has the hardware to prove it."
+        },
+        {
+          "table": {
+            "cols": [
+              "Player",
+              "School",
+              "Position",
+              "OVR"
+            ],
+            "rows": [
+              [
+                "Lamar Brown",
+                "LSU",
+                "Defensive Tackle",
+                "96"
+              ],
+              [
+                "Derrick Simmons",
+                "Maryland",
+                "Defensive Tackle",
+                "91"
+              ],
+              [
+                "Kobi Foreman",
+                "TCU",
+                "Cornerback",
+                "89"
+              ],
+              [
+                "Joel Amerson",
+                "TCU",
+                "Middle Linebacker",
+                "87"
+              ],
+              [
+                "Noriel Dominguez",
+                "TCU",
+                "Outside Linebacker",
+                "86"
+              ],
+              [
+                "Josh Buechele",
+                "Florida",
+                "Left Edge Rusher",
+                "85"
+              ],
+              [
+                "Hauss Hejny",
+                "West Virginia",
+                "Quarterback",
+                "84"
+              ],
+              [
+                "Jawuan Carreon",
+                "Ole Miss",
+                "Outside Linebacker",
+                "84"
+              ],
+              [
+                "Aidan Anding",
+                "Ohio State",
+                "Cornerback",
+                "84"
+              ],
+              [
+                "Tiquan Middlebrooks",
+                "Alabama",
+                "Strong Safety",
+                "84"
+              ],
+              [
+                "Taylor Medina",
+                "TCU",
+                "Free Safety",
+                "83"
+              ],
+              [
+                "Samu Moala",
+                "Alabama",
+                "Right Edge Rusher",
+                "80"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "The Heisman King: Hauss Hejny",
+          "icon": "🏆"
+        },
+        {
+          "player": {
+            "tag": "Heisman Trophy Winner",
+            "name": "Hauss Hejny",
+            "school": "West Virginia",
+            "pos": "Quarterback",
+            "ovr": "84",
+            "cls": "Redshirt Senior"
+          }
+        },
+        {
+          "title": "Hejny at a glance",
+          "stats": [
+            [
+              "Trophy",
+              "Heisman",
+              true
+            ],
+            [
+              "Overall",
+              "84"
+            ],
+            [
+              "Height",
+              "6'0\""
+            ],
+            [
+              "Weight",
+              "213 lbs"
+            ],
+            [
+              "Archetype",
+              "Pure Runner"
+            ],
+            [
+              "Ability",
+              "Human Joystick"
+            ]
+          ]
+        },
+        {
+          "p": "In a league where championship aspirations can disappear with one bad Saturday, West Virginia quarterback Hauss Hejny has accomplished something that separates great players from legends."
+        },
+        {
+          "p": "He captured college football’s most prestigious individual honor: the Heisman Trophy."
+        },
+        {
+          "p": "The 84-overall redshirt senior brings a unique dimension to the Mountaineers’ offense with his Pure Runner archetype and Human Joystick ability."
+        },
+        {
+          "p": "Standing 6 feet tall and weighing 213 pounds, Hejny represents the dynamic rushing quarterback capable of turning a broken play into a highlight-reel moment."
+        },
+        {
+          "p": "His Heisman victory is more than an individual achievement. It is a statement about the caliber of talent competing in BLAM."
+        },
+        {
+          "p": "With the trophy now part of his legacy, the question becomes whether Hejny can translate individual greatness into the ultimate team accomplishment."
+        },
+        {
+          "box": "Can West Virginia turn its Heisman success into a national championship?",
+          "p": "That storyline alone makes the Mountaineers one of the most intriguing programs to watch."
+        },
+        {
+          "h": "Defensive Warfare: The Men Who Control the Trenches",
+          "icon": "🛡️"
+        },
+        {
+          "p": "Championships may be celebrated by quarterbacks, but they are often won by the players who make life miserable for them.",
+          "lead": true
+        },
+        {
+          "p": "And Season 4 features some absolute monsters along the defensive front."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Lamar Brown",
+            "school": "LSU",
+            "pos": "Defensive Tackle",
+            "ovr": "96"
+          }
+        },
+        {
+          "p": "If there is one defender opposing offensive coordinators should circle on their scouting reports, it is Lamar Brown."
+        },
+        {
+          "p": "At 6-foot-4 and 302 pounds, LSU’s defensive tackle is the highest-rated player featured on this magazine cover."
+        },
+        {
+          "p": "His Pure Power archetype, combined with Pocket Disruptor, Inside Disruptor, Workhorse, and Hammer abilities, makes him a nightmare along the interior defensive line."
+        },
+        {
+          "p": "Brown isn’t simply occupying blockers. He is built to destroy offensive game plans."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Derrick Simmons",
+            "school": "Maryland",
+            "pos": "Defensive Tackle",
+            "ovr": "91",
+            "cls": "Redshirt Senior"
+          }
+        },
+        {
+          "p": "Maryland brings its own wrecking ball to the conversation."
+        },
+        {
+          "p": "Derrick Simmons, a 6-foot-3, 312-pound redshirt senior, provides the Terrapins with an imposing presence along the defensive line."
+        },
+        {
+          "p": "His combination of strength, experience, and disruptive abilities gives Maryland a legitimate defensive centerpiece."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Josh Buechele",
+            "school": "Florida",
+            "pos": "Left Edge Rusher",
+            "ovr": "85",
+            "cls": "Junior"
+          }
+        },
+        {
+          "p": "The Florida Gators have a dangerous edge defender in Josh Buechele."
+        },
+        {
+          "p": "The 6-foot-2, 244-pound junior specializes in speed rushing, with Take Down and Pocket Disruptor among his featured abilities."
+        },
+        {
+          "p": "Buechele gives Florida the type of pass-rushing threat capable of changing a game with one perfectly timed sack."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Samu Moala",
+            "school": "Alabama",
+            "pos": "Right Edge Rusher",
+            "ovr": "80",
+            "cls": "Redshirt Junior"
+          }
+        },
+        {
+          "p": "Never count Alabama out when discussing defensive talent."
+        },
+        {
+          "p": "Samu Moala, a 6-foot-4, 255-pound redshirt junior, brings speed and athleticism to the Crimson Tide’s defensive front."
+        },
+        {
+          "p": "With his Quick Jump ability, Moala has the tools to become a disruptive presence off the edge."
+        },
+        {
+          "h": "Defensive Dominance: TCU Leads the Charge",
+          "icon": "🐸"
+        },
+        {
+          "p": "While defensive linemen create chaos, linebackers are responsible for controlling it.",
+          "lead": true
+        },
+        {
+          "p": "And few programs featured on this cover boast a defensive collection quite like TCU."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Joel Amerson",
+            "school": "TCU",
+            "pos": "Middle Linebacker",
+            "ovr": "87",
+            "cls": "Sophomore"
+          }
+        },
+        {
+          "p": "Amerson is the quarterback of the Horned Frogs’ defense."
+        },
+        {
+          "p": "The sophomore linebacker combines physicality with defensive awareness, making him an important presence in the middle of the field."
+        },
+        {
+          "p": "With Robber and Bouncer abilities, Amerson has the potential to influence both passing and rushing situations."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Noriel Dominguez",
+            "school": "TCU",
+            "pos": "Outside Linebacker",
+            "ovr": "86"
+          }
+        },
+        {
+          "p": "Standing 6-foot-2 and weighing 248 pounds, Dominguez brings an intimidating combination of size and physicality."
+        },
+        {
+          "p": "His House Call, Knockout, and Bouncer abilities make him a dangerous defensive weapon."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Jawuan Carreon",
+            "school": "Ole Miss",
+            "pos": "Outside Linebacker",
+            "ovr": "84",
+            "cls": "Redshirt Freshman"
+          }
+        },
+        {
+          "p": "The Rebels have their own rising defensive star."
+        },
+        {
+          "p": "Carreon is a redshirt freshman who already carries an 84 overall rating, an impressive foundation for a player so early in his collegiate career."
+        },
+        {
+          "p": "With House Call, Bouncer, Winning Time, and Fan Favorite abilities, his future could be particularly exciting."
+        },
+        {
+          "p": "If these linebackers continue developing, opposing offenses may have serious problems for seasons to come."
+        },
+        {
+          "h": "No-Fly Zone: The Secondary Takes Over",
+          "icon": "🚫"
+        },
+        {
+          "p": "The modern college football landscape is built around explosive passing offenses.",
+          "lead": true
+        },
+        {
+          "p": "But these defensive backs have other plans."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Kobi Foreman",
+            "school": "TCU",
+            "pos": "Cornerback",
+            "ovr": "89"
+          }
+        },
+        {
+          "p": "Foreman leads the defensive backfield discussion with an impressive 89 overall rating."
+        },
+        {
+          "p": "His Robber, Blanket Coverage, and Ballhawk abilities make him a dangerous opponent for quarterbacks who underestimate his coverage skills."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Aidan Anding",
+            "school": "Ohio State",
+            "pos": "Cornerback",
+            "ovr": "84"
+          }
+        },
+        {
+          "p": "Ohio State continues its tradition of producing talented defensive backs."
+        },
+        {
+          "p": "Anding brings a Field archetype and a combination of Robber and Knockout abilities that could help the Buckeyes limit explosive passing plays."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Taylor Medina",
+            "school": "TCU",
+            "pos": "Free Safety",
+            "ovr": "83"
+          }
+        },
+        {
+          "p": "Medina gives TCU another talented defensive playmaker."
+        },
+        {
+          "p": "With his Hybrid archetype and Blow Up ability, he provides additional versatility to an already impressive defensive unit."
+        },
+        {
+          "player": {
+            "tag": "Season 4 All-American",
+            "name": "Tiquan Middlebrooks",
+            "school": "Alabama",
+            "pos": "Strong Safety",
+            "ovr": "84",
+            "cls": "Sophomore"
+          }
+        },
+        {
+          "p": "Middlebrooks is another player worth watching."
+        },
+        {
+          "p": "The sophomore safety brings a Coverage Specialist archetype alongside House Call, Instinct, Road Dog, and Team Player abilities."
+        },
+        {
+          "p": "His presence gives Alabama a promising defensive piece with multiple seasons of potential development ahead."
+        },
+        {
+          "h": "The Next Generation Has Arrived",
+          "icon": "🌟"
+        },
+        {
+          "p": "Beyond the individual stars, this magazine cover tells a much larger story about the BLAM College Football League.",
+          "lead": true
+        },
+        {
+          "p": "Elite talent is distributed across programs with very different championship expectations."
+        },
+        {
+          "p": "Florida has a dangerous pass rusher. LSU and Maryland possess powerful interior defenders. Alabama continues to build its defensive identity."
+        },
+        {
+          "p": "Ole Miss has an emerging linebacker. Ohio State has talent in the secondary. And TCU has assembled an especially impressive collection of defensive playmakers."
+        },
+        {
+          "pull": "Meanwhile, West Virginia has something every program dreams of producing.",
+          "pull2": "A Heisman Trophy winner."
+        },
+        {
+          "p": "The competition is fierce, the expectations are enormous, and the opportunity to establish a lasting legacy has never been greater."
+        },
+        {
+          "title": "TCU’s All-American defense",
+          "stats": [
+            [
+              "Kobi Foreman · CB",
+              "89",
+              true
+            ],
+            [
+              "Joel Amerson · MLB",
+              "87",
+              true
+            ],
+            [
+              "Noriel Dominguez · OLB",
+              "86"
+            ],
+            [
+              "Taylor Medina · FS",
+              "83"
+            ]
+          ]
+        },
+        {
+          "h": "The Big Questions of Season 4",
+          "icon": "🎙️"
+        },
+        {
+          "p": "As the BLAM landscape continues to evolve, several questions deserve attention.",
+          "lead": true
+        },
+        {
+          "item": "Can Hauss Hejny deliver a national championship to West Virginia?",
+          "p": "Winning the Heisman is an extraordinary accomplishment. Winning the national championship would elevate his legacy even further."
+        },
+        {
+          "item": "Is Lamar Brown the most dominant defensive player in BLAM?",
+          "p": "At 96 overall, the LSU defensive tackle stands among the premier talents featured in this All-American showcase."
+        },
+        {
+          "item": "Does TCU possess the most talented defensive core?",
+          "p": "With Kobi Foreman, Joel Amerson, Noriel Dominguez, and Taylor Medina, the Horned Frogs have assembled an impressive group of defensive standouts."
+        },
+        {
+          "item": "Which underclassman will become the league’s next superstar?",
+          "p": "Jawuan Carreon and Tiquan Middlebrooks are among the younger players with opportunities to develop into future household names."
+        },
+        {
+          "p": "And perhaps the biggest question of all:"
+        },
+        {
+          "box": "Which of these All-Americans will ultimately finish their college careers as national champions?",
+          "p": ""
+        },
+        {
+          "h": "A New Chapter in BLAM History",
+          "icon": "📖"
+        },
+        {
+          "p": "Individual awards are earned.",
+          "lead": true
+        },
+        {
+          "p": "All-American recognition is deserved."
+        },
+        {
+          "p": "But championships?"
+        },
+        {
+          "box": "Championships are remembered forever.",
+          "p": ""
+        },
+        {
+          "p": "As Season 4 unfolds, these athletes will carry the expectations of their teammates, coaches, universities, and fan bases."
+        },
+        {
+          "p": "Some will become legends."
+        },
+        {
+          "p": "Others will experience heartbreak."
+        },
+        {
+          "p": "And a select few may have the opportunity to cement their names permanently in BLAM history."
+        },
+        {
+          "p": "One thing is certain."
+        },
+        {
+          "p": "The future isn’t coming. The future is already here.",
+          "lead": true
+        },
+        {
+          "p": "And these All-Americans are ready to take over."
+        },
+        {
+          "sign": "BLAM NEWS — Where Dynasties Are Built, Rivalries Are Born, and Legends Are Made."
+        }
+      ]
+    },
+    {
       "id": "road-to-miami",
       "edition": "Issue 4",
       "kicker": "2029 College Football Playoff Preview",
