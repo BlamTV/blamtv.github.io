@@ -839,7 +839,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   function matchups(season, week) {
     const games = weekGames(season, week);
     if (!games.length) return '';
-    const g = L.gameOfWeek, isStar = (aw, hm) => g && g.season === season && g.week === week && g.away === aw && g.home === hm;
+    const isStar = (aw, hm) => gotwList().some(g => g.season === season && g.week === week && g.away === aw && g.home === hm);
     const nRiv = games.filter(([aw, hm]) => rivalryOf(aw, hm)).length;
     const rivBar = nRiv ? `<div class="rv-bar"><span class="rv-sum"><span class="rv-pill">Rivalry</span>${nRiv >= 8 ? '<b>Rivalry Week</b> · ' : ''}${nRiv} rivalry game${nRiv === 1 ? '' : 's'}</span><button type="button" class="rv-filter" aria-pressed="false" onclick="const on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',on);this.parentElement.nextElementSibling.classList.toggle('only-rival',on)">Rivalries only</button></div>` : '';
     const sch = (L.schedule || []).find(s => s.season === season && s.week === week) || {};
@@ -865,9 +865,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     return p ? `<a class="both-link" href="#both-v${esc(p[0].id)}-v${esc(p[1].id)}">▶▶ Watch both sidelines</a>` : '';
   }
   let gotwTimer = null;
+  // Game of the Week: gameOfWeek (set by the admin app) plus optional gameOfWeekExtra [] for weeks that feature more than one game
+  const gotwList = () => [L.gameOfWeek, ...(Array.isArray(L.gameOfWeekExtra) ? L.gameOfWeekExtra : [])].filter(Boolean);
   function gotw(season, week) {
-    const g = L.gameOfWeek;
-    if (!g || g.season !== season || g.week !== week) return '';
+    return gotwList().filter(g => g.season === season && g.week === week).map(g => gotwCard(g, season, week)).join('');
+  }
+  function gotwCard(g, season, week) {
     const a = teamOf(g.away), h = teamOf(g.home);
     const ko = g.kickoff ? Date.parse(g.kickoff) : NaN, now = Date.now(), tba = isNaN(ko);
     const tz = g.tzLabel || 'ET', tzName = g.tz || 'America/New_York';
@@ -903,15 +906,18 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <div class="acts">${acts}</div></section>`;
   }
   function tickGotw() {
-    const el = document.querySelector('.gotw [data-clock]');
-    if (!el) { clearInterval(gotwTimer); gotwTimer = null; return; }
+    const els = document.querySelectorAll('.gotw [data-clock]');
+    if (!els.length) { clearInterval(gotwTimer); gotwTimer = null; return; }
+    els.forEach(tickOne);
+  }
+  function tickOne(el) {
     const ko = +el.closest('.gotw').dataset.ko, d = ko - Date.now(), over = el.closest('.gotw').dataset.done;
     if (isNaN(ko)) { el.innerHTML = `Kickoff time <span class="n">TBA</span>`; return; }
     if (d > 0 && !over) {
       const hh = Math.floor(d / 3600e3), mm = Math.floor(d % 3600e3 / 60e3), dd = Math.floor(hh / 24);
       el.innerHTML = `Kickoff in <span class="n">${dd ? dd + 'd ' + (hh % 24) + 'h' : hh ? hh + 'h ' + mm + 'm' : mm + 'm'}</span>`;
     } else if (d > -2.5 * 3600e3 && !over) el.innerHTML = `<span class="n">Game on</span> · watch it live below`;
-    else el.innerHTML = `<span class="n">Final</span>${document.querySelector('.gotw .acts a[href^="#v-"]') ? ' · replays below' : ''}`;
+    else el.innerHTML = `<span class="n">Final</span>${el.closest('.gotw').querySelector('.acts a[href^="#v-"]') ? ' · replays below' : ''}`;
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
 
