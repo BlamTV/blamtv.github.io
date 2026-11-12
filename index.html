@@ -980,7 +980,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       return `<a href="#week-${w}" class="${n ? '' : 'empty'}" ${w === wk ? 'aria-current="page"' : ''}><small>${e && (e.chip || e.label) ? esc(e.chip || e.label) : 'Week'}</small><b>${e && e.label && !e.chip ? '' : w}</b><i>${n}</i></a>`;
     }).join('') + (unsorted ? `<a href="#unsorted" ${wk === null ? 'aria-current="page"' : ''}><small>Other</small><b>…</b><i>${unsorted}</i></a>` : '');
     const start = (L.weeks || []).find(x => x.season === L.season && x.week === wk);
-    app.innerHTML = `${banner()}${liveStrip()}${vbHero('vb-home', 'vid/home-banner.mp4', `Blam League · Season ${esc(L.season)}`, 'Game<span>day</span>', 'Every game. Every sideline.', '50% 35%')}
+    app.innerHTML = `${banner()}${liveStrip()}${vbHero('vb-home', 'vid/weeks-banner.mp4', `Blam League · Season ${esc(L.season)}`, 'Game<span>day</span>', 'Every game. Every sideline.', '50% 35%')}
       <div class="weekhead"><div><h1>${esc(weekLabel(L.season, wk))}</h1>
         <p>Season ${L.season}${start ? ' · advanced ' + esc(fmtDate(start.start)) : ''}</p></div>
         <span class="count">${list.length} stream${list.length === 1 ? '' : 's'}</span></div>
