@@ -133,7 +133,7 @@
     { "twitch": "dream_vvv", "school": "USC", "abbr": "USC", "color": "#990000", "logo": "img/teams/usc.webp" },
     { "twitch": "blakbuddah", "school": "Penn State", "abbr": "PSU", "color": "#041E42", "logo": "img/teams/penn-state.webp" },
     { "twitch": "ravingzebe", "school": "Auburn", "abbr": "AUB", "color": "#E87722", "logo": "img/teams/auburn.webp" },
-    { "twitch": "tomcatdadaddy", "school": "Louisville", "abbr": "LOU", "color": "#AD0000", "logo": "img/teams/louisville.jpg", "intro": { "url": "vid/BlamTV-Welcome-to-DaVille.mp4", "title": "Hey playa… welcome to the Ville" } },
+    { "twitch": "tomcatdadaddy", "coachName": "Catatron Slugga", "school": "Louisville", "abbr": "LOU", "color": "#AD0000", "logo": "img/teams/louisville.jpg", "intro": { "url": "vid/BlamTV-Welcome-to-DaVille.mp4", "title": "Hey playa… welcome to the Ville" } },
     { "twitch": "grodd30", "school": "South Carolina", "abbr": "SC", "color": "#73000A", "logo": "img/teams/south-carolina.webp" },
     { "twitch": "vchosenone12", "school": "Iowa", "abbr": "IOWA", "color": "#FFCD00", "logo": "img/teams/iowa.webp" },
     { "twitch": "drakeworth33", "school": "Texas", "abbr": "TEX", "color": "#BF5700", "logo": "img/teams/texas.webp" },
