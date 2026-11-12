@@ -65,6 +65,33 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
 .note { font-size: 14px; color: var(--muted); margin: 0 0 14px }
 .vbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--raise); font-size: 17px; line-height: 1; display: inline-grid; place-items: center; vertical-align: middle; margin-left: 8px }
 .hidden { display: none !important }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; margin: 0 0 14px }
+.tabs button { min-height: 42px; border: 0; border-radius: 999px; background: transparent; font: 800 14px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--muted) }
+.tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink) }
+.kinds { display: flex; gap: 8px; flex-wrap: wrap }
+.kinds label { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); color: var(--fg); font: 700 14px/1 var(--body); text-transform: none; letter-spacing: 0; cursor: pointer }
+.kinds input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none }
+.kinds label:has(input:checked) { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.kinds label:has(input:focus-visible) { outline: 2px solid var(--fg); outline-offset: 2px }
+.pics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px }
+.pics .pic { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--raise); border: 1px solid var(--line) }
+.pics .pic img { width: 100%; height: 100%; object-fit: cover; display: block }
+.pics .pic button { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: rgba(0,0,0,.7); color: #fff; font-size: 16px; line-height: 1 }
+.pics .add { aspect-ratio: 1; border-radius: 10px; border: 1px dashed var(--line); background: var(--bg); display: grid; place-items: center; text-align: center; color: var(--muted); font: 700 12px/1.2 var(--body); padding: 6px; cursor: pointer }
+.pics .add b { display: block; font-size: 26px; color: var(--accent); margin-bottom: 2px }
+.entries { display: grid; gap: 12px; margin-top: 6px }
+.entry { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px }
+.entry .meta { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); margin-bottom: 6px }
+.tag { display: inline-block; padding: 3px 8px; border-radius: 999px; background: var(--raise); color: var(--accent); font: 800 11px/1 var(--body); text-transform: uppercase; letter-spacing: .08em }
+.entry h3 { margin: 0 0 6px; font: 800 18px/1.2 var(--display); overflow-wrap: anywhere }
+.entry p { margin: 0 0 8px; white-space: pre-wrap; overflow-wrap: anywhere }
+.entry .thumbs { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 8px }
+.entry .thumbs img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px }
+.entry .acts { display: flex; gap: 8px }
+.entry .acts .btn { min-height: 38px; padding: 0 14px; font-size: 14px }
+.btn.danger { border-color: #7a2a33; color: #ffb3bb }
+h2.sec { font: 800 18px/1 var(--display); text-transform: uppercase; margin: 22px 0 10px }
+
 </style>
 </head>
 <body>
@@ -97,10 +124,22 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
   function signedOut(msg) {
     meEl.innerHTML = '';
     app.innerHTML = `<div class="hero"><img src="icon-192.png" alt="" width="84" height="84" style="border-radius:20px"><h1>Blam<span>TV</span> Coach</h1>
-      <p>${esc(msg || 'Fill out your coach profile: nickname, schemes, socials, your rival and your BEEF! Talk or type.')}</p>
+      <p>${esc(msg || 'Post to your Coach\'s Diary (program updates, the recruiting trail, posters and screenshots) and fill out your coach profile. Talk or type.')}</p>
       <button class="btn twitch" id="signin">Sign in with Twitch</button></div>`;
     document.getElementById('signin').onclick = () => sb.auth.signInWithOAuth({ provider: 'twitch', options: { redirectTo: location.origin + location.pathname } });
   }
+
+  let tab = 'diary';
+  function teamHead() {
+    const conf = (L.conferences || []).find((c) => c.schools.includes(member.school));
+    document.documentElement.style.setProperty('--sc', member.color || '#f3b234');
+    return `<section class="team"><div class="band"></div><div class="body">
+        <img class="logo" src="${member.logo ? '../' + esc(member.logo) : 'icon-192.png'}" alt="">
+        <div><h1>${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}</h1><p>Head coach · ${esc(member.school)}${conf ? ` · Tier ${conf.tier} ${esc(conf.name)}` : ''}</p></div></div></section>
+      <div class="tabs" role="tablist"><button type="button" role="tab" data-tab="diary" aria-selected="${tab === 'diary'}">Coach's Diary</button><button type="button" role="tab" data-tab="profile" aria-selected="${tab === 'profile'}">My profile</button></div>`;
+  }
+  function show() { if (tab === 'diary') diary(); else form(); }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (!b || b.dataset.tab === tab) return; tab = b.dataset.tab; show(); });
 
   function form() {
     const others = L.members.filter((x) => x.twitch.toLowerCase() !== member.twitch.toLowerCase()).sort((a, b) => a.school.localeCompare(b.school));
@@ -109,12 +148,7 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     const inp = (k, label, extra = '') => `<label>${label}<span class="field"><input name="${k}" value="${v(k)}" ${extra}>${mic(k)}</span></label>`;
     const area = (k, label, extra = '') => `<label>${label}<span class="field"><textarea name="${k}" ${extra}>${v(k)}</textarea>${mic(k)}</span></label>`;
     const pick = (k) => `<select name="${k}"><option value="">— nobody —</option>${others.map((x) => `<option value="${esc(x.twitch.toLowerCase())}"${cp[k] === x.twitch.toLowerCase() ? ' selected' : ''}>${esc(x.school)} · ${esc(x.twitch)}</option>`).join('')}</select>`;
-    const conf = (L.conferences || []).find((c) => c.schools.includes(member.school));
-    document.documentElement.style.setProperty('--sc', member.color || '#f3b234');
-    app.innerHTML = `
-      <section class="team"><div class="band"></div><div class="body">
-        <img class="logo" src="${member.logo ? '../' + esc(member.logo) : 'icon-192.png'}" alt="">
-        <div><h1>${esc(member.twitch)}${cp.nickname ? ` <span style="color:var(--accent)">“${esc(cp.nickname)}”</span>` : ''}</h1><p>Head coach · ${esc(member.school)}${conf ? ` · Tier ${conf.tier} ${esc(conf.name)}` : ''}</p></div></div></section>
+    app.innerHTML = `${teamHead()}
       ${SR ? '<p class="note">Tap 🎤 next to any box and talk. You can always fix the words before saving.</p>' : '<p class="note">Tip: use the mic on your keyboard to talk instead of type.</p>'}
       <form id="f">
         <fieldset><legend>The basics</legend>
@@ -142,6 +176,105 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     const f = document.getElementById('f');
     f.querySelectorAll('[data-dict]').forEach((b) => (b.onclick = () => dictate(b, f.elements[b.dataset.dict])));
     f.onsubmit = save;
+  }
+
+
+  // ---- Coach's Diary: entries + up to 4 images (posters, screenshots) ----
+  const KINDS = [['program', 'Program'], ['recruiting', 'Recruiting trail'], ['gameday', 'Game day']];
+  const kindName = (k) => (KINDS.find((x) => x[0] === k) || KINDS[0])[1];
+  let entries = [], draft = null; // draft: { id?, kind, title, body, images: [url], files: [{file, url}] }
+  const newDraft = () => ({ kind: 'program', title: '', body: '', images: [], files: [] });
+  const login = () => member.twitch.toLowerCase();
+  async function loadEntries() {
+    const { data } = await sb.from('coach_diary').select('*').eq('twitch_login', login()).order('created_at', { ascending: false }).limit(50);
+    entries = data || [];
+  }
+  const when = (t) => new Date(t).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+  function diary() {
+    if (!draft) draft = newDraft();
+    const mic = (k) => SR ? `<button type="button" class="dict" data-dict="${k}" aria-label="Talk to fill this">${MIC}</button>` : '';
+    const pics = [...draft.images.map((u, i) => `<div class="pic"><img src="${esc(u)}" alt=""><button type="button" data-rm-img="${i}" aria-label="Remove picture">×</button></div>`),
+      ...draft.files.map((x, i) => `<div class="pic"><img src="${esc(x.url)}" alt=""><button type="button" data-rm-file="${i}" aria-label="Remove picture">×</button></div>`)];
+    const room = 4 - pics.length;
+    app.innerHTML = `${teamHead()}
+      <form id="d">
+        <fieldset><legend>${draft.id ? 'Edit diary entry' : 'New diary entry'}</legend>
+          <div class="kinds" role="radiogroup" aria-label="What's it about">${KINDS.map(([k, n]) => `<label><input type="radio" name="kind" value="${k}"${draft.kind === k ? ' checked' : ''}>${n}</label>`).join('')}</div>
+          <label>Headline<span class="field"><input name="title" maxlength="120" value="${esc(draft.title)}" placeholder="e.g. Landed the #1 QB in the country">${mic('title')}</span></label>
+          <label>Your thoughts<span class="field"><textarea name="body" maxlength="5000" style="min-height:160px" placeholder="How the program's looking, who you're chasing on the recruiting trail, what's next…">${esc(draft.body)}</textarea>${mic('body')}</span></label>
+          <div><label style="margin-bottom:6px">Posters & pictures (up to 4)</label>
+            <div class="pics">${pics.join('')}${room > 0 ? `<label class="add"><span><b>+</b>Add picture</span><input type="file" accept="image/*" ${room > 1 ? 'multiple' : ''} hidden id="pick"></label>` : ''}</div></div>
+        </fieldset>
+        <div class="savebar"><button class="btn primary" type="submit">${draft.id ? 'Save changes' : 'Post to my diary'}</button>${draft.id ? '<button class="btn" type="button" id="cancel">Cancel</button>' : ''}<span class="msg" id="msg" aria-live="polite"></span></div>
+      </form>
+      <h2 class="sec">My diary</h2>
+      <div class="entries">${entries.length ? entries.map((x) => `<article class="entry"><div class="meta"><span class="tag">${esc(kindName(x.kind))}</span><span>${when(x.created_at)}</span></div>
+          <h3>${esc(x.title)}</h3><p>${esc(x.body.length > 280 ? x.body.slice(0, 280) + '…' : x.body)}</p>
+          ${x.images.length ? `<div class="thumbs">${x.images.map((u) => `<img src="${esc(u)}" alt="" loading="lazy">`).join('')}</div>` : ''}
+          <div class="acts"><button class="btn" type="button" data-edit="${x.id}">Edit</button><button class="btn danger" type="button" data-del="${x.id}">Delete</button></div></article>`).join('')
+        : '<p class="note">Nothing posted yet. Your entries show up on your coach profile on the site.</p>'}</div>
+      <p class="note" style="text-align:center;margin-top:18px"><a href="../#coach-${esc(login())}">See my profile on the site →</a></p>`;
+    const f = document.getElementById('d');
+    const keep = () => { draft.title = f.elements.title.value; draft.body = f.elements.body.value; draft.kind = f.elements.kind.value || draft.kind; };
+    f.querySelectorAll('[data-dict]').forEach((b) => (b.onclick = () => dictate(b, f.elements[b.dataset.dict])));
+    f.oninput = keep; f.onchange = keep;
+    const pick = document.getElementById('pick');
+    if (pick) pick.onchange = () => { keep(); for (const file of [...pick.files].slice(0, 4 - draft.images.length - draft.files.length)) if (/^image\//.test(file.type)) draft.files.push({ file, url: URL.createObjectURL(file) }); diary(); };
+    f.querySelectorAll('[data-rm-img]').forEach((b) => (b.onclick = () => { keep(); draft.images.splice(+b.dataset.rmImg, 1); diary(); }));
+    f.querySelectorAll('[data-rm-file]').forEach((b) => (b.onclick = () => { keep(); URL.revokeObjectURL(draft.files[+b.dataset.rmFile].url); draft.files.splice(+b.dataset.rmFile, 1); diary(); }));
+    const cancel = document.getElementById('cancel'); if (cancel) cancel.onclick = () => { draft = null; diary(); };
+    f.onsubmit = postEntry;
+    app.querySelectorAll('[data-edit]').forEach((b) => (b.onclick = () => { const x = entries.find((y) => y.id == b.dataset.edit); draft = { id: x.id, kind: x.kind, title: x.title, body: x.body, images: [...x.images], files: [] }; diary(); scrollTo({ top: 0, behavior: 'smooth' }); }));
+    app.querySelectorAll('[data-del]').forEach((b) => (b.onclick = () => delEntry(b)));
+  }
+  // Shrink a picture on the phone before upload: longest side 1600px, WebP (JPEG fallback). Posters stay readable, uploads stay fast.
+  async function shrink(file) {
+    const img = await createImageBitmap(file).catch(() => null);
+    if (!img) throw new Error('bad image');
+    const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    let blob = await new Promise((r) => c.toBlob(r, 'image/webp', 0.82)), ext = 'webp';
+    if (!blob || blob.type !== 'image/webp') { blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.85)); ext = 'jpg'; }
+    return { blob, ext };
+  }
+  async function postEntry(e) {
+    e.preventDefault();
+    const f = e.target, msg = document.getElementById('msg'), btn = f.querySelector('[type=submit]');
+    draft.title = f.elements.title.value.trim(); draft.body = f.elements.body.value.trim(); draft.kind = f.elements.kind.value || 'program';
+    if (!draft.title || !draft.body) { msg.className = 'msg err'; msg.textContent = 'Add a headline and your thoughts.'; return; }
+    btn.disabled = true; msg.className = 'msg';
+    const urls = [...draft.images];
+    try {
+      for (let i = 0; i < draft.files.length; i++) {
+        msg.textContent = `Uploading picture ${i + 1} of ${draft.files.length}…`;
+        const { blob, ext } = await shrink(draft.files[i].file);
+        const path = `${login()}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        const { error } = await sb.storage.from('diary').upload(path, blob, { contentType: blob.type, upsert: false });
+        if (error) throw error;
+        urls.push(sb.storage.from('diary').getPublicUrl(path).data.publicUrl);
+      }
+    } catch (err) { btn.disabled = false; msg.className = 'msg err'; msg.textContent = /size|large/i.test(err.message || '') ? 'That picture is too big. Try a smaller one.' : "Couldn't upload that picture. Try again."; return; }
+    msg.textContent = 'Saving…';
+    const row = { kind: draft.kind, title: draft.title, body: draft.body, images: urls };
+    const q = draft.id ? sb.from('coach_diary').update(row).eq('id', draft.id) : sb.from('coach_diary').insert({ ...row, twitch_login: login() });
+    const { error } = await q;
+    btn.disabled = false;
+    if (error) { msg.className = 'msg err'; msg.textContent = /row-level security/.test(error.message) ? 'Only you (or an admin) can post to your diary.' : "Couldn't save. Try again."; return; }
+    draft.files.forEach((x) => URL.revokeObjectURL(x.url));
+    draft = null; await loadEntries(); diary(); say('coach_saved');
+    const m = document.getElementById('msg'); if (m) { m.className = 'msg ok'; m.textContent = 'Posted ✓ It\'s on your profile now.'; }
+  }
+  async function delEntry(b) {
+    if (b.dataset.sure !== '1') { b.dataset.sure = '1'; b.textContent = 'Tap again to delete'; setTimeout(() => { if (b.isConnected) { b.dataset.sure = ''; b.textContent = 'Delete'; } }, 4000); return; }
+    b.disabled = true;
+    const x = entries.find((y) => y.id == b.dataset.del);
+    const { error } = await sb.from('coach_diary').delete().eq('id', x.id);
+    if (error) { b.disabled = false; b.textContent = "Couldn't delete"; return; }
+    const base = sb.storage.from('diary').getPublicUrl('').data.publicUrl;
+    const paths = x.images.filter((u) => u.startsWith(base)).map((u) => u.slice(base.length));
+    if (paths.length) await sb.storage.from('diary').remove(paths);
+    await loadEntries(); diary();
   }
 
   let rec = null;
@@ -209,7 +342,9 @@ label { display: grid; gap: 6px; font: 700 12px/1.2 var(--body); text-transform:
     }
     ({ data: cp } = await sb.from('coach_profiles').select('*').eq('twitch_login', member.twitch.toLowerCase()).maybeSingle());
     cp = cp || {};
-    form();
+    await loadEntries();
+    if (/#profile/.test(location.hash)) tab = 'profile';
+    show();
     say('coach_hi'); // phones may block this until the first tap; that's fine
     if (prof.is_admin) app.insertAdjacentHTML('beforeend', '<p class="note" style="text-align:center"><a href="../admin/">Open the Admin app →</a></p>');
   }
