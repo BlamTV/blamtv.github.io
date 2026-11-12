@@ -25,7 +25,8 @@
     { "season": 4, "week": 14, "label": "Championship Week", "chip": "Champ", "start": "2026-11-06T17:15:00-06:00" },
     { "season": 4, "week": 15, "label": "Playoff · First Round", "chip": "Playoff", "start": "2026-11-07T21:45:00-06:00" },
     { "season": 4, "week": 16, "label": "Playoff · Quarterfinals", "chip": "QF", "start": "2026-11-09T17:15:00-06:00" },
-    { "season": 4, "week": 17, "label": "Playoff · Semifinals", "chip": "SF", "start": "2026-11-11T13:20:00-06:00" }
+    { "season": 4, "week": 17, "label": "Playoff · Semifinals", "chip": "SF", "start": "2026-11-11T13:20:00-06:00" },
+    { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -43,6 +44,7 @@
   ],
 
   "schedule": [
+    { "season": 4, "week": 18, "games": [["Maryland", "TCU"]] },
     { "season": 4, "week": 17, "games": [
       ["Florida State", "TCU"], ["Maryland", "Florida"]
     ] },
@@ -68,10 +70,9 @@
     { "title": "Virginia Tech vs Stanford, 34–17", "coach": "PKSHADOWMAN", "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069", "week": 2, "date": "2026-10-19T06:33:12-05:00" }
   ],
 
-  "gameOfWeek": { "season": 4, "week": 17, "away": "Florida State", "home": "TCU", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
-  "gameOfWeekExtra": [{ "season": 4, "week": 17, "away": "Maryland", "home": "Florida", "kickoff": "2026-11-11T14:35:00-05:00", "tz": "America/New_York", "tzLabel": "ET" }],
+  "gameOfWeek": { "season": 4, "week": 18, "away": "Maryland", "home": "TCU", "neutral": true, "poster": "img/nc-maryland-vs-tcu.webp", "posterAlt": "College Football Playoff National Championship: Maryland vs TCU. Series split 1-1, one more time for the title.", "kickoff": "TBA", "tz": "America/New_York", "tzLabel": "ET" },
 
-  "playoff": { "season": 4, "fromWeek": 14, "title": "Season 4 Playoff", "site": "Miami, FL", "venue": "Hard Rock Stadium", "seeds": [{ "seed": 1, "school": "TCU", "record": "13-1", "aq": true }, { "seed": 2, "school": "Virginia Tech", "record": "11-3", "aq": true }, { "seed": 3, "school": "Alabama", "record": "12-2" }, { "seed": 4, "school": "Florida State", "record": "11-3", "aq": true }, { "seed": 5, "school": "West Virginia", "record": "13-2" }, { "seed": 6, "school": "Maryland", "record": "13-2" }, { "seed": 7, "school": "Oregon", "record": "10-4" }, { "seed": 8, "school": "Ohio State", "record": "10-4" }, { "seed": 9, "school": "Illinois", "record": "8-5" }, { "seed": 10, "school": "Florida", "record": "12-3", "aq": true }, { "seed": 11, "school": "Clemson", "record": "9-4" }, { "seed": 12, "school": "Pitt", "record": "9-5", "aq": true }], "games": [{ "id": "r1-1", "round": 1, "top": 12, "bot": 5, "week": 15, "winner": 5, "score": [42, 49] }, { "id": "r1-2", "round": 1, "top": 9, "bot": 8, "week": 15, "winner": 8, "score": [31, 35] }, { "id": "r1-3", "round": 1, "top": 11, "bot": 6, "week": 15, "winner": 6, "score": [21, 68] }, { "id": "r1-4", "round": 1, "top": 10, "bot": 7, "week": 15, "winner": 10, "score": [28, 23] }, { "id": "qf-1", "round": 2, "top": "r1-1", "bot": 4, "week": 16, "winner": 4, "score": [21, 38] }, { "id": "qf-2", "round": 2, "top": "r1-2", "bot": 1, "week": 16, "winner": 1, "score": [13, 35] }, { "id": "qf-3", "round": 2, "top": "r1-3", "bot": 3, "week": 16, "winner": 6, "score": [49, 14] }, { "id": "qf-4", "round": 2, "top": "r1-4", "bot": 2, "week": 16, "winner": 10, "score": [38, 35] }, { "id": "sf-1", "round": 3, "top": "qf-1", "bot": "qf-2", "week": 17 }, { "id": "sf-2", "round": 3, "top": "qf-3", "bot": "qf-4", "week": 17 }, { "id": "nc", "round": 4, "top": "sf-1", "bot": "sf-2" }] },
+  "playoff": { "season": 4, "fromWeek": 14, "title": "Season 4 Playoff", "site": "Miami, FL", "venue": "Hard Rock Stadium", "seeds": [{ "seed": 1, "school": "TCU", "record": "13-1", "aq": true }, { "seed": 2, "school": "Virginia Tech", "record": "11-3", "aq": true }, { "seed": 3, "school": "Alabama", "record": "12-2" }, { "seed": 4, "school": "Florida State", "record": "11-3", "aq": true }, { "seed": 5, "school": "West Virginia", "record": "13-2" }, { "seed": 6, "school": "Maryland", "record": "13-2" }, { "seed": 7, "school": "Oregon", "record": "10-4" }, { "seed": 8, "school": "Ohio State", "record": "10-4" }, { "seed": 9, "school": "Illinois", "record": "8-5" }, { "seed": 10, "school": "Florida", "record": "12-3", "aq": true }, { "seed": 11, "school": "Clemson", "record": "9-4" }, { "seed": 12, "school": "Pitt", "record": "9-5", "aq": true }], "games": [{ "id": "r1-1", "round": 1, "top": 12, "bot": 5, "week": 15, "winner": 5, "score": [42, 49] }, { "id": "r1-2", "round": 1, "top": 9, "bot": 8, "week": 15, "winner": 8, "score": [31, 35] }, { "id": "r1-3", "round": 1, "top": 11, "bot": 6, "week": 15, "winner": 6, "score": [21, 68] }, { "id": "r1-4", "round": 1, "top": 10, "bot": 7, "week": 15, "winner": 10, "score": [28, 23] }, { "id": "qf-1", "round": 2, "top": "r1-1", "bot": 4, "week": 16, "winner": 4, "score": [21, 38] }, { "id": "qf-2", "round": 2, "top": "r1-2", "bot": 1, "week": 16, "winner": 1, "score": [13, 35] }, { "id": "qf-3", "round": 2, "top": "r1-3", "bot": 3, "week": 16, "winner": 6, "score": [49, 14] }, { "id": "qf-4", "round": 2, "top": "r1-4", "bot": 2, "week": 16, "winner": 10, "score": [38, 35] }, { "id": "sf-1", "round": 3, "top": "qf-1", "bot": "qf-2", "week": 17, "winner": 1, "score": [17, 31] }, { "id": "sf-2", "round": 3, "top": "qf-3", "bot": "qf-4", "week": 17, "winner": 6 }, { "id": "nc", "round": 4, "top": "sf-1", "bot": "sf-2", "week": 18 }] },
 
   "rivalries": [
     { "teams": ["Alabama", "Auburn"], "name": "Iron Bowl" },
