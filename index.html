@@ -215,6 +215,7 @@ a.tm:hover { background: var(--raise) }
 .gotw .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 14px 18px 0 }
 .gotw .gw-tag { font: 800 13px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; background: #f3b234; color: #14100a; padding: 7px 10px; border-radius: 4px }
 .gotw .when { font: 700 14px/1.2 var(--body); text-shadow: 0 1px 2px rgba(0,0,0,.6) }
+.gotw .gw-champ { text-align: center; font: 800 18px/1.2 var(--display); letter-spacing: .06em; text-transform: uppercase; color: #f3b234; text-shadow: 0 1px 3px rgba(0,0,0,.7); padding: 2px 18px 8px }
 .gotw .when small { display: block; font-weight: 600; font-size: 12px; opacity: .85; text-align: right }
 .gotw .row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; padding: 18px 18px 8px }
 .gotw .side { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; min-width: 0 }
@@ -922,8 +923,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     // Game is over once both coaches are offline and both saved streams from around kickoff are in
     const near = v => v && Math.abs(Date.parse(v.created) - ko) < 2 * 3600e3;
     const ended = near(va) && near(vh) && !isLive(a) && !isLive(h);
-    const done = now >= ko + 2.5 * 3600e3 || ended;
-    if (ended) windowLive = false;
+    const fin = g.final && g.final.away != null && g.final.home != null ? g.final : null;
+    const done = !!fin || now >= ko + 2.5 * 3600e3 || ended;
+    if (ended || fin) windowLive = false;
+    const finTxt = fin ? `${g.away} ${fin.away}, ${g.home} ${fin.home}` : '';
     let acts = '';
     for (const [m, v] of [[a, va], [h, vh]]) {
       if (!m) continue;
@@ -935,10 +938,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (done && bothPair(g.away, g.home, season, week)) { const p = bothPair(g.away, g.home, season, week); acts = `<a class="hot" href="#both-v${esc(p[0].id)}-v${esc(p[1].id)}">▶▶ Watch both sidelines</a>` + acts; }
     const sc = (m, k) => m ? `--${k}:${m.color}` : `--${k}:#333`;
     const poster = g.poster ? `<a class="gw-poster" href="${esc(g.poster)}" target="_blank" rel="noopener"><img src="${esc(g.poster)}" alt="${esc(g.posterAlt || (g.away + ' vs ' + g.home))}" loading="eager"></a>` : '';
-    return poster + `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}"${done ? ' data-done="1"' : ''}>
+    return poster + `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}"${done ? ' data-done="1"' : ''}${fin ? ` data-final="${esc(finTxt)}"` : ''}>
       <div class="top"><span class="gw-tag">★ Game of the Week</span><span class="when">${tba ? 'Kickoff TBA' : `${esc(day)} · ${esc(homeTime)}${sameZone ? '' : `<small>${esc(mine)} your time</small>`}`}</span></div>
       <div class="row">${side(a, g.away)}<span class="vs">${g.neutral ? 'vs' : '@'}</span>${side(h, g.home)}</div>
-      <div class="clock" data-clock></div>
+      <div class="clock" data-clock></div>${fin && fin.note ? `<div class="gw-champ">🏆 ${esc(fin.note)}</div>` : ''}
       <div class="acts">${acts}</div></section>`;
   }
   function tickGotw() {
@@ -953,7 +956,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const hh = Math.floor(d / 3600e3), mm = Math.floor(d % 3600e3 / 60e3), dd = Math.floor(hh / 24);
       el.innerHTML = `Kickoff in <span class="n">${dd ? dd + 'd ' + (hh % 24) + 'h' : hh ? hh + 'h ' + mm + 'm' : mm + 'm'}</span>`;
     } else if (d > -2.5 * 3600e3 && !over) el.innerHTML = `<span class="n">Game on</span> · watch it live below`;
-    else el.innerHTML = `<span class="n">Final</span>${el.closest('.gotw').querySelector('.acts a[href^="#v-"]') ? ' · replays below' : ''}`;
+    else { const f = el.closest('.gotw').dataset.final; el.innerHTML = `<span class="n">Final</span>${f ? ' · ' + esc(f) : ''}${el.closest('.gotw').querySelector('.acts a[href^="#v-"]') ? ' · replays below' : ''}`; }
   }
   const grid = (list, showWeek) => `<div class="grid">${list.map(v => card(v, showWeek)).join('')}</div>`;
 
