@@ -485,6 +485,10 @@ a.tm:hover { background: var(--raise) }
 
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px }
 footer .wrap { padding-block: 24px 28px; display: flex; gap: 16px 32px; flex-wrap: wrap; align-items: center }
+.arch-bar { background: #f3b234; color: #14100a; font-weight: 600 }
+.arch-bar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-block: 10px }
+.arch-bar span { font-weight: 500; opacity: .85 }
+.arch-bar a { color: #14100a; text-decoration: underline; margin-left: auto }
 footer .slogan { width: 200px; max-width: 100%; height: auto; filter: var(--logo-filter) }
 footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
@@ -2003,9 +2007,21 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
 
   async function init() {
-    try { L = await getJSON('data/league.json'); }
-    catch (e) { app.innerHTML = `<div class="empty-state"><b>Setup file missing</b>The site couldn't load data/league.json.</div>`; return; }
-    try { D = await getJSON('data/videos.json'); } catch (e) { D = {}; }
+    const archSeason = (location.search.match(/[?&]season=(\d{1,3})(?:&|$)/) || [])[1];
+    const base = archSeason ? `data/archive/season-${archSeason}/` : 'data/';
+    try { L = await getJSON(base + 'league.json'); }
+    catch (e) { app.innerHTML = archSeason ? `<div class="empty-state"><b>No archive for Season ${esc(archSeason)}</b><a href="./">Back to the current season</a></div>` : `<div class="empty-state"><b>Setup file missing</b>The site couldn't load data/league.json.</div>`; return; }
+    try { D = await getJSON(base + 'videos.json'); } catch (e) { D = {}; }
+    if (archSeason) {
+      D.live = [];
+      document.body.classList.add('archive');
+      document.querySelector('header.top').insertAdjacentHTML('afterend', `<div class="arch-bar" role="status"><div class="wrap"><b>Season ${esc(L.season)} archive</b><span>${esc(L.game || '')} · final results, frozen ${esc(fmtDate(L.archived || D.archived || ''))}</span><a href="./">Back to the current season →</a></div></div>`);
+    }
+    getJSON('data/archive/index.json').then(ix => {
+      const list = (ix.seasons || []).filter(x => String(x.season) !== String(archSeason || '') && x.season !== (archSeason ? null : L.season));
+      if (!list.length) return;
+      document.querySelector('footer .lines').insertAdjacentHTML('beforeend', `<span class="arch-links">Past seasons: ${list.map(x => `<a href="./?season=${encodeURIComponent(x.season)}">${esc(x.label)}${x.champion ? ' · champion ' + esc(x.champion) : ''}</a>`).join(' · ')}</span>`);
+    }).catch(() => {});
     D.videos = D.videos || []; D.live = D.live || []; D.members = D.members || {};
     // Only BLAM-titled streams count as league live (banner, matchups, LIVE tags); the rest go to BlamCity
     const must = (L.titleMustIncludeAny || []).map(s => String(s).toLowerCase()).filter(Boolean);

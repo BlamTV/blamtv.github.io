@@ -1,0 +1,1583 @@
+{
+ "name": "Blam League",
+ "game": "College Football 27",
+ "season": 4,
+ "features": {
+  "chat": false,
+  "comments": false,
+  "profiles": false,
+  "chatProviders": [
+   "twitch"
+  ]
+ },
+ "weeks": [
+  {
+   "season": 4,
+   "week": 0,
+   "start": "2026-10-09T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 1,
+   "start": "2026-10-11T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 2,
+   "start": "2026-10-13T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 3,
+   "start": "2026-10-15T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 4,
+   "start": "2026-10-17T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 5,
+   "start": "2026-10-19T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 6,
+   "start": "2026-10-21T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 7,
+   "start": "2026-10-23T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 8,
+   "start": "2026-10-25T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 9,
+   "start": "2026-10-27T20:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 10,
+   "start": "2026-10-30T22:00:00-05:00"
+  },
+  {
+   "season": 4,
+   "week": 11,
+   "start": "2026-11-01T20:30:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 12,
+   "start": "2026-11-03T21:00:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 13,
+   "start": "2026-11-04T22:40:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 14,
+   "label": "Championship Week",
+   "chip": "Champ",
+   "start": "2026-11-06T17:15:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 15,
+   "label": "Playoff · First Round",
+   "chip": "Playoff",
+   "start": "2026-11-07T21:45:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 16,
+   "label": "Playoff · Quarterfinals",
+   "chip": "QF",
+   "start": "2026-11-09T17:15:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 17,
+   "label": "Playoff · Semifinals",
+   "chip": "SF",
+   "start": "2026-11-11T13:20:00-06:00"
+  },
+  {
+   "season": 4,
+   "week": 18,
+   "label": "National Championship",
+   "chip": "NC",
+   "start": "2026-11-11T17:38:00-06:00"
+  }
+ ],
+ "titleMustIncludeAny": [
+  "blam"
+ ],
+ "hideVideos": [],
+ "conferences": [
+  {
+   "tier": 1,
+   "name": "SEC",
+   "schools": [
+    "Florida State",
+    "Georgia",
+    "LSU",
+    "Notre Dame",
+    "Alabama",
+    "Ole Miss",
+    "Oklahoma"
+   ]
+  },
+  {
+   "tier": 2,
+   "name": "Big 10",
+   "schools": [
+    "Auburn",
+    "TCU",
+    "Maryland",
+    "USC",
+    "Washington",
+    "Ohio State",
+    "Arizona State"
+   ]
+  },
+  {
+   "tier": 3,
+   "name": "ACC",
+   "schools": [
+    "Clemson",
+    "Florida",
+    "Penn State",
+    "Texas",
+    "Indiana",
+    "Oregon"
+   ]
+  },
+  {
+   "tier": 4,
+   "name": "Big 12",
+   "schools": [
+    "Illinois",
+    "Utah",
+    "West Virginia",
+    "Nebraska",
+    "Stanford",
+    "Virginia Tech"
+   ]
+  },
+  {
+   "tier": 5,
+   "name": "Pac 12",
+   "schools": [
+    "Louisville",
+    "Iowa",
+    "UCLA",
+    "Pitt",
+    "North Carolina",
+    "South Carolina"
+   ]
+  }
+ ],
+ "schedule": [
+  {
+   "season": 4,
+   "week": 18,
+   "games": [
+    [
+     "Maryland",
+     "TCU"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 17,
+   "games": [
+    [
+     "Florida State",
+     "TCU"
+    ],
+    [
+     "Maryland",
+     "Florida"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 16,
+   "games": [
+    [
+     "West Virginia",
+     "Florida State"
+    ],
+    [
+     "Ohio State",
+     "TCU"
+    ],
+    [
+     "Maryland",
+     "Alabama"
+    ],
+    [
+     "Florida",
+     "Virginia Tech"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 15,
+   "games": [
+    [
+     "Pitt",
+     "West Virginia"
+    ],
+    [
+     "Illinois",
+     "Ohio State"
+    ],
+    [
+     "Clemson",
+     "Maryland"
+    ],
+    [
+     "Florida",
+     "Oregon"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 14,
+   "championship": true,
+   "games": [
+    [
+     "Florida State",
+     "Alabama"
+    ],
+    [
+     "TCU",
+     "Maryland"
+    ],
+    [
+     "Florida",
+     "Oregon"
+    ],
+    [
+     "Virginia Tech",
+     "West Virginia"
+    ],
+    [
+     "South Carolina",
+     "Pitt"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 13,
+   "games": [
+    [
+     "Ole Miss",
+     "Mississippi State"
+    ],
+    [
+     "Iowa",
+     "Nebraska"
+    ],
+    [
+     "Northwestern",
+     "Illinois"
+    ],
+    [
+     "Ohio State",
+     "Michigan"
+    ],
+    [
+     "Georgia",
+     "Georgia Tech"
+    ],
+    [
+     "Navy",
+     "LSU"
+    ],
+    [
+     "NC State",
+     "North Carolina"
+    ],
+    [
+     "Oregon",
+     "Texas"
+    ],
+    [
+     "Oklahoma",
+     "Memphis"
+    ],
+    [
+     "Maryland",
+     "TCU"
+    ],
+    [
+     "Texas Tech",
+     "Pitt"
+    ],
+    [
+     "Washington",
+     "Baylor"
+    ],
+    [
+     "Louisville",
+     "Kentucky"
+    ],
+    [
+     "Florida State",
+     "Florida"
+    ],
+    [
+     "Alabama",
+     "Auburn"
+    ],
+    [
+     "Clemson",
+     "South Carolina"
+    ],
+    [
+     "West Virginia",
+     "Utah"
+    ],
+    [
+     "Notre Dame",
+     "Stanford"
+    ],
+    [
+     "UCLA",
+     "USC"
+    ],
+    [
+     "Purdue",
+     "Indiana"
+    ],
+    [
+     "Penn State",
+     "Oregon State"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 12,
+   "games": [
+    [
+     "UCLA",
+     "Georgia Tech"
+    ],
+    [
+     "Pitt",
+     "North Carolina"
+    ],
+    [
+     "NC State",
+     "Iowa"
+    ],
+    [
+     "Nebraska",
+     "Illinois"
+    ],
+    [
+     "Texas",
+     "Indiana"
+    ],
+    [
+     "Georgia",
+     "Notre Dame"
+    ],
+    [
+     "SMU",
+     "Virginia Tech"
+    ],
+    [
+     "Cal",
+     "Stanford"
+    ],
+    [
+     "South Carolina",
+     "Oregon"
+    ],
+    [
+     "Louisville",
+     "Texas Tech"
+    ],
+    [
+     "Utah",
+     "Virginia"
+    ],
+    [
+     "Florida",
+     "Clemson"
+    ],
+    [
+     "Purdue",
+     "Penn State"
+    ],
+    [
+     "Ole Miss",
+     "Florida State"
+    ],
+    [
+     "Alabama",
+     "Navy"
+    ],
+    [
+     "LSU",
+     "Oklahoma"
+    ],
+    [
+     "West Virginia",
+     "Rutgers"
+    ],
+    [
+     "Maryland",
+     "USC"
+    ],
+    [
+     "Auburn",
+     "Washington"
+    ],
+    [
+     "Ohio State",
+     "TCU"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 11,
+   "games": [
+    [
+     "USC",
+     "Auburn"
+    ],
+    [
+     "Utah",
+     "Nebraska"
+    ],
+    [
+     "Navy",
+     "Georgia"
+    ],
+    [
+     "Ohio State",
+     "Maryland"
+    ],
+    [
+     "Rutgers",
+     "Virginia Tech"
+    ],
+    [
+     "North Carolina",
+     "Georgia Tech"
+    ],
+    [
+     "Pitt",
+     "UCLA"
+    ],
+    [
+     "Penn State",
+     "Florida"
+    ],
+    [
+     "TCU",
+     "Baylor"
+    ],
+    [
+     "Indiana",
+     "Oregon"
+    ],
+    [
+     "NC State",
+     "Louisville"
+    ],
+    [
+     "Iowa",
+     "Texas Tech"
+    ],
+    [
+     "Memphis",
+     "LSU"
+    ],
+    [
+     "Stanford",
+     "West Virginia"
+    ],
+    [
+     "Arizona State",
+     "Washington"
+    ],
+    [
+     "Virginia",
+     "Illinois"
+    ],
+    [
+     "Oregon State",
+     "Clemson"
+    ],
+    [
+     "Notre Dame",
+     "Florida State"
+    ],
+    [
+     "Oklahoma",
+     "Texas A&M"
+    ],
+    [
+     "Ole Miss",
+     "Alabama"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 10,
+   "games": [
+    [
+     "Clemson",
+     "Penn State"
+    ],
+    [
+     "Miami",
+     "Indiana"
+    ],
+    [
+     "Georgia",
+     "Florida"
+    ],
+    [
+     "Missouri",
+     "Texas"
+    ],
+    [
+     "Nebraska",
+     "Virginia"
+    ],
+    [
+     "Illinois",
+     "Utah"
+    ],
+    [
+     "Rutgers",
+     "Stanford"
+    ],
+    [
+     "West Virginia",
+     "SMU"
+    ],
+    [
+     "Auburn",
+     "Maryland"
+    ],
+    [
+     "USC",
+     "Ohio State"
+    ],
+    [
+     "Washington",
+     "TCU"
+    ],
+    [
+     "Arizona State",
+     "Pitt"
+    ],
+    [
+     "UCLA",
+     "North Carolina"
+    ],
+    [
+     "Louisville",
+     "Iowa"
+    ],
+    [
+     "Georgia Tech",
+     "South Carolina"
+    ],
+    [
+     "Alabama",
+     "Florida State"
+    ]
+   ]
+  },
+  {
+   "season": 4,
+   "week": 9,
+   "games": [
+    [
+     "Ole Miss",
+     "Notre Dame"
+    ],
+    [
+     "North Carolina",
+     "Iowa"
+    ],
+    [
+     "West Virginia",
+     "Nebraska"
+    ],
+    [
+     "Georgia",
+     "Alabama"
+    ],
+    [
+     "Rutgers",
+     "Illinois"
+    ],
+    [
+     "Stanford",
+     "Utah"
+    ],
+    [
+     "Maryland",
+     "Washington"
+    ],
+    [
+     "UCLA",
+     "Louisville"
+    ],
+    [
+     "Oklahoma",
+     "Virginia Tech"
+    ],
+    [
+     "Clemson",
+     "Purdue"
+    ],
+    [
+     "Florida",
+     "Oregon State"
+    ],
+    [
+     "Penn State",
+     "Missouri"
+    ],
+    [
+     "Auburn",
+     "Ohio State"
+    ],
+    [
+     "Texas",
+     "Miami"
+    ],
+    [
+     "Pitt",
+     "NC State"
+    ],
+    [
+     "Florida State",
+     "Navy"
+    ],
+    [
+     "TCU",
+     "USC"
+    ],
+    [
+     "Arizona State",
+     "Oregon"
+    ]
+   ]
+  }
+ ],
+ "highlights": [
+  {
+   "title": "BLAMcast · Hauss Hejny 2029 Heisman Tribute",
+   "coach": "Ykla_2144",
+   "url": "vid/BlamTV-Heisman-Tribute-Hejny.mp4",
+   "thumb": "vid/BlamTV-Heisman-Tribute-Hejny.webp",
+   "week": 15,
+   "date": "2026-11-08T13:08:00-06:00"
+  },
+  {
+   "title": "Season 4 Playoff Preview · The Road to Miami",
+   "coach": "Blam League",
+   "url": "vid/BlamTV-S4-Playoff-Preview.mp4",
+   "thumb": "vid/BlamTV-S4-Playoff-Preview.jpg",
+   "week": 15,
+   "date": "2026-11-08T01:30:00-06:00"
+  },
+  {
+   "title": "Big 12 Championship · #5 Virginia Tech vs #3 West Virginia, 31–21",
+   "coach": "PKSHADOWMAN",
+   "url": "https://www.tiktok.com/@pkshadowman/video/7705640386340998413",
+   "week": 14,
+   "date": "2026-11-07T21:40:10-06:00"
+  },
+  {
+   "title": "Highlights of the Week",
+   "coach": "Blam League",
+   "url": "vid/BlamTV-Highlights-of-the-Week-W11.mp4",
+   "thumb": "vid/BlamTV-Highlights-of-the-Week-W11.jpg",
+   "week": 11,
+   "date": "2026-11-04T17:45:00-06:00"
+  },
+  {
+   "title": "Louisville trucks UCLA (3D) · Louisville 62, UCLA 43",
+   "coach": "tomcatdadaddy",
+   "url": "vid/louisville-trucks-ucla.mp4",
+   "thumb": "vid/louisville-trucks-ucla.jpg",
+   "week": 9,
+   "date": "2026-10-29T22:30:00-05:00"
+  },
+  {
+   "title": "#12 Virginia Tech vs #11 Oklahoma, 38–35",
+   "coach": "PKSHADOWMAN",
+   "url": "https://www.tiktok.com/@pkshadowman/video/7702478940832533774",
+   "week": 9,
+   "date": "2026-10-30T10:12:09-05:00"
+  },
+  {
+   "title": "#9 Virginia Tech vs Nebraska, 31–23",
+   "coach": "PKSHADOWMAN",
+   "url": "https://www.tiktok.com/@pkshadowman/video/7700213335903571213",
+   "week": 5,
+   "date": "2026-10-24T07:40:27-05:00"
+  },
+  {
+   "title": "#17 Virginia Tech vs #12 Illinois, 28–21",
+   "coach": "PKSHADOWMAN",
+   "url": "https://www.tiktok.com/@pkshadowman/video/7699948556874026254",
+   "week": 4,
+   "date": "2026-10-23T14:32:58-05:00"
+  },
+  {
+   "title": "Virginia Tech vs Stanford, 34–17",
+   "coach": "PKSHADOWMAN",
+   "url": "https://www.tiktok.com/@pkshadowman/video/7698340579943501069",
+   "week": 2,
+   "date": "2026-10-19T06:33:12-05:00"
+  }
+ ],
+ "gameOfWeek": {
+  "season": 4,
+  "week": 18,
+  "away": "Maryland",
+  "home": "TCU",
+  "neutral": true,
+  "poster": "img/nc-maryland-vs-tcu.webp",
+  "posterAlt": "College Football Playoff National Championship: Maryland vs TCU. Series split 1-1, one more time for the title.",
+  "kickoff": "2026-11-11T22:00:00-05:00",
+  "tz": "America/New_York",
+  "tzLabel": "ET",
+  "final": {
+   "away": 38,
+   "home": 29,
+   "note": "Maryland · Season 4 National Champions"
+  }
+ },
+ "playoff": {
+  "season": 4,
+  "fromWeek": 14,
+  "title": "Season 4 Playoff",
+  "site": "Miami, FL",
+  "venue": "Hard Rock Stadium",
+  "seeds": [
+   {
+    "seed": 1,
+    "school": "TCU",
+    "record": "13-1",
+    "aq": true
+   },
+   {
+    "seed": 2,
+    "school": "Virginia Tech",
+    "record": "11-3",
+    "aq": true
+   },
+   {
+    "seed": 3,
+    "school": "Alabama",
+    "record": "12-2"
+   },
+   {
+    "seed": 4,
+    "school": "Florida State",
+    "record": "11-3",
+    "aq": true
+   },
+   {
+    "seed": 5,
+    "school": "West Virginia",
+    "record": "13-2"
+   },
+   {
+    "seed": 6,
+    "school": "Maryland",
+    "record": "13-2"
+   },
+   {
+    "seed": 7,
+    "school": "Oregon",
+    "record": "10-4"
+   },
+   {
+    "seed": 8,
+    "school": "Ohio State",
+    "record": "10-4"
+   },
+   {
+    "seed": 9,
+    "school": "Illinois",
+    "record": "8-5"
+   },
+   {
+    "seed": 10,
+    "school": "Florida",
+    "record": "12-3",
+    "aq": true
+   },
+   {
+    "seed": 11,
+    "school": "Clemson",
+    "record": "9-4"
+   },
+   {
+    "seed": 12,
+    "school": "Pitt",
+    "record": "9-5",
+    "aq": true
+   }
+  ],
+  "games": [
+   {
+    "id": "r1-1",
+    "round": 1,
+    "top": 12,
+    "bot": 5,
+    "week": 15,
+    "winner": 5,
+    "score": [
+     42,
+     49
+    ]
+   },
+   {
+    "id": "r1-2",
+    "round": 1,
+    "top": 9,
+    "bot": 8,
+    "week": 15,
+    "winner": 8,
+    "score": [
+     31,
+     35
+    ]
+   },
+   {
+    "id": "r1-3",
+    "round": 1,
+    "top": 11,
+    "bot": 6,
+    "week": 15,
+    "winner": 6,
+    "score": [
+     21,
+     68
+    ]
+   },
+   {
+    "id": "r1-4",
+    "round": 1,
+    "top": 10,
+    "bot": 7,
+    "week": 15,
+    "winner": 10,
+    "score": [
+     28,
+     23
+    ]
+   },
+   {
+    "id": "qf-1",
+    "round": 2,
+    "top": "r1-1",
+    "bot": 4,
+    "week": 16,
+    "winner": 4,
+    "score": [
+     21,
+     38
+    ]
+   },
+   {
+    "id": "qf-2",
+    "round": 2,
+    "top": "r1-2",
+    "bot": 1,
+    "week": 16,
+    "winner": 1,
+    "score": [
+     13,
+     35
+    ]
+   },
+   {
+    "id": "qf-3",
+    "round": 2,
+    "top": "r1-3",
+    "bot": 3,
+    "week": 16,
+    "winner": 6,
+    "score": [
+     49,
+     14
+    ]
+   },
+   {
+    "id": "qf-4",
+    "round": 2,
+    "top": "r1-4",
+    "bot": 2,
+    "week": 16,
+    "winner": 10,
+    "score": [
+     38,
+     35
+    ]
+   },
+   {
+    "id": "sf-1",
+    "round": 3,
+    "top": "qf-1",
+    "bot": "qf-2",
+    "week": 17,
+    "winner": 1,
+    "score": [
+     17,
+     31
+    ]
+   },
+   {
+    "id": "sf-2",
+    "round": 3,
+    "top": "qf-3",
+    "bot": "qf-4",
+    "week": 17,
+    "winner": 6
+   },
+   {
+    "id": "nc",
+    "round": 4,
+    "top": "sf-1",
+    "bot": "sf-2",
+    "week": 18,
+    "winner": 6,
+    "score": [
+     29,
+     38
+    ]
+   }
+  ]
+ },
+ "rivalries": [
+  {
+   "teams": [
+    "Alabama",
+    "Auburn"
+   ],
+   "name": "Iron Bowl"
+  },
+  {
+   "teams": [
+    "Florida State",
+    "Florida"
+   ],
+   "name": "Sunshine Showdown"
+  },
+  {
+   "teams": [
+    "Clemson",
+    "South Carolina"
+   ],
+   "name": "Palmetto Bowl"
+  },
+  {
+   "teams": [
+    "UCLA",
+    "USC"
+   ],
+   "name": "Victory Bell"
+  },
+  {
+   "teams": [
+    "Iowa",
+    "Nebraska"
+   ],
+   "name": "Heroes Game"
+  },
+  {
+   "teams": [
+    "Ohio State",
+    "Michigan"
+   ],
+   "name": "The Game"
+  },
+  {
+   "teams": [
+    "Ole Miss",
+    "Mississippi State"
+   ],
+   "name": "Egg Bowl"
+  },
+  {
+   "teams": [
+    "Georgia",
+    "Georgia Tech"
+   ],
+   "name": "Clean, Old-Fashioned Hate"
+  },
+  {
+   "teams": [
+    "Illinois",
+    "Northwestern"
+   ],
+   "name": "Land of Lincoln Trophy"
+  },
+  {
+   "teams": [
+    "North Carolina",
+    "NC State"
+   ],
+   "name": "In-state rivalry"
+  },
+  {
+   "teams": [
+    "Louisville",
+    "Kentucky"
+   ],
+   "name": "Governor's Cup"
+  },
+  {
+   "teams": [
+    "Notre Dame",
+    "Stanford"
+   ],
+   "name": "Legends Trophy"
+  },
+  {
+   "teams": [
+    "Indiana",
+    "Purdue"
+   ],
+   "name": "Old Oaken Bucket"
+  },
+  {
+   "teams": [
+    "Texas",
+    "Oklahoma"
+   ],
+   "name": "Red River Rivalry"
+  },
+  {
+   "teams": [
+    "Notre Dame",
+    "USC"
+   ],
+   "name": "Jeweled Shillelagh"
+  },
+  {
+   "teams": [
+    "Pitt",
+    "West Virginia"
+   ],
+   "name": "Backyard Brawl"
+  },
+  {
+   "teams": [
+    "Florida",
+    "Georgia"
+   ],
+   "name": "Florida–Georgia"
+  },
+  {
+   "teams": [
+    "Auburn",
+    "Georgia"
+   ],
+   "name": "Deep South's Oldest Rivalry"
+  },
+  {
+   "teams": [
+    "LSU",
+    "Ole Miss"
+   ],
+   "name": "Magnolia Bowl"
+  },
+  {
+   "teams": [
+    "Stanford",
+    "Cal"
+   ],
+   "name": "Big Game"
+  },
+  {
+   "teams": [
+    "Washington",
+    "Washington State"
+   ],
+   "name": "Apple Cup"
+  },
+  {
+   "teams": [
+    "Utah",
+    "BYU"
+   ],
+   "name": "Holy War"
+  },
+  {
+   "teams": [
+    "Iowa",
+    "Iowa State"
+   ],
+   "name": "Cy-Hawk Trophy"
+  },
+  {
+   "teams": [
+    "Virginia Tech",
+    "Virginia"
+   ],
+   "name": "Commonwealth Clash"
+  }
+ ],
+ "recruits": [
+  {
+   "name": "Earl Bynum",
+   "position": "LT",
+   "archetype": "Pass Protector",
+   "size": "6'7\" · 281 lbs",
+   "stars": 5,
+   "hometown": "Mesa, AZ",
+   "school": "Oklahoma",
+   "status": "Committed",
+   "nil": "180",
+   "note": "Nat #31 · State #1 · LT #4",
+   "image": "img/recruits/earl-bynum.webp"
+  },
+  {
+   "name": "Doug Gold",
+   "position": "LT",
+   "archetype": "Pass Protector",
+   "size": "6'7\" · 292 lbs",
+   "stars": 5,
+   "hometown": "Miami, FL",
+   "school": "Alabama",
+   "status": "Committed",
+   "nil": "140",
+   "note": "Nat #25 · State #4 · LT #6",
+   "image": "img/recruits/doug-gold.webp"
+  },
+  {
+   "name": "George Lorenz",
+   "position": "REDG",
+   "archetype": "Speed Rusher",
+   "size": "6'2\" · 248 lbs",
+   "stars": 5,
+   "hometown": "Hollywood, FL",
+   "school": "Alabama",
+   "status": "Top 3",
+   "nil": "200",
+   "note": "Nat #17 · State #6 · REDG #4 · Star dev",
+   "image": "img/recruits/george-lorenz.webp"
+  },
+  {
+   "name": "Duke Reeshad",
+   "position": "LT",
+   "archetype": "Raw Strength",
+   "size": "6'8\" · 325 lbs",
+   "stars": 5,
+   "hometown": "Youngstown, OH",
+   "school": "Ohio State",
+   "status": "Top 3",
+   "nil": "170",
+   "note": "Nat #17 · State #2 · LT #3",
+   "image": "img/recruits/duke-reeshad.webp"
+  },
+  {
+   "name": "Stephen Burks",
+   "position": "CB",
+   "archetype": "Bump and Run",
+   "size": "5'11\" · 208 lbs",
+   "stars": 5,
+   "hometown": "Fairburn, GA",
+   "school": "Clemson",
+   "status": "Top 3",
+   "nil": "190",
+   "note": "Nat #16 · State #2 · CB #2",
+   "image": "img/recruits/stephen-burks.webp"
+  },
+  {
+   "name": "Jeffrey Dimento",
+   "position": "CB",
+   "archetype": "Zone",
+   "size": "6'3\" · 192 lbs",
+   "stars": 4,
+   "hometown": "Ocala, FL",
+   "school": "Clemson",
+   "status": "Top 3",
+   "nil": "75",
+   "note": "Nat #94 · State #19 · CB #11",
+   "image": "img/recruits/jeffrey-dimento.webp"
+  },
+  {
+   "name": "Henry Foucha",
+   "position": "CB",
+   "archetype": "Zone",
+   "size": "6'3\" · 196 lbs",
+   "stars": 4,
+   "hometown": "Winter Haven, FL",
+   "school": "Clemson",
+   "status": "Top 3",
+   "nil": "100",
+   "note": "Nat #229 · State #33 · CB #23",
+   "image": "img/recruits/henry-foucha.webp"
+  },
+  {
+   "name": "Alex Valenzuela",
+   "position": "WR",
+   "size": "5'8\" · 184 lbs",
+   "stars": 4,
+   "school": "Stanford",
+   "status": "Top 3",
+   "note": "Nat #129 · State #1 · WR #29",
+   "image": "img/recruits/alex-valenzuela.webp"
+  },
+  {
+   "name": "Darren Schwartz",
+   "position": "WR",
+   "size": "6'5\" · 190 lbs",
+   "stars": 4,
+   "school": "Stanford",
+   "status": "Top 3",
+   "note": "Nat #90 · State #9 · WR #20",
+   "image": "img/recruits/darren-schwartz.webp"
+  },
+  {
+   "name": "Jimmie Nicholson",
+   "position": "QB",
+   "archetype": "Pocket Passer",
+   "size": "6'4\" · 183 lbs",
+   "stars": 5,
+   "hometown": "Spanish Fort, AL",
+   "school": "Alabama",
+   "status": "Committed",
+   "nil": "200",
+   "image": "img/recruits/jimmie-nicholson.webp"
+  },
+  {
+   "name": "Devontae Kuhn",
+   "position": "DT",
+   "archetype": "Pure Power",
+   "size": "6'5\" · 300 lbs",
+   "stars": 5,
+   "hometown": "Kissimmee, FL",
+   "school": "Alabama",
+   "status": "Committed",
+   "nil": "150",
+   "note": "#1 player in the country",
+   "image": "img/recruits/devontae-kuhn.webp"
+  },
+  {
+   "name": "Joshua Castillo",
+   "position": "LT",
+   "stars": 5,
+   "school": "TCU",
+   "status": "Hard Committed",
+   "image": "img/recruits/joshua-castillo.webp"
+  },
+  {
+   "name": "Von Williams",
+   "position": "HB",
+   "archetype": "East/West Playmaker",
+   "size": "6'1\" · 185 lbs",
+   "stars": 4,
+   "hometown": "Freeport, FL",
+   "school": "Clemson",
+   "status": "Top 3",
+   "nil": "100",
+   "image": "img/recruits/von-williams.webp"
+  },
+  {
+   "name": "Bobby Genus",
+   "position": "WR",
+   "archetype": "Speedster",
+   "size": "5'11\" · 166 lbs",
+   "stars": 4,
+   "hometown": "Rock Hill, SC",
+   "school": "Clemson",
+   "status": "Committed",
+   "nil": "130",
+   "image": "img/recruits/bobby-genus.webp"
+  },
+  {
+   "name": "Tito Samuel",
+   "position": "RT",
+   "stars": 4,
+   "school": "TCU",
+   "status": "Hard Committed",
+   "image": "img/recruits/tito-samuel.webp"
+  },
+  {
+   "name": "Anthony Russo",
+   "position": "LT",
+   "stars": 4,
+   "school": "TCU",
+   "status": "Hard Committed",
+   "image": "img/recruits/anthony-russo.webp"
+  },
+  {
+   "name": "Frank Osborne",
+   "position": "LG",
+   "stars": 4,
+   "school": "TCU",
+   "status": "Hard Committed",
+   "image": "img/recruits/frank-osborne.webp"
+  },
+  {
+   "name": "Lawrence Macafee",
+   "position": "HB",
+   "size": "5'11\" · 203 lbs",
+   "stars": 3,
+   "hometown": "Hightstown, NJ",
+   "school": "Illinois",
+   "status": "Committed",
+   "image": "img/recruits/lawrence-macafee.webp"
+  }
+ ],
+ "members": [
+  {
+   "twitch": "papitalabi123",
+   "school": "Florida",
+   "abbr": "UF",
+   "color": "#0021A5",
+   "logo": "img/teams/florida.webp"
+  },
+  {
+   "twitch": "kingruthless1",
+   "school": "LSU",
+   "abbr": "LSU",
+   "color": "#461D7C",
+   "logo": "img/teams/lsu.webp"
+  },
+  {
+   "twitch": "oldgkenny28",
+   "school": "Utah",
+   "abbr": "UTAH",
+   "color": "#CC0000",
+   "logo": "img/teams/utah.webp"
+  },
+  {
+   "twitch": "dreday2603",
+   "school": "Stanford",
+   "abbr": "STAN",
+   "color": "#8C1515",
+   "logo": "img/teams/stanford.jpg"
+  },
+  {
+   "twitch": "shuffleman88",
+   "school": "Ole Miss",
+   "abbr": "MISS",
+   "color": "#CE1126",
+   "logo": "img/teams/ole-miss.webp"
+  },
+  {
+   "twitch": "dig9a",
+   "school": "Clemson",
+   "abbr": "CLEM",
+   "color": "#F56600",
+   "logo": "img/teams/clemson-tiger.webp"
+  },
+  {
+   "twitch": "tno242215",
+   "school": "Ohio State",
+   "abbr": "OSU",
+   "color": "#BB0000",
+   "logo": "img/teams/ohio-state.webp"
+  },
+  {
+   "twitch": "dream_vvv",
+   "school": "USC",
+   "abbr": "USC",
+   "color": "#990000",
+   "logo": "img/teams/usc.webp"
+  },
+  {
+   "twitch": "blakbuddah",
+   "school": "Penn State",
+   "abbr": "PSU",
+   "color": "#041E42",
+   "logo": "img/teams/penn-state.webp"
+  },
+  {
+   "twitch": "ravingzebe",
+   "school": "Auburn",
+   "abbr": "AUB",
+   "color": "#E87722",
+   "logo": "img/teams/auburn.webp"
+  },
+  {
+   "twitch": "tomcatdadaddy",
+   "school": "Louisville",
+   "abbr": "LOU",
+   "color": "#AD0000",
+   "logo": "img/teams/louisville.jpg",
+   "intro": {
+    "url": "vid/BlamTV-Welcome-to-DaVille.mp4",
+    "title": "Hey playa… welcome to the Ville"
+   }
+  },
+  {
+   "twitch": "grodd30",
+   "school": "South Carolina",
+   "abbr": "SC",
+   "color": "#73000A",
+   "logo": "img/teams/south-carolina.webp"
+  },
+  {
+   "twitch": "vchosenone12",
+   "school": "Iowa",
+   "abbr": "IOWA",
+   "color": "#FFCD00",
+   "logo": "img/teams/iowa.webp"
+  },
+  {
+   "twitch": "drakeworth33",
+   "school": "Texas",
+   "abbr": "TEX",
+   "color": "#BF5700",
+   "logo": "img/teams/texas.webp"
+  },
+  {
+   "twitch": "lingo205",
+   "school": "Oklahoma",
+   "abbr": "OU",
+   "color": "#841617",
+   "logo": "img/teams/oklahoma.webp"
+  },
+  {
+   "twitch": "OletDoiTT",
+   "school": "North Carolina",
+   "abbr": "UNC",
+   "color": "#7BAFD4",
+   "logo": "img/teams/north-carolina.webp"
+  },
+  {
+   "twitch": "Kanga103",
+   "school": "Florida State",
+   "abbr": "FSU",
+   "color": "#782F40",
+   "logo": "img/teams/florida-state.webp"
+  },
+  {
+   "twitch": "PKSHADOWMAN",
+   "school": "Virginia Tech",
+   "abbr": "VT",
+   "color": "#630031",
+   "logo": "img/teams/virginia-tech.webp"
+  },
+  {
+   "twitch": "choward0823",
+   "school": "Notre Dame",
+   "abbr": "ND",
+   "color": "#0C2340",
+   "logo": "img/teams/notre-dame.webp"
+  },
+  {
+   "twitch": "tmac18225",
+   "school": "Georgia",
+   "abbr": "UGA",
+   "color": "#BA0C2F",
+   "logo": "img/teams/georgia.webp"
+  },
+  {
+   "twitch": "RadiOActivWaste",
+   "school": "Washington",
+   "abbr": "UW",
+   "color": "#4B2E83",
+   "logo": "img/teams/washington.webp"
+  },
+  {
+   "twitch": "vacationpapi",
+   "school": "Illinois",
+   "abbr": "ILL",
+   "color": "#E84A27",
+   "logo": "img/teams/illinois.webp"
+  },
+  {
+   "twitch": "icyorchid7",
+   "school": "Oregon",
+   "abbr": "ORE",
+   "color": "#154733",
+   "logo": "img/teams/oregon.webp"
+  },
+  {
+   "twitch": "Ykla_2144",
+   "school": "West Virginia",
+   "abbr": "WVU",
+   "color": "#002855",
+   "logo": "img/teams/west-virginia.webp"
+  },
+  {
+   "twitch": "r3al3st260",
+   "school": "Alabama",
+   "abbr": "BAMA",
+   "color": "#9E1B32",
+   "logo": "img/teams/alabama.webp"
+  },
+  {
+   "twitch": "bignu225",
+   "school": "Nebraska",
+   "abbr": "NEB",
+   "color": "#E41C38",
+   "logo": "img/teams/nebraska.webp"
+  },
+  {
+   "twitch": "dubshow23",
+   "school": "TCU",
+   "abbr": "TCU",
+   "color": "#4D1979",
+   "logo": "img/teams/tcu.webp"
+  },
+  {
+   "twitch": "coach_barbermike707",
+   "school": "Pitt",
+   "abbr": "PITT",
+   "color": "#003594",
+   "logo": "img/teams/pitt.webp"
+  },
+  {
+   "twitch": "purpdollas7",
+   "school": "UCLA",
+   "abbr": "UCLA",
+   "color": "#2D68C4",
+   "logo": "img/teams/ucla.webp"
+  },
+  {
+   "twitch": "cantguardmac13",
+   "school": "Indiana",
+   "abbr": "IU",
+   "color": "#990000",
+   "logo": "img/teams/indiana.webp"
+  },
+  {
+   "twitch": "changknd",
+   "school": "Maryland",
+   "abbr": "UMD",
+   "color": "#E03A3E",
+   "logo": "img/teams/maryland.webp"
+  }
+ ],
+ "archived": "2026-11-12T04:56:31Z"
+}
