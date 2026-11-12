@@ -248,6 +248,7 @@ a.tm:hover { background: var(--raise) }
 .mu-list.only-rival .game:not(.rival) { display: none }
 .nil-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); min-height: 230px; margin-bottom: 26px; display: flex; align-items: center;
   background: radial-gradient(120% 140% at 85% 60%, #1f5a2f 0%, #0f2a18 45%, #08120c 100%); color: #fff; isolation: isolate }
+.nil-hero.has-vid canvas { display: none }
 .nil-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none }
 .nil-hero .nil-vid { position: absolute; z-index: 2; top: 0; right: 0; height: 100%; width: 72%; object-fit: cover; object-position: 60% 30%; opacity: 0; transition: opacity .6s ease; pointer-events: none;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%) }
@@ -268,6 +269,7 @@ a.tm:hover { background: var(--raise) }
 @media (prefers-reduced-motion: reduce) { .nil-hand { animation: none } }
 .hl-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); min-height: 240px; margin-bottom: 26px; display: flex; align-items: center;
   background: radial-gradient(90% 120% at 78% 0%, #4a3a0c 0%, #1a160b 42%, #07080b 100%); color: #fff; isolation: isolate }
+.hl-hero.has-vid canvas { display: none }
 .hl-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none }
 .hl-hero .hl-vid { position: absolute; z-index: 2; top: 0; right: 0; height: 100%; width: 72%; object-fit: cover; object-position: 50% 30%; opacity: 0; transition: opacity .6s ease; pointer-events: none;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%) }
@@ -1258,18 +1260,18 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <span>${[r.position, r.archetype, r.size].filter(Boolean).map(esc).join(' · ')}</span>${r.hometown ? `<span>${esc(r.hometown)}</span>` : ''}${r.nil ? `<span class="nilv">NIL ${esc(r.nil)}</span>` : ''}
         ${r.school ? `<span class="to">${m ? avatar(m) : ''}${esc(r.status || 'Committed')} · ${esc(r.school)}</span>` : ''}
         ${r.note ? `<span>${esc(r.note)}</span>` : ''}</div></article>`; };
-    app.innerHTML = `<section class="nil-hero" aria-label="NIL: Spend Dat Ish"><canvas id="nil-canvas"></canvas><video id="nil-vid" class="nil-vid" src="vid/nil-banner-video_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+    app.innerHTML = `<section class="nil-hero has-vid" aria-label="NIL: Spend Dat Ish"><canvas id="nil-canvas"></canvas><video id="nil-vid" class="nil-vid" src="vid/nil-banner-video_00001_.mp4" poster="img/nil-banner-poster.webp" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="nil-copy"><div class="k">NIL</div><div class="s">Spend Dat Ish</div><p>The recruits coming in to the Blam League. Who's getting paid, and where they're signing.</p></div>${HAND_SVG}</section>
       <h2 class="section-h">Incoming recruits</h2>
       ${list.length ? `<div class="rc-grid">${list.map(card).join('')}</div>`
         : `<div class="empty-state"><b>No recruits posted yet</b>Recruit cards show up here as the commissioner adds them.</div>`}`;
-    nilStop = startMoney(document.getElementById('nil-canvas'));
     // Realistic make-it-rain video banner (ComfyUI, MiniMax H3). Falls back to the drawn banner if it can't load.
     const nv = document.getElementById('nil-vid');
     if (nv) {
       const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
       nv.muted = true;
-      nv.onerror = () => nv.remove();
+      // The realistic banner shows right away (poster still, then video). The old drawn banner only runs if the video can't load.
+      nv.onerror = () => { const hero = nv.closest('.nil-hero'); nv.remove(); if (hero) hero.classList.remove('has-vid'); const cv = document.getElementById('nil-canvas'); if (cv) { cv.style.display = ''; nilStop = startMoney(cv); } };
       nv.addEventListener('loadeddata', () => {
         if (!nv.isConnected) return;
         if (nilStop) { nilStop(); nilStop = null; }
@@ -1315,20 +1317,20 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   let hlStop = null;
   function viewHighlights() {
     const list = highlights();
-    app.innerHTML = `${liveStrip()}<section class="hl-hero" aria-label="Highlights"><canvas id="hl-canvas"></canvas><video id="hl-vid" class="hl-vid" src="vid/hl-banner-video_00001_.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+    app.innerHTML = `${liveStrip()}<section class="hl-hero has-vid" aria-label="Highlights"><canvas id="hl-canvas"></canvas><video id="hl-vid" class="hl-vid" src="vid/hl-banner-video_00001_.mp4" poster="img/hl-banner-poster.webp" muted loop playsinline preload="auto" aria-hidden="true"></video>
         <div class="hl-copy"><div class="pre">Blam<span>TV</span></div><div class="k">Highlights</div><div class="s">High Step Hall</div><p>The best plays from around the Blam League, cut and posted by the coaches who made them.</p></div></section>
       <h2 class="section-h">Latest highlights</h2>
       ${list.length ? `<div class="grid">${list.map(hlCard).join('')}</div>`
         : `<div class="empty-state"><b>No highlights posted yet</b>Coach-made clips land here as soon as they're posted.</div>`}
       <div class="hl-how"><b>Coaches, get your plays on here:</b> save a Highlight on Twitch with <b>BLAM</b> in the title and it shows up automatically,
         or send your YouTube or Twitch clip link to the commissioner.</div>`;
-    hlStop = startHighStep(document.getElementById('hl-canvas'));
     // Realistic high-step video banner (ComfyUI, MiniMax H3). Falls back to the drawn banner if it can't load.
     const hv = document.getElementById('hl-vid');
     if (hv) {
       const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
       hv.muted = true;
-      hv.onerror = () => hv.remove();
+      // The realistic banner shows right away (poster still, then video). The old drawn banner only runs if the video can't load.
+      hv.onerror = () => { const hero = hv.closest('.hl-hero'); hv.remove(); if (hero) hero.classList.remove('has-vid'); const cv = document.getElementById('hl-canvas'); if (cv) { cv.style.display = ''; hlStop = startHighStep(cv); } };
       hv.addEventListener('loadeddata', () => {
         if (!hv.isConnected) return;
         if (hlStop) { hlStop(); hlStop = null; }
