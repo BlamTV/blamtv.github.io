@@ -646,6 +646,20 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .mg-card b { font: 800 19px/1.1 var(--display); text-transform: uppercase }
 .mg-card span { color: var(--muted); font-size: 14px }
 @media (max-width: 700px) { .mg-bk { grid-template-columns: 1fr } .mg-top span:last-child { display: none } .mg-top { justify-content: center } }
+/* Video banners for Weeks (stadium) and Channels (coach). Hidden until the video loads; removed if it can't. */
+.vb-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); margin: 4px 0 18px; height: clamp(170px, 28vw, 320px); background: #07080b; color: #fff; display: none }
+.vb-hero.has-vid { display: block }
+.vb-hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--vb-pos, 50% 50%) }
+.vb-hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(5,6,9,.82) 0%, rgba(5,6,9,.45) 38%, rgba(5,6,9,0) 64%), linear-gradient(0deg, rgba(5,6,9,.55) 0%, rgba(5,6,9,0) 45%) }
+.vb-hero::after { content: ""; position: absolute; inset: auto 0 0 0; z-index: 2; height: 5px; background: repeating-linear-gradient(90deg, #f3b234 0 2px, transparent 2px 18px); opacity: .55 }
+.vb-hero .vb-txt { position: absolute; z-index: 2; left: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 30px); max-width: 60% }
+.vb-hero .pre { font: 800 clamp(11px, 1.6vw, 14px)/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: #f3c23a; text-shadow: 0 2px 10px rgba(0,0,0,.8) }
+.vb-hero h2 { margin: 8px 0 0; font: 800 clamp(30px, 5.6vw, 64px)/.9 var(--display); letter-spacing: -.03em; text-transform: uppercase; text-shadow: 0 3px 0 #6a4a00, 0 2px 18px rgba(0,0,0,.75) }
+.vb-hero h2 span { color: #f3c23a }
+.vb-hero .sub { margin: 8px 0 0; font: 700 clamp(12px, 1.8vw, 16px)/1.3 var(--body); color: #e8dfc4; text-shadow: 0 2px 10px rgba(0,0,0,.8) }
+@media (max-width: 480px) { .vb-hero .vb-txt { max-width: 78% } .vb-hero .sub { display: none } }
+.gw-poster { display: block; margin: 0 0 12px; border-radius: calc(var(--r) + 4px); overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.28) }
+.gw-poster img { display: block; width: 100%; height: auto }
 </style>
 </head>
 <body>
@@ -899,9 +913,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (a && h && (windowLive || (isLive(a) && isLive(h)))) acts = `<a class="hot" href="#both-c${esc(a.login)}-c${esc(h.login)}">▶▶ Watch both sidelines live</a>` + acts;
     else if (done && bothPair(g.away, g.home, season, week)) { const p = bothPair(g.away, g.home, season, week); acts = `<a class="hot" href="#both-v${esc(p[0].id)}-v${esc(p[1].id)}">▶▶ Watch both sidelines</a>` + acts; }
     const sc = (m, k) => m ? `--${k}:${m.color}` : `--${k}:#333`;
-    return `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}"${done ? ' data-done="1"' : ''}>
+    const poster = g.poster ? `<a class="gw-poster" href="${esc(g.poster)}" target="_blank" rel="noopener"><img src="${esc(g.poster)}" alt="${esc(g.posterAlt || (g.away + ' vs ' + g.home))}" loading="eager"></a>` : '';
+    return poster + `<section class="gotw" style="${sc(a, 'ca')};${sc(h, 'ch')}" aria-label="Game of the Week" data-ko="${ko}"${done ? ' data-done="1"' : ''}>
       <div class="top"><span class="gw-tag">★ Game of the Week</span><span class="when">${tba ? 'Kickoff TBA' : `${esc(day)} · ${esc(homeTime)}${sameZone ? '' : `<small>${esc(mine)} your time</small>`}`}</span></div>
-      <div class="row">${side(a, g.away)}<span class="vs">@</span>${side(h, g.home)}</div>
+      <div class="row">${side(a, g.away)}<span class="vs">${g.neutral ? 'vs' : '@'}</span>${side(h, g.home)}</div>
       <div class="clock" data-clock></div>
       <div class="acts">${acts}</div></section>`;
   }
@@ -929,6 +944,18 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       return `<a href="#live-${esc(m.login)}">${avatar(m)}<span class="txt"><b><span class="pill-live">LIVE</span> ${esc(m.display)}</b><span>${esc(s.title)}</span></span></a>`;
     }).join('')}</div>`;
   }
+  // Realistic video banners (ComfyUI, MiniMax H3) for the Weeks page and Channels page.
+  function vbHero(id, src, pre, title, sub, pos) {
+    return `<section class="vb-hero" id="${id}" style="--vb-pos:${pos}" aria-hidden="true"><video src="${src}" muted loop playsinline preload="auto"></video><div class="vb-txt"><div class="pre">${pre}</div><h2>${title}</h2>${sub ? `<div class="sub">${sub}</div>` : ''}</div></section>`;
+  }
+  function startVbHero(id) {
+    const box = document.getElementById(id); if (!box) return;
+    const v = box.querySelector('video'); const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    v.muted = true; v.onerror = () => box.remove();
+    v.addEventListener('loadeddata', () => { if (!v.isConnected) return; box.classList.add('has-vid');
+      if (still) v.currentTime = 1.2; else { const p = v.play(); if (p) p.catch(() => {}); } }, { once: true });
+  }
+
   function banner() {
     let h = '';
     if (D.sample) h += `<div class="banner"><strong>Preview with sample videos.</strong> These cards are placeholders. Once Twitch is connected, real streams from all ${L.members.length} members fill in automatically and play right on this page.</div>`;
@@ -953,13 +980,14 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       return `<a href="#week-${w}" class="${n ? '' : 'empty'}" ${w === wk ? 'aria-current="page"' : ''}><small>${e && (e.chip || e.label) ? esc(e.chip || e.label) : 'Week'}</small><b>${e && e.label && !e.chip ? '' : w}</b><i>${n}</i></a>`;
     }).join('') + (unsorted ? `<a href="#unsorted" ${wk === null ? 'aria-current="page"' : ''}><small>Other</small><b>…</b><i>${unsorted}</i></a>` : '');
     const start = (L.weeks || []).find(x => x.season === L.season && x.week === wk);
-    app.innerHTML = `${banner()}${liveStrip()}
+    app.innerHTML = `${banner()}${liveStrip()}${vbHero('vb-home', 'vid/home-banner.mp4', `Blam League · Season ${esc(L.season)}`, 'Game<span>day</span>', 'Every game. Every sideline.', '50% 35%')}
       <div class="weekhead"><div><h1>${esc(weekLabel(L.season, wk))}</h1>
         <p>Season ${L.season}${start ? ' · advanced ' + esc(fmtDate(start.start)) : ''}</p></div>
         <span class="count">${list.length} stream${list.length === 1 ? '' : 's'}</span></div>
       <nav class="sched" aria-label="Weeks">${chips}</nav>
       ${wk !== null ? playoffLink(wk) + gotw(L.season, wk) + matchups(L.season, wk) : ''}
       ${list.length ? grid(list, wk === null) : `<div class="empty-state"><b>No tape yet</b>Nobody's stream from ${esc(weekLabel(L.season, wk))} is on Twitch. New streams show up within about 2 hours.</div>`}`;
+    startVbHero('vb-home');
     if (app.querySelector('.gotw')) { tickGotw(); if (!gotwTimer) gotwTimer = setInterval(tickGotw, 30e3); }
     const cur = app.querySelector('.sched [aria-current]');
     if (cur) cur.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -1018,10 +1046,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <a class="ch${liveOf(m) ? ' on' : ''}" href="#ch-${slug(m.login)}" style="${scVars(m)}" data-q="${esc((m.display + ' ' + m.school + ' ' + m.abbr).toLowerCase())}">
           ${avatar(m, 'md')}<span class="txt"><b>${esc(m.display)}${liveOf(m) ? '<span class="pill-live">LIVE</span>' : ''}</b><span>${esc(m.school)}</span>
           <span class="n">${m.count} video${m.count === 1 ? '' : 's'}</span></span></a>`;
-    app.innerHTML = `${banner()}${liveStrip()}
+    app.innerHTML = `${banner()}${liveStrip()}${vbHero('vb-coach', 'vid/coach-banner.mp4', 'Blam League', 'The <span>Coaches</span>', `${L.members.length} channels. Every stream, every sideline.`, '70% 35%')}
       <div class="toolbar"><h1>Channels</h1>
         <input class="search" id="ch-filter" type="search" placeholder="Search coach or school" aria-label="Search coach or school"></div>
       ${groups.map(g => `<section class="conf">${g.title ? `<h2 class="section-h">${esc(g.title)}</h2>` : ''}<div class="chgrid">${g.list.map(tile).join('')}</div></section>`).join('')}`;
+    startVbHero('vb-coach');
     const f = document.getElementById('ch-filter');
     f.addEventListener('input', () => {
       const q = f.value.trim().toLowerCase();
