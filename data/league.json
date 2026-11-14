@@ -3,7 +3,7 @@
 
   "game": "College Football 27",
 
-  "season": 4,
+  "season": 5,
 
   "features": { "chat": false, "comments": false, "profiles": false, "chatProviders": ["twitch"] },
 
@@ -26,7 +26,8 @@
     { "season": 4, "week": 15, "label": "Playoff · First Round", "chip": "Playoff", "start": "2026-11-07T21:45:00-06:00" },
     { "season": 4, "week": 16, "label": "Playoff · Quarterfinals", "chip": "QF", "start": "2026-11-09T17:15:00-06:00" },
     { "season": 4, "week": 17, "label": "Playoff · Semifinals", "chip": "SF", "start": "2026-11-11T13:20:00-06:00" },
-    { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" }
+    { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" },
+    { "season": 5, "week": 0, "start": "2026-11-13T12:00:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -44,6 +45,9 @@
   ],
 
   "schedule": [
+    { "season": 5, "week": 0, "games": [
+      ["Penn State", "Illinois"], ["Virginia Tech", "Louisville"], ["Auburn", "Maryland"], ["Stanford", "Nebraska"], ["Texas", "Alabama"]
+    ] },
     { "season": 4, "week": 18, "games": [["Maryland", "TCU"]] },
     { "season": 4, "week": 17, "games": [
       ["Florida State", "TCU"], ["Maryland", "Florida"]
