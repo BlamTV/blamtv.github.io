@@ -27,7 +27,8 @@
     { "season": 4, "week": 16, "label": "Playoff · Quarterfinals", "chip": "QF", "start": "2026-11-09T17:15:00-06:00" },
     { "season": 4, "week": 17, "label": "Playoff · Semifinals", "chip": "SF", "start": "2026-11-11T13:20:00-06:00" },
     { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" },
-    { "season": 5, "week": 0, "start": "2026-11-13T12:00:00-06:00" }
+    { "season": 5, "week": 0, "start": "2026-11-13T12:00:00-06:00" },
+    { "season": 5, "week": 1, "start": "2026-11-15T16:40:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -45,6 +46,11 @@
   ],
 
   "schedule": [
+    { "season": 5, "week": 1, "games": [
+      ["Georgia", "Virginia Tech"], ["North Carolina", "Utah"], ["Oklahoma", "Florida"], ["LSU", "South Carolina"], ["Florida State", "Oregon"],
+      ["Clemson", "USC"], ["UCLA", "Pitt"], ["Arizona State", "Texas"], ["Notre Dame", "West Virginia"], ["Florida Atlantic", "Iowa"],
+      ["Maryland", "TCU"], ["Ohio State", "Indiana"], ["Oregon State", "Ole Miss"]
+    ] },
     { "season": 5, "week": 0, "games": [
       ["Penn State", "Illinois"], ["Virginia Tech", "Louisville"], ["Auburn", "Maryland"], ["Stanford", "Nebraska"], ["Texas", "Alabama"]
     ] },
@@ -157,6 +163,7 @@
     { "twitch": "coach_barbermike707", "school": "Pitt", "abbr": "PITT", "color": "#003594", "logo": "img/teams/pitt.webp" },
     { "twitch": "purpdollas7", "school": "UCLA", "abbr": "UCLA", "color": "#2D68C4", "logo": "img/teams/ucla.webp" },
     { "twitch": "cantguardmac13", "school": "Indiana", "abbr": "IU", "color": "#990000", "logo": "img/teams/indiana.webp" },
-    { "twitch": "changknd", "school": "Maryland", "abbr": "UMD", "color": "#E03A3E", "logo": "img/teams/maryland.webp" }
+    { "twitch": "changknd", "school": "Maryland", "abbr": "UMD", "color": "#E03A3E", "logo": "img/teams/maryland.webp" },
+    { "twitch": "kdubz559", "school": "Arizona State", "abbr": "ASU", "color": "#8C1D40" }
   ]
 }
