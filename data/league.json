@@ -28,10 +28,14 @@
     { "season": 4, "week": 17, "label": "Playoff · Semifinals", "chip": "SF", "start": "2026-11-11T13:20:00-06:00" },
     { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" },
     { "season": 5, "week": 0, "start": "2026-11-13T12:00:00-06:00" },
-    { "season": 5, "week": 1, "start": "2026-11-15T16:40:00-06:00" }
+    { "season": 5, "week": 1, "start": "2026-11-15T16:40:00-06:00" },
+    { "season": 5, "week": 2, "start": "2026-11-16T22:30:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
+  "pinLatest": [
+    { "login": "choward0823", "at": "2026-11-18T03:30:00Z", "season": 5, "week": 2 }
+  ],
 
   "hideVideos": [],
 
@@ -46,6 +50,10 @@
   ],
 
   "schedule": [
+    { "season": 5, "week": 2, "games": [
+      ["UCLA", "Utah"], ["Ole Miss", "TCU"], ["Indiana", "Illinois"], ["Alabama", "Oregon"], ["Ohio State", "Notre Dame"],
+      ["Penn State", "Stanford"], ["North Carolina", "Nebraska"], ["USC", "Florida"], ["West Virginia", "Pitt"], ["Texas", "Memphis"],
+      ["Louisville", "Arizona State"], ["Maryland", "LSU"]] },
     { "season": 5, "week": 1, "games": [
       ["Georgia", "Virginia Tech"], ["North Carolina", "Utah"], ["Oklahoma", "Florida"], ["LSU", "South Carolina"], ["Florida State", "Oregon"],
       ["Clemson", "USC"], ["UCLA", "Pitt"], ["Arizona State", "Texas"], ["Notre Dame", "West Virginia"], ["Florida Atlantic", "Iowa"],
