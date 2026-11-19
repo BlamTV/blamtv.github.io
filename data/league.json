@@ -29,7 +29,9 @@
     { "season": 4, "week": 18, "label": "National Championship", "chip": "NC", "start": "2026-11-11T17:38:00-06:00" },
     { "season": 5, "week": 0, "start": "2026-11-13T12:00:00-06:00" },
     { "season": 5, "week": 1, "start": "2026-11-15T16:40:00-06:00" },
-    { "season": 5, "week": 2, "start": "2026-11-16T22:30:00-06:00" }
+    { "season": 5, "week": 2, "start": "2026-11-16T22:30:00-06:00" },
+    { "season": 5, "week": 3, "start": "2026-11-18T08:00:00-06:00" },
+    { "season": 5, "week": 4, "start": "2026-11-19T09:30:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -50,6 +52,14 @@
   ],
 
   "schedule": [
+    { "season": 5, "week": 4, "games": [
+      ["USC", "Michigan"], ["Maryland", "Notre Dame"], ["Ole Miss", "Louisville"], ["Oklahoma", "Washington"], ["Illinois", "Clemson"],
+      ["Oregon", "Virginia Tech"], ["West Virginia", "LSU"], ["Alabama", "Penn State"], ["Utah", "Georgia Tech"], ["Indiana", "North Carolina"],
+      ["Pitt", "Texas"], ["Stanford", "UCLA"]] },
+    { "season": 5, "week": 3, "games": [
+      ["Notre Dame", "Alabama"], ["Georgia", "Ohio State"], ["TCU", "Indiana"], ["Clemson", "Auburn"], ["Texas", "SMU"],
+      ["Washington State", "Washington"], ["Maryland", "North Carolina"], ["LSU", "Arizona State"], ["Pitt", "Florida State"], ["Virginia Tech", "South Carolina"],
+      ["Utah", "Penn State"], ["Nebraska", "Oklahoma"], ["Oregon", "Oregon State"]] },
     { "season": 5, "week": 2, "games": [
       ["UCLA", "Utah"], ["Ole Miss", "TCU"], ["Indiana", "Illinois"], ["Alabama", "Oregon"], ["Ohio State", "Notre Dame"],
       ["Penn State", "Stanford"], ["North Carolina", "Nebraska"], ["USC", "Florida"], ["West Virginia", "Pitt"], ["Texas", "Memphis"],
