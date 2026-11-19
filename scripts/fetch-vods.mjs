@@ -150,6 +150,17 @@ for (const v of videos) if (!v.tagged && v.type === 'archive') {
     if (opp.weekFrom === 'title') { v.season = opp.season; v.week = opp.week; v.weekFrom = 'opponent'; }
   }
 }
+// Members marked "approveOnly" in league.json stream other things under a league-looking title. Their streams are posted only when
+// the commissioner's list (includeVideos) names the video, or the coach they are scheduled to play that week went live within 30 min.
+const approveOnly = new Set(league.members.filter(m => m.approveOnly).map(m => m.twitch.toLowerCase()));
+for (const v of videos) if (v.tagged && approveOnly.has(v.login.toLowerCase()) && !forceInclude.has(String(v.id))) {
+  const sc = schoolOfLogin[v.login.toLowerCase()];
+  const sch = (league.schedule || []).find(x => x.season === v.season && x.week === v.week);
+  const g = sc && sch && (sch.games || []).find(([a, h]) => a.toLowerCase() === sc || h.toLowerCase() === sc);
+  const oppLogin = g && loginOfSchool[(g[0].toLowerCase() === sc ? g[1] : g[0]).toLowerCase()];
+  const opp = oppLogin && v.type === 'archive' && videos.find(w => w.login.toLowerCase() === oppLogin && w.type === 'archive' && sameKickoff(v, w));
+  if (!opp) v.tagged = false;
+}
 // Admin app: "add/hide <coach>'s latest stream" pins the newest broadcast that existed when the command was given
 for (const p of league.pinLatest || []) {
   const at = Date.parse(p.at);

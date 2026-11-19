@@ -41,7 +41,7 @@
 
   "hideVideos": [],
 
-  "includeVideos": ["2915014521", "2915629217", "2918915605"],
+  "includeVideos": ["2915014521", "2915629217", "2918915605", "2930066242", "2931905233", "2933113160"],
 
   "conferences": [
     { "tier": 1, "name": "SEC", "schools": ["Florida State", "Georgia", "LSU", "Notre Dame", "Alabama", "Ole Miss", "Oklahoma"] },
@@ -173,7 +173,7 @@
     { "twitch": "tmac18225", "school": "Georgia", "abbr": "UGA", "color": "#BA0C2F", "logo": "img/teams/georgia.webp" },
     { "twitch": "RadiOActivWaste", "school": "Washington", "abbr": "UW", "color": "#4B2E83", "logo": "img/teams/washington.webp" },
     { "twitch": "vacationpapi", "school": "Illinois", "abbr": "ILL", "color": "#E84A27", "logo": "img/teams/illinois.webp" },
-    { "twitch": "icyorchid7", "school": "Oregon", "abbr": "ORE", "color": "#154733", "logo": "img/teams/oregon.webp" },
+    { "twitch": "icyorchid7", "school": "Oregon", "abbr": "ORE", "color": "#154733", "logo": "img/teams/oregon.webp", "approveOnly": true },
     { "twitch": "Ykla_2144", "school": "West Virginia", "abbr": "WVU", "color": "#002855", "logo": "img/teams/west-virginia.webp" },
     { "twitch": "r3al3st260", "school": "Alabama", "abbr": "BAMA", "color": "#9E1B32", "logo": "img/teams/alabama.webp" },
     { "twitch": "bignu225", "school": "Nebraska", "abbr": "NEB", "color": "#E41C38", "logo": "img/teams/nebraska.webp" },
