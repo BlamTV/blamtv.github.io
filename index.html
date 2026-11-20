@@ -633,6 +633,38 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .pf-link b { font: 800 clamp(17px, 2.6vw, 22px)/1.1 var(--display); text-transform: uppercase; flex: 1; min-width: 180px }
 .pf-link span:last-child { font: 700 14px/1.2 var(--body); color: #f3d38a }
 .pf-link:hover { box-shadow: 0 0 0 1px #f3b234, 0 6px 24px rgba(243,178,52,.18) }
+/* Stats hub and power rankings */
+.st-h { font: 800 clamp(30px, 6vw, 46px)/1 var(--display); text-transform: uppercase; margin: 6px 0 6px }
+.st-sub { color: var(--muted); margin: 0 0 22px; font-size: 16.5px }
+.st-crumb { font: 700 13px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; display: flex; gap: 8px; flex-wrap: wrap }
+.st-crumb a { color: var(--accent) }
+.st-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px }
+.st-tile { position: relative; display: grid; gap: 8px; align-content: start; padding: 20px; border-radius: calc(var(--r) + 4px); background: var(--surface); border: 1px solid var(--line); overflow: hidden; min-height: 150px }
+.st-tile::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent) }
+.st-tile:hover { border-color: var(--accent); box-shadow: 0 6px 24px rgba(243,178,52,.14) }
+.st-tile .k { justify-self: start; font: 800 11px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 6px 9px; border-radius: 4px }
+.st-tile b { font: 800 clamp(20px, 3.4vw, 26px)/1.05 var(--display); text-transform: uppercase }
+.st-tile .d { color: var(--muted); font-size: 15px }
+.st-tile .lead { display: flex; align-items: center; gap: 10px; margin-top: 4px; font: 700 15px/1.2 var(--body) }
+.st-tile .lead img { width: 34px; height: 34px; object-fit: contain }
+.st-tile .go { font: 700 13px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-top: auto }
+.st-note { color: var(--muted); font-size: 14.5px; margin: 18px 0 0 }
+.pr-switch { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px }
+.pr-switch a { padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--raise); font: 700 14px/1 var(--body); letter-spacing: .06em; text-transform: uppercase }
+.pr-switch a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.pr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px }
+.pr-row { display: grid; grid-template-columns: 46px 44px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 12px 16px 12px 10px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--tc, var(--line)) }
+.pr-row.top { background: linear-gradient(90deg, color-mix(in srgb, var(--tc) 16%, var(--surface)), var(--surface) 62%) }
+.pr-n { font: 800 26px/1 var(--display); text-align: center; color: var(--muted) }
+.pr-row.top .pr-n { color: var(--accent) }
+.pr-row img, .pr-row .ph { width: 44px; height: 44px; object-fit: contain }
+.pr-row .ph { display: grid; place-items: center; border-radius: 8px; background: var(--raise); font: 800 13px/1 var(--display); color: var(--muted) }
+.pr-t { min-width: 0 } .pr-t b { display: block; font: 800 18px/1.15 var(--display); text-transform: uppercase; overflow-wrap: anywhere }
+.pr-t small { display: block; color: var(--muted); font-size: 13.5px; line-height: 1.35; margin-top: 3px }
+.pr-r { text-align: right; min-width: 64px } .pr-r b { font: 800 24px/1 var(--display); font-variant-numeric: tabular-nums } .pr-r small { display: block; font: 700 10.5px/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 4px }
+.pr-r i { display: block; height: 4px; border-radius: 2px; background: var(--raise); margin-top: 6px; overflow: hidden } .pr-r i::after { content: ""; display: block; height: 100%; width: var(--w, 50%); background: var(--accent) }
+.pr-how { margin-top: 24px; padding: 16px 18px; border-radius: var(--r); border: 1px dashed var(--line); color: var(--muted); font-size: 14.5px; line-height: 1.6 } .pr-how b { color: var(--fg) } .pr-how p { margin: 0 0 8px } .pr-how p:last-child { margin: 0 }
+@media (max-width: 560px) { .pr-row { grid-template-columns: 34px 36px minmax(0, 1fr) auto; gap: 9px; padding: 11px 12px 11px 6px } .pr-row img, .pr-row .ph { width: 36px; height: 36px } .pr-n { font-size: 21px } .pr-t b { font-size: 16px } .pr-r b { font-size: 20px } .pr-r { min-width: 52px } }
 .pf-hero { position: relative; overflow: hidden; border-radius: calc(var(--r) + 6px); margin: 0 0 18px; padding: 26px 22px 22px; color: #fff; text-align: center;
   background: radial-gradient(80% 140% at 50% 0%, rgba(243,178,52,.38), transparent 60%), linear-gradient(180deg, #14100a, #07090c); border: 1px solid #f3b234 }
 .pf-hero small { display: block; font: 800 12px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: #f3b234 }
@@ -723,6 +755,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#channels" id="nav-channels">Channels</a>
       <a href="#nil" id="nav-nil">NIL</a>
       <a href="#highlights" id="nav-hl">Highlights</a>
+      <a href="#stats" id="nav-stats">Stats</a>
       <a href="#city" id="nav-city">BlamCity</a>
       <a href="#chat" id="nav-chat" hidden>Chat</a>
       <a href="#mag" id="nav-mag">Magazine</a>
@@ -1565,6 +1598,46 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
 
   // About: the league's mission statement (commissioner's words, verbatim)
+  // Stats hub and power rankings. data/power-rankings.json is written from the league's film numbers; the page only shows it.
+  let PR = null;
+  async function loadPR() { if (!PR) { try { PR = await getJSON('data/power-rankings.json'); } catch (e) { PR = { missing: true }; } } return PR; }
+  const prTeam = t => (L.members || []).find(m => m.school === t) || { school: t, color: '#55606c', logo: null, abbr: t.slice(0, 3).toUpperCase() };
+  const prLogo = m => m.logo ? `<img src="${esc(m.logo)}" alt="" loading="lazy">` : `<span class="ph" aria-hidden="true">${esc(m.abbr || '')}</span>`;
+  const PRK = { overall: ['Best Overall', 'Best overall team'], offense: ['Best Offense', 'Best offensive team'], defense: ['Best Defense', 'Best defensive team'] };
+  const prOff = () => `<div class="empty-state"><b>Stats are for the current season</b><a href="./#stats">Go to this season's stats</a></div>`;
+  async function viewStats() {
+    if (document.body.classList.contains('archive')) { app.innerHTML = prOff(); return; }
+    app.innerHTML = `<h1 class="st-h">Stats</h1><p class="st-sub">Numbers pulled from BLAM game film.</p>
+      <div class="st-tiles"><a class="st-tile" href="#power"><span class="k">Top 25</span><b>Power Rankings</b><span class="d">Best overall team, best offense and best defense.</span><span class="lead" id="st-lead"></span><span class="go">Open rankings &rarr;</span></a></div>
+      <p class="st-note">More stat pages are on the way.</p>`;
+    const P = await loadPR(); const el = document.getElementById('st-lead');
+    if (el && P.overall && P.overall[0]) { const m = prTeam(P.overall[0].team); el.innerHTML = `${prLogo(m)}<span>No. 1: ${esc(P.overall[0].team)}</span>`; }
+  }
+  async function viewPower(kind) {
+    if (document.body.classList.contains('archive')) { app.innerHTML = prOff(); return; }
+    const want = location.hash; const P = await loadPR();
+    if (location.hash !== want) return;
+    if (P.missing || !P.overall) { app.innerHTML = `<div class="empty-state"><b>Power rankings aren't posted yet</b><a href="#stats">Back to Stats</a></div>`; return; }
+    const sub = `Season ${esc(P.season)} &middot; through ${esc(P.through)} &middot; ${esc(P.games)} user-vs-user games`;
+    if (!kind) {
+      app.innerHTML = `<p class="st-crumb"><a href="#stats">Stats</a><span>/</span><span>Power Rankings</span></p><h1 class="st-h">Power Rankings</h1><p class="st-sub">Mikey's Top 25. ${sub}.</p>
+        <div class="st-tiles">${Object.keys(PRK).map(k => { const r = P[k][0], m = prTeam(r.team); return `<a class="st-tile" href="#power-${k}" style="--accent:${esc(m.color || '')}"><span class="k" style="background:#f3b234;color:#14100a">Top 25</span><b>${PRK[k][0]}</b><span class="d">${PRK[k][1]}s, ranked.</span><span class="lead">${prLogo(m)}<span>No. 1: ${esc(r.team)}</span></span><span class="go" style="color:#f3b234">See the list &rarr;</span></a>`; }).join('')}</div>`;
+      return;
+    }
+    const rows = P[kind], one = v => v == null ? null : (+v).toFixed(1);
+    const line = r => kind === 'overall' ? [r.record, `Offense #${r.off}`, `Defense #${r.def}`]
+      : kind === 'offense' ? [`${one(r.ypp)} yards a play`, `${one(r.ppg)} points a game`, r.to == null ? null : `${one(r.to)} turnovers a game`]
+      : [`${one(r.ypp)} yards a play allowed`, `${one(r.ppg)} points allowed`, r.take == null ? null : `${one(r.take)} takeaways a game`];
+    app.innerHTML = `<p class="st-crumb"><a href="#stats">Stats</a><span>/</span><a href="#power">Power Rankings</a><span>/</span><span>${PRK[kind][0]}</span></p>
+      <h1 class="st-h">${PRK[kind][0]}</h1><p class="st-sub">Mikey's Top 25. ${sub}.</p>
+      <nav class="pr-switch" aria-label="Which ranking">${Object.keys(PRK).map(k => `<a href="#power-${k}"${k === kind ? ' aria-current="page"' : ''}>${PRK[k][0]}</a>`).join('')}</nav>
+      <ol class="pr-list">${rows.map(r => { const m = prTeam(r.team); return `<li class="pr-row${r.rank <= 3 ? ' top' : ''}" style="--tc:${esc(m.color || '#55606c')}"><span class="pr-n">${r.rank}</span>${prLogo(m)}
+        <span class="pr-t"><b>${esc(r.team)}</b><small>${line(r).filter(Boolean).map(esc).join(' &middot; ')}${r.games === 1 ? ' &middot; 1 game' : ''}</small></span>
+        <span class="pr-r"><b>${r.rating}</b><small>Rating</small><i style="--w:${Math.max(4, Math.min(100, r.rating))}%"></i></span></li>`; }).join('')}</ol>
+      <div class="pr-how"><p><b>How it works.</b> Mikey scouts every BLAM broadcast and ranks teams on how they played, not only on whether they won: how well the offense moved and scored, how well the defense held, and the results, all measured against the strength of the opponent.</p>
+        <p>Only games between two user coaches count. Games against the CPU are left out. A rating of 50 is an average BLAM team.</p>
+        <p>Records here are user-vs-user games on film, so they can differ from the league standings. Teams with one game on film can move a lot from week to week. Updated ${esc(P.updated)}.</p></div>`;
+  }
   function viewAbout() {
     const tiers = [...(L.conferences || [])].sort((a, b) => a.tier - b.tier);
     const ladder = tiers.length ? `<div class="ladder" aria-label="Five-tier promotion and relegation ladder"><div class="rungs">${tiers.map(c => `<div class="rung${c.tier === 1 ? ' t1' : ''}"><b>Tier ${c.tier}</b><span>${esc(c.name)}</span><small>${c.tier === 1 ? 'Highest level of competition' : c.tier === tiers.length ? 'Starting point' : ''}</small></div>`).join('')}</div>
@@ -1978,7 +2051,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
     if (chatSub && sb) { sb.removeChannel(chatSub); chatSub = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat' && h !== 'mag' && !h.startsWith('mag-'));
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat' && h !== 'mag' && !h.startsWith('mag-') && h !== 'stats' && !/^power(-|$)/.test(h));
+    document.getElementById('nav-stats').toggleAttribute('aria-current', h === 'stats' || /^power(-|$)/.test(h));
     document.getElementById('nav-chat').toggleAttribute('aria-current', h === 'chat');
     document.getElementById('nav-city').toggleAttribute('aria-current', isCity);
     document.getElementById('nav-about').toggleAttribute('aria-current', h === 'about');
@@ -1991,6 +2065,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (h === 'highlights') viewHighlights();
     else if (h === 'city') viewCity();
     else if (h === 'about') viewAbout();
+    else if (h === 'stats') viewStats();
+    else if ((m = h.match(/^power(?:-(overall|offense|defense))?$/))) viewPower(m[1]);
     else if (h === 'playoff') viewPlayoff();
     else if (h === 'mag') viewMagazine();
     else if ((m = h.match(/^mag-([a-z0-9-]+)$/))) viewMagazine(m[1]);

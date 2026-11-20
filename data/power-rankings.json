@@ -1,0 +1,688 @@
+{
+ "season": 5,
+ "through": "Week 3",
+ "updated": "2026-11-20",
+ "teams": 29,
+ "games": 30,
+ "overall": [
+  {
+   "rank": 1,
+   "team": "Georgia",
+   "record": "2-0",
+   "rating": 69,
+   "off": 3,
+   "def": 2,
+   "games": 2
+  },
+  {
+   "rank": 2,
+   "team": "West Virginia",
+   "record": "2-0",
+   "rating": 67,
+   "off": 13,
+   "def": 1,
+   "games": 2
+  },
+  {
+   "rank": 3,
+   "team": "TCU",
+   "record": "3-0",
+   "rating": 65,
+   "off": 6,
+   "def": 8,
+   "games": 3
+  },
+  {
+   "rank": 4,
+   "team": "Alabama",
+   "record": "3-0",
+   "rating": 63,
+   "off": 8,
+   "def": 6,
+   "games": 3
+  },
+  {
+   "rank": 5,
+   "team": "Florida",
+   "record": "1-0-1",
+   "rating": 61,
+   "off": 4,
+   "def": 3,
+   "games": 2
+  },
+  {
+   "rank": 6,
+   "team": "Penn State",
+   "record": "2-0",
+   "rating": 61,
+   "off": 11,
+   "def": 11,
+   "games": 2
+  },
+  {
+   "rank": 7,
+   "team": "Oklahoma",
+   "record": "1-0-1",
+   "rating": 60,
+   "off": 2,
+   "def": 20,
+   "games": 2
+  },
+  {
+   "rank": 8,
+   "team": "Florida State",
+   "record": "1-0",
+   "rating": 58,
+   "off": 9,
+   "def": 17,
+   "games": 1
+  },
+  {
+   "rank": 9,
+   "team": "Ohio State",
+   "record": "2-1",
+   "rating": 57,
+   "off": 5,
+   "def": 15,
+   "games": 3
+  },
+  {
+   "rank": 10,
+   "team": "Louisville",
+   "record": "1-0",
+   "rating": 55,
+   "off": 17,
+   "def": 14,
+   "games": 1
+  },
+  {
+   "rank": 11,
+   "team": "Virginia Tech",
+   "record": "1-1",
+   "rating": 54,
+   "off": 12,
+   "def": 12,
+   "games": 2
+  },
+  {
+   "rank": 12,
+   "team": "Pitt",
+   "record": "1-1",
+   "rating": 54,
+   "off": 1,
+   "def": 26,
+   "games": 2
+  },
+  {
+   "rank": 13,
+   "team": "Auburn",
+   "record": "1-0",
+   "rating": 52,
+   "off": 26,
+   "def": 16,
+   "games": 1
+  },
+  {
+   "rank": 14,
+   "team": "Maryland",
+   "record": "1-2",
+   "rating": 51,
+   "off": 15,
+   "def": 4,
+   "games": 3
+  },
+  {
+   "rank": 15,
+   "team": "USC",
+   "record": "1-1",
+   "rating": 51,
+   "off": 14,
+   "def": 9,
+   "games": 2
+  },
+  {
+   "rank": 16,
+   "team": "Notre Dame",
+   "record": "0-3",
+   "rating": 51,
+   "off": 7,
+   "def": 5,
+   "games": 3
+  },
+  {
+   "rank": 17,
+   "team": "LSU",
+   "record": "1-1",
+   "rating": 46,
+   "off": 22,
+   "def": 18,
+   "games": 2
+  },
+  {
+   "rank": 18,
+   "team": "Oregon",
+   "record": "0-2",
+   "rating": 44,
+   "off": 18,
+   "def": 7,
+   "games": 2
+  },
+  {
+   "rank": 19,
+   "team": "Arizona State",
+   "record": "1-1",
+   "rating": 44,
+   "off": 24,
+   "def": 22,
+   "games": 2
+  },
+  {
+   "rank": 20,
+   "team": "South Carolina",
+   "record": "1-1",
+   "rating": 42,
+   "off": 20,
+   "def": 28,
+   "games": 2
+  },
+  {
+   "rank": 21,
+   "team": "Clemson",
+   "record": "0-2",
+   "rating": 41,
+   "off": 16,
+   "def": 19,
+   "games": 2
+  },
+  {
+   "rank": 22,
+   "team": "UCLA",
+   "record": "1-1",
+   "rating": 41,
+   "off": 25,
+   "def": 23,
+   "games": 2
+  },
+  {
+   "rank": 23,
+   "team": "Nebraska",
+   "record": "1-1-1",
+   "rating": 41,
+   "off": 21,
+   "def": 24,
+   "games": 3
+  },
+  {
+   "rank": 24,
+   "team": "Stanford",
+   "record": "0-2",
+   "rating": 40,
+   "off": 28,
+   "def": 10,
+   "games": 2
+  },
+  {
+   "rank": 25,
+   "team": "Ole Miss",
+   "record": "0-1",
+   "rating": 38,
+   "off": 10,
+   "def": 25,
+   "games": 1
+  }
+ ],
+ "offense": [
+  {
+   "rank": 1,
+   "team": "Pitt",
+   "ypp": 10.5,
+   "ppg": 41.5,
+   "to": 1.5,
+   "rating": 78,
+   "games": 2
+  },
+  {
+   "rank": 2,
+   "team": "Oklahoma",
+   "ypp": 10.2,
+   "ppg": 52.5,
+   "to": 2.0,
+   "rating": 77,
+   "games": 2
+  },
+  {
+   "rank": 3,
+   "team": "Georgia",
+   "ypp": 9.3,
+   "ppg": 31.0,
+   "to": 3.0,
+   "rating": 67,
+   "games": 2
+  },
+  {
+   "rank": 4,
+   "team": "Florida",
+   "ypp": 8.9,
+   "ppg": 39.5,
+   "to": 2.0,
+   "rating": 64,
+   "games": 2
+  },
+  {
+   "rank": 5,
+   "team": "Ohio State",
+   "ypp": 8.6,
+   "ppg": 35.7,
+   "to": 1.3,
+   "rating": 61,
+   "games": 3
+  },
+  {
+   "rank": 6,
+   "team": "TCU",
+   "ypp": 9.2,
+   "ppg": 50.3,
+   "to": 1.0,
+   "rating": 60,
+   "games": 3
+  },
+  {
+   "rank": 7,
+   "team": "Notre Dame",
+   "ypp": 8.0,
+   "ppg": 29.3,
+   "to": 2.5,
+   "rating": 60,
+   "games": 3
+  },
+  {
+   "rank": 8,
+   "team": "Alabama",
+   "ypp": 9.6,
+   "ppg": 42.3,
+   "to": null,
+   "rating": 58,
+   "games": 3
+  },
+  {
+   "rank": 9,
+   "team": "Florida State",
+   "ypp": 8.3,
+   "ppg": 34.0,
+   "to": null,
+   "rating": 57,
+   "games": 1
+  },
+  {
+   "rank": 10,
+   "team": "Ole Miss",
+   "ypp": 7.0,
+   "ppg": 27.0,
+   "to": 4.0,
+   "rating": 55,
+   "games": 1
+  },
+  {
+   "rank": 11,
+   "team": "Penn State",
+   "ypp": 5.8,
+   "ppg": 40.0,
+   "to": 3.0,
+   "rating": 55,
+   "games": 2
+  },
+  {
+   "rank": 12,
+   "team": "Virginia Tech",
+   "ypp": 7.3,
+   "ppg": 32.0,
+   "to": null,
+   "rating": 54,
+   "games": 2
+  },
+  {
+   "rank": 13,
+   "team": "West Virginia",
+   "ypp": 7.3,
+   "ppg": 41.5,
+   "to": 0.0,
+   "rating": 53,
+   "games": 2
+  },
+  {
+   "rank": 14,
+   "team": "USC",
+   "ypp": 7.4,
+   "ppg": 27.5,
+   "to": 0.0,
+   "rating": 50,
+   "games": 2
+  },
+  {
+   "rank": 15,
+   "team": "Maryland",
+   "ypp": 6.9,
+   "ppg": 18.0,
+   "to": 2.5,
+   "rating": 49,
+   "games": 3
+  },
+  {
+   "rank": 16,
+   "team": "Clemson",
+   "ypp": 7.9,
+   "ppg": 24.0,
+   "to": 2.5,
+   "rating": 46,
+   "games": 2
+  },
+  {
+   "rank": 17,
+   "team": "Louisville",
+   "ypp": 6.5,
+   "ppg": 26.0,
+   "to": null,
+   "rating": 46,
+   "games": 1
+  },
+  {
+   "rank": 18,
+   "team": "Oregon",
+   "ypp": 6.0,
+   "ppg": 18.5,
+   "to": null,
+   "rating": 45,
+   "games": 2
+  },
+  {
+   "rank": 19,
+   "team": "Texas",
+   "ypp": 5.4,
+   "ppg": 21.0,
+   "to": 2.0,
+   "rating": 44,
+   "games": 2
+  },
+  {
+   "rank": 20,
+   "team": "South Carolina",
+   "ypp": 6.1,
+   "ppg": 24.5,
+   "to": 0.0,
+   "rating": 44,
+   "games": 2
+  },
+  {
+   "rank": 21,
+   "team": "Nebraska",
+   "ypp": 6.9,
+   "ppg": 21.7,
+   "to": 2.0,
+   "rating": 41,
+   "games": 3
+  },
+  {
+   "rank": 22,
+   "team": "LSU",
+   "ypp": 7.5,
+   "ppg": 20.5,
+   "to": 2.5,
+   "rating": 41,
+   "games": 2
+  },
+  {
+   "rank": 23,
+   "team": "Indiana",
+   "ypp": 6.3,
+   "ppg": 21.0,
+   "to": 3.5,
+   "rating": 41,
+   "games": 2
+  },
+  {
+   "rank": 24,
+   "team": "Arizona State",
+   "ypp": 9.3,
+   "ppg": 28.5,
+   "to": 2.0,
+   "rating": 37,
+   "games": 2
+  },
+  {
+   "rank": 25,
+   "team": "UCLA",
+   "ypp": 6.7,
+   "ppg": 28.5,
+   "to": 2.5,
+   "rating": 36,
+   "games": 2
+  }
+ ],
+ "defense": [
+  {
+   "rank": 1,
+   "team": "West Virginia",
+   "ypp": 7.2,
+   "ppg": 24.0,
+   "take": 2.0,
+   "rating": 76,
+   "games": 2
+  },
+  {
+   "rank": 2,
+   "team": "Georgia",
+   "ypp": 5.6,
+   "ppg": 25.0,
+   "take": 2.0,
+   "rating": 75,
+   "games": 2
+  },
+  {
+   "rank": 3,
+   "team": "Florida",
+   "ypp": 8.3,
+   "ppg": 29.5,
+   "take": 3.0,
+   "rating": 66,
+   "games": 2
+  },
+  {
+   "rank": 4,
+   "team": "Maryland",
+   "ypp": 6.6,
+   "ppg": 22.7,
+   "take": 1.5,
+   "rating": 62,
+   "games": 3
+  },
+  {
+   "rank": 5,
+   "team": "Notre Dame",
+   "ypp": 7.3,
+   "ppg": 34.0,
+   "take": 0.5,
+   "rating": 61,
+   "games": 3
+  },
+  {
+   "rank": 6,
+   "team": "Alabama",
+   "ypp": 6.1,
+   "ppg": 15.3,
+   "take": null,
+   "rating": 60,
+   "games": 3
+  },
+  {
+   "rank": 7,
+   "team": "Oregon",
+   "ypp": 7.7,
+   "ppg": 32.5,
+   "take": null,
+   "rating": 59,
+   "games": 2
+  },
+  {
+   "rank": 8,
+   "team": "TCU",
+   "ypp": 6.6,
+   "ppg": 20.3,
+   "take": 4.0,
+   "rating": 56,
+   "games": 3
+  },
+  {
+   "rank": 9,
+   "team": "USC",
+   "ypp": 7.6,
+   "ppg": 32.5,
+   "take": 2.0,
+   "rating": 55,
+   "games": 2
+  },
+  {
+   "rank": 10,
+   "team": "Stanford",
+   "ypp": 6.6,
+   "ppg": 25.5,
+   "take": 2.0,
+   "rating": 54,
+   "games": 2
+  },
+  {
+   "rank": 11,
+   "team": "Penn State",
+   "ypp": 8.4,
+   "ppg": 18.0,
+   "take": 6.5,
+   "rating": 54,
+   "games": 2
+  },
+  {
+   "rank": 12,
+   "team": "Virginia Tech",
+   "ypp": 7.7,
+   "ppg": 20.0,
+   "take": null,
+   "rating": 53,
+   "games": 2
+  },
+  {
+   "rank": 13,
+   "team": "Utah",
+   "ypp": 5.4,
+   "ppg": 39.5,
+   "take": 3.0,
+   "rating": 53,
+   "games": 2
+  },
+  {
+   "rank": 14,
+   "team": "Louisville",
+   "ypp": 10.2,
+   "ppg": 21.0,
+   "take": null,
+   "rating": 52,
+   "games": 1
+  },
+  {
+   "rank": 15,
+   "team": "Ohio State",
+   "ypp": 7.6,
+   "ppg": 30.3,
+   "take": 3.0,
+   "rating": 51,
+   "games": 3
+  },
+  {
+   "rank": 16,
+   "team": "Auburn",
+   "ypp": 8.9,
+   "ppg": 20.0,
+   "take": 3.0,
+   "rating": 49,
+   "games": 1
+  },
+  {
+   "rank": 17,
+   "team": "Florida State",
+   "ypp": 5.7,
+   "ppg": 24.0,
+   "take": null,
+   "rating": 48,
+   "games": 1
+  },
+  {
+   "rank": 18,
+   "team": "LSU",
+   "ypp": 6.5,
+   "ppg": 23.0,
+   "take": 2.0,
+   "rating": 47,
+   "games": 2
+  },
+  {
+   "rank": 19,
+   "team": "Clemson",
+   "ypp": 5.6,
+   "ppg": 34.5,
+   "take": 0.0,
+   "rating": 47,
+   "games": 2
+  },
+  {
+   "rank": 20,
+   "team": "Oklahoma",
+   "ypp": 8.3,
+   "ppg": 33.0,
+   "take": 2.0,
+   "rating": 46,
+   "games": 2
+  },
+  {
+   "rank": 21,
+   "team": "North Carolina",
+   "ypp": 7.4,
+   "ppg": 22.5,
+   "take": 1.0,
+   "rating": 46,
+   "games": 2
+  },
+  {
+   "rank": 22,
+   "team": "Arizona State",
+   "ypp": 6.5,
+   "ppg": 30.5,
+   "take": 2.0,
+   "rating": 43,
+   "games": 2
+  },
+  {
+   "rank": 23,
+   "team": "UCLA",
+   "ypp": 8.8,
+   "ppg": 41.5,
+   "take": 3.5,
+   "rating": 40,
+   "games": 2
+  },
+  {
+   "rank": 24,
+   "team": "Nebraska",
+   "ypp": 9.4,
+   "ppg": 33.7,
+   "take": 1.0,
+   "rating": 37,
+   "games": 3
+  },
+  {
+   "rank": 25,
+   "team": "Ole Miss",
+   "ypp": 9.6,
+   "ppg": 66.0,
+   "take": 1.0,
+   "rating": 36,
+   "games": 1
+  }
+ ]
+}
