@@ -753,6 +753,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const slug = login => login.toLowerCase().replace(/_/g, '-');   // Twitch logins never contain hyphens
   let L = null, D = null;
+  let SYNC = {};
+  const kickoffOf = id => { const k = SYNC && SYNC[String(id)]; return k && typeof k.kickoff === 'number' ? k.kickoff : null; };
   const members = {}, bySlug = {};
 
   function inkFor(hex) {
@@ -1149,7 +1151,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <div class="both-tools">${live ? '' : '<button id="bsync" disabled>⟳ Sync to same moment</button>'}${wk}</div></div>
       <div class="both-grid">${panel(A, 0)}${panel(B, 1)}</div>
       ${live ? chatBox([A.m, B.m], 'both-chat') : ''}
-      <p class="both-note">${live ? 'Each side plays live from Twitch.' : 'Replays start lined up to the same moment of the game. If one side pauses or skips, hit Sync to line them back up.'} Both start muted so they can autoplay. Tap "Hear this side" to turn on that side's sound.</p>`;
+      <p class="both-note">${live ? 'Each side plays live from Twitch.' : (kickoffOf(A.v.id) != null && kickoffOf(B.v.id) != null ? 'Both replays start at the opening kickoff, lined up to the same game clock.' : 'Replays start lined up to the same moment of the game.') + ' If one side pauses or skips, hit Sync to line them back up.'} Both start muted so they can autoplay. Tap "Hear this side" to turn on that side's sound.</p>`;
     if (preview) return;
     let gone = false; bothStop = () => { gone = true; };
     loadTwitchApi().then(Tw => {
@@ -1162,8 +1164,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         P[i].addEventListener(Tw.Player.READY, () => { ready[i] = true; if (ready[0] && ready[1]) onBothReady(); });
       });
       const t0 = i => Date.parse(S[i].v.created) / 1000;
+      const k = live ? [null, null] : [kickoffOf(S[0].v.id), kickoffOf(S[1].v.id)], byKick = k[0] != null && k[1] != null;
       const sync = () => {
         if (live) return;
+        if (byKick) { P[1].seek(Math.max(0, k[1] + (P[0].getCurrentTime() || 0) - k[0])); P[0].play(); P[1].play(); return; }   // same game clock on both sides
         const real = t0(0) + (P[0].getCurrentTime() || 0);
         let pos1 = real - t0(1);
         if (pos1 < 0) { P[0].seek(t0(1) - t0(0)); pos1 = 0; }
@@ -1173,7 +1177,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const onBothReady = () => {
         const btn = document.getElementById('bsync');
         if (btn) { btn.disabled = false; btn.onclick = sync; }
-        if (!live && !synced) { synced = true; setTimeout(sync, 1500); }
+        if (!live && !synced) { synced = true; setTimeout(() => { if (byKick) P[0].seek(Math.max(0, k[0] - 8)); sync(); }, 1500); }                      // start both a few seconds before kickoff
       };
       app.querySelectorAll('.bside .snd').forEach(b => b.onclick = () => {
         const on = +b.dataset.i;
@@ -1188,9 +1192,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (!v) { app.innerHTML = `<div class="empty-state"><b>Video gone</b>Twitch may have deleted this stream. <a href="#">Back to this week</a></div>`; return; }
     const m = member(v.login);
     const host = location.hostname;
+    const kk = kickoffOf(v.id), ks = kk == null ? 0 : Math.max(0, Math.floor(kk - 8)), kt = ks ? `&time=${Math.floor(ks / 3600)}h${Math.floor(ks % 3600 / 60)}m${ks % 60}s` : '';   // skip the pre-game: start just before kickoff
     const player = D.sample || !host
       ? `<div class="ph" style="${scVars(m)}"><span class="ph-wk">${esc(weekShort(v))}</span><span class="ph-abbr">${esc(m.abbr)}</span></div><span class="note">On the live site, the Twitch stream plays here</span>`
-      : `<iframe src="https://player.twitch.tv/?video=${encodeURIComponent(v.id)}&parent=${encodeURIComponent(host)}&autoplay=true" allowfullscreen title="${esc(v.title)}"></iframe>`;
+      : `<iframe src="https://player.twitch.tv/?video=${encodeURIComponent(v.id)}&parent=${encodeURIComponent(host)}&autoplay=true${kt}" allowfullscreen title="${esc(v.title)}"></iframe>`;
     const more = D.videos.filter(x => x.id !== v.id && x.season === v.season && x.week === v.week && v.week != null).slice(0, 12);
     const fromCoach = D.videos.filter(x => x.id !== v.id && x.login === v.login).slice(0, 6);
     const side = (more.length ? more : fromCoach);
@@ -2018,6 +2023,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     try { L = await getJSON(base + 'league.json'); }
     catch (e) { app.innerHTML = archSeason ? `<div class="empty-state"><b>No archive for Season ${esc(archSeason)}</b><a href="./">Back to the current season</a></div>` : `<div class="empty-state"><b>Setup file missing</b>The site couldn't load data/league.json.</div>`; return; }
     try { D = await getJSON(base + 'videos.json'); } catch (e) { D = {}; }
+    try { SYNC = archSeason ? {} : await getJSON('data/sync.json'); } catch (e) { SYNC = {}; }      // where each replay's game kicks off (seconds into the video), from the film reads
     if (archSeason) {
       D.live = [];
       document.body.classList.add('archive');
