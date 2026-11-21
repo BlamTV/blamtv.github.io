@@ -690,6 +690,15 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 @media (max-width: 480px) { .vb-hero .vb-txt { max-width: 78% } .vb-hero .sub { display: none } }
 .gw-poster { display: block; margin: 0 0 12px; border-radius: calc(var(--r) + 4px); overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.28) }
 .gw-poster img { display: block; width: 100%; height: auto }
+/* Promo: Mikey's Power Rankings ad on the home page */
+.promo-ad { position: relative; max-width: 860px; margin: 14px auto 18px; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid rgba(243,178,52,.45); box-shadow: 0 10px 30px rgba(0,0,0,.35) }
+.promo-ad video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000 }
+.promo-ad.vert video { aspect-ratio: 9 / 16; max-height: 78vh }
+.promo-ad .promo-tag { position: absolute; left: 12px; top: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,.6); color: #f3b234; font: 800 11px/1 system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; pointer-events: none }
+.promo-ad .promo-snd { position: absolute; right: 12px; top: 10px; padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(243,178,52,.7); background: rgba(0,0,0,.65); color: #fff; font: 700 13px/1 system-ui, sans-serif; cursor: pointer }
+.promo-ad .promo-snd:hover { background: #f3b234; color: #14100a }
+.promo-ad .promo-cap { padding: 10px 14px; background: #0b0b0d; color: #e9eef3; font: 600 14px/1.35 system-ui, sans-serif }
+.promo-ad .promo-cap b { color: #f3b234 }
 </style>
 </head>
 <body>
@@ -992,6 +1001,18 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (id === 'vb-home' && !still) v.addEventListener('timeupdate', () => box.classList.toggle('vb-reveal', v.currentTime > 12.4));
   }
 
+  function promoAd() {          // the Mikey Tomalini promo for the Week 5 Power Rankings; shown on the current season's home pages only
+    if (document.body.classList.contains('archive')) return '';
+    const vert = window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches;
+    const f = 'vid/mikey-power-rankings-w5' + (vert ? '-vert' : '');
+    return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Power Rankings promo"><video id="promo-vid" src="${f}.mp4" poster="${f}.jpg" muted loop playsinline autoplay preload="metadata"></video><span class="promo-tag">Coming Week 5</span><button type="button" class="promo-snd" id="promo-snd" aria-pressed="false">Tap for sound</button><div class="promo-cap"><b>Top 25 Power Rankings</b> · Dropping Week 5. Meet Mikey Tomalini, the league scout.</div></section>`;
+  }
+  function initPromo() {
+    const v = document.getElementById('promo-vid'), b = document.getElementById('promo-snd');
+    if (!v || !b) return;
+    v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {});
+    b.onclick = () => { v.muted = !v.muted; if (!v.muted) { v.currentTime = 0; const q = v.play(); if (q && q.catch) q.catch(() => {}); } b.textContent = v.muted ? 'Tap for sound' : 'Mute'; b.setAttribute('aria-pressed', String(!v.muted)); };
+  }
   function banner() {
     let h = '';
     if (D.sample) h += `<div class="banner"><strong>Preview with sample videos.</strong> These cards are placeholders. Once Twitch is connected, real streams from all ${L.members.length} members fill in automatically and play right on this page.</div>`;
@@ -1016,7 +1037,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       return `<a href="#week-${w}" class="${n ? '' : 'empty'}" ${w === wk ? 'aria-current="page"' : ''}><small>${e && (e.chip || e.label) ? esc(e.chip || e.label) : 'Week'}</small><b>${e && e.label && !e.chip ? '' : w}</b><i>${n}</i></a>`;
     }).join('') + (unsorted ? `<a href="#unsorted" ${wk === null ? 'aria-current="page"' : ''}><small>Other</small><b>…</b><i>${unsorted}</i></a>` : '');
     const start = (L.weeks || []).find(x => x.season === L.season && x.week === wk);
-    app.innerHTML = `${banner()}${liveStrip()}${vbHero('vb-home', 'vid/weeks-banner.mp4', `Blam League · Season ${esc(L.season)}`, 'Game<span>day</span>', 'Every game. Every sideline.', '50% 80%')}
+    app.innerHTML = `${banner()}${liveStrip()}${promoAd()}${vbHero('vb-home', 'vid/weeks-banner.mp4', `Blam League · Season ${esc(L.season)}`, 'Game<span>day</span>', 'Every game. Every sideline.', '50% 80%')}
       <div class="weekhead"><div><h1>${esc(weekLabel(L.season, wk))}</h1>
         <p>Season ${L.season}${start ? ' · advanced ' + esc(fmtDate(start.start)) : ''}</p></div>
         <span class="count">${list.length} stream${list.length === 1 ? '' : 's'}</span></div>
@@ -2014,6 +2035,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (lastHash !== null && lastHash !== h) window.scrollTo(0, 0);
     lastHash = h;
     countPlay(h);
+    initPromo();
     if (commentsOn()) { const slot = app.querySelector('.comments-slot'); if (slot) mountRoom(slot, slot.dataset.room, { title: 'Comments', compact: true }); }
   }
 
