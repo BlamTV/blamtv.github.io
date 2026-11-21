@@ -1005,7 +1005,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (document.body.classList.contains('archive')) return '';
     const vert = window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches;
     const f = 'vid/mikey-power-rankings-w5' + (vert ? '-vert' : '');
-    return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Power Rankings promo"><video id="promo-vid" src="${f}.mp4" poster="${f}.jpg" muted loop playsinline autoplay preload="metadata"></video><span class="promo-tag">Coming Week 5</span><button type="button" class="promo-snd" id="promo-snd" aria-pressed="false">Tap for sound</button><div class="promo-cap"><b>Top 25 Power Rankings</b> · Dropping Week 5. Meet Mikey Tomalini, the league scout.</div></section>`;
+    return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Power Rankings promo"><video id="promo-vid" src="${f}.mp4?v=2" poster="${f}.jpg?v=2" muted loop playsinline autoplay preload="metadata"></video><span class="promo-tag">Coming Week 5</span><button type="button" class="promo-snd" id="promo-snd" aria-pressed="false">Tap for sound</button><div class="promo-cap"><b>Top 25 Power Rankings</b> · Dropping Week 5. Meet Mikey Tomalini, the league scout.</div></section>`;
   }
   function initPromo() {
     const v = document.getElementById('promo-vid'), b = document.getElementById('promo-snd');
