@@ -1036,11 +1036,11 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (id === 'vb-home' && !still) v.addEventListener('timeupdate', () => box.classList.toggle('vb-reveal', v.currentTime > 12.4));
   }
 
-  function promoAd() {          // the Mikey Tomalini promo for the Week 5 Power Rankings; shown on the current season's home pages only
+  function promoAd() {          // Mikey Tomalini's Power Rankings video (through Week 4); shown on the current season's home pages only
     if (document.body.classList.contains('archive')) return '';
     const vert = window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches;
-    const f = 'vid/mikey-power-rankings-w5' + (vert ? '-vert' : '');
-    return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Power Rankings promo"><video id="promo-vid" src="${f}.mp4?v=3" poster="${f}.jpg?v=3" muted loop playsinline autoplay preload="metadata"></video><span class="promo-tag">Out now</span><button type="button" class="promo-snd" id="promo-snd" aria-pressed="false">Tap for sound</button><div class="promo-cap"><b>Top 25 Power Rankings</b> · Out now from Mikey Tomalini, the league scout. <a href="#power">See the rankings &rarr;</a></div></section>`;
+    const f = 'vid/mikey-rankings-w4' + (vert ? '-vert' : '');
+    return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Power Rankings promo"><video id="promo-vid" src="${f}.mp4?v=1" poster="${f}.jpg?v=1" muted loop playsinline autoplay preload="metadata"></video><span class="promo-tag">Out now</span><button type="button" class="promo-snd" id="promo-snd" aria-pressed="false">Tap for sound</button><div class="promo-cap"><b>Mikey's Top 25 Power Rankings</b> · Best overall, best offense, best defense. User vs user games only. <a href="#power">See the rankings &rarr;</a></div></section>`;
   }
   function initPromo() {
     const v = document.getElementById('promo-vid'), b = document.getElementById('promo-snd');
@@ -1649,6 +1649,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const sub = `Season ${esc(P.season)} &middot; through ${esc(P.through)} &middot; ${esc(P.games)} user-vs-user games`;
     if (!kind) {
       app.innerHTML = `<p class="st-crumb"><a href="#stats">Stats</a><span>/</span><span>Power Rankings</span></p><h1 class="st-h">Power Rankings</h1><p class="st-sub">Mikey's Top 25. ${sub}.</p>
+        ${(() => { const vert = window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches; const f = 'vid/mikey-rankings-w4' + (vert ? '-vert' : ''); return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Mikey's Power Rankings video"><video src="${f}.mp4?v=1" poster="${f}.jpg?v=1" controls playsinline preload="metadata"></video></section>`; })()}
         <div class="st-tiles">${Object.keys(PRK).map(k => { const r = P[k][0], m = prTeam(r.team); return `<a class="st-tile" href="#power-${k}" style="--accent:${esc(m.color || '')}"><span class="k" style="background:#f3b234;color:#14100a">Top 25</span><b>${PRK[k][0]}</b><span class="d">${PRK[k][1]}s, ranked.</span><span class="lead">${prLogo(m)}<span>No. 1: ${esc(r.team)}</span></span><span class="go" style="color:#f3b234">See the list &rarr;</span></a>`; }).join('')}</div>`;
       return;
     }
