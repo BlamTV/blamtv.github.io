@@ -194,6 +194,8 @@ main { padding-block: 22px 48px; min-height: 60vh }
 .mu-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 430px), 1fr)); gap: 10px; margin-bottom: 8px }
 .game { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 6px; padding: 6px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line) }
 .game .at { font: 800 14px/1 var(--display); color: var(--muted) }
+.game .ko { grid-column: 1 / -1; justify-self: center; font: 700 12px/1.2 var(--body); color: var(--accent); padding: 0 8px 6px; text-align: center }
+.game .ko small { font-weight: 500; color: var(--muted) }
 .tm { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 6px; border-radius: 8px }
 a.tm:hover { background: var(--raise) }
 .tm .av { display: grid; color: var(--ink) }
@@ -797,6 +799,26 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const slug = login => login.toLowerCase().replace(/_/g, '-');   // Twitch logins never contain hyphens
   let L = null, D = null;
+  // Game times the coaches locked in with Tomasina in the GameNStreetz app. Read live, so a new time shows without a site update.
+  // If the app can't be reached the matchups simply show no time.
+  const GNS = { url: 'https://gspiymztabomgyvwoimf.supabase.co', key: 'sb_publishable_uw6UcK8Dw13fPsq3FXYD3w_Bvhh6uaH', slug: 'blamtv' };
+  let TIMES = {};
+  const timeKey = (season, week, aw, hm) => [season, week, String(aw).toLowerCase(), String(hm).toLowerCase()].join('|');
+  async function loadGameTimes() {
+    try {
+      const r = await fetch(GNS.url + '/rest/v1/rpc/public_game_times', { method: 'POST', cache: 'no-store', headers: { apikey: GNS.key, Authorization: 'Bearer ' + GNS.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: GNS.slug }) });
+      if (!r.ok) return false;
+      const rows = await r.json(), next = {};
+      for (const g of Array.isArray(rows) ? rows : []) if (g && g.kickoff && !isNaN(Date.parse(g.kickoff))) next[timeKey(g.season, g.week, g.away, g.home)] = g.kickoff;
+      const changed = JSON.stringify(next) !== JSON.stringify(TIMES); TIMES = next; return changed;
+    } catch (e) { return false; }
+  }
+  function kickoffLine(aw, hm, season, week) {
+    const iso = TIMES[timeKey(season, week, aw, hm)]; if (!iso) return '';
+    const d = new Date(iso), past = d.getTime() < Date.now() - 4 * 3600e3;          // shown on the reader's own clock, with the zone named
+    const when = d.toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+    return `<span class="ko"><time datetime="${esc(iso)}">${past ? 'Played' : 'Kickoff'} ${esc(when)}</time> <small>set by the coaches</small></span>`;
+  }
   let SYNC = {};
   const kickoffOf = id => { const k = SYNC && SYNC[String(id)]; return k && typeof k.kickoff === 'number' ? k.kickoff : null; };
   const members = {}, bySlug = {};
@@ -937,7 +959,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     const row = ([aw, hm]) => {
       const st = isStar(aw, hm), rv = rivalryOf(aw, hm), ct = champ(aw, hm);
       const tags = st || rv || ct ? `<div class="tags">${ct ? `<span class="ct">${esc(ct)}</span>` : ''}${st ? '<span class="gw">★ Game of the Week</span>' : ''}${rv ? `<span class="rv"><span class="rv-pill">Rivalry</span>${rv.name ? esc(rv.name) : ''}</span>` : ''}</div>` : '';
-      return `<div class="game${st ? ' star' : ''}${rv ? ' rival' : ''}">${tags}${teamCell(aw, hm, season, week)}<span class="at">@</span>${teamCell(hm, aw, season, week)}${bothLink(aw, hm, season, week)}</div>`;
+      return `<div class="game${st ? ' star' : ''}${rv ? ' rival' : ''}">${tags}${teamCell(aw, hm, season, week)}<span class="at">@</span>${teamCell(hm, aw, season, week)}${kickoffLine(aw, hm, season, week)}${bothLink(aw, hm, season, week)}</div>`;
     };
     return `<h2 class="section-h">Matchups</h2>${rivBar}<div class="mu-list">${games.map(row).join('')}</div><h2 class="section-h">All streams</h2>`;
   }
@@ -2173,6 +2195,10 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     render();
     startStats();
     addEventListener('hashchange', render);
+    if (!archSeason) {          // game times from the app: now, then every five minutes. The page is redrawn only when a time changed and matchups are on screen.
+      const tick = () => loadGameTimes().then(changed => { if (changed && app.querySelector('.mu-list')) render(); });
+      tick(); setInterval(tick, 5 * 60e3);
+    }
   }
   init();
 })();
