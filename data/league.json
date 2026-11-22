@@ -187,6 +187,6 @@
     { "twitch": "purpdollas7", "school": "UCLA", "abbr": "UCLA", "color": "#2D68C4", "logo": "img/teams/ucla.webp" },
     { "twitch": "cantguardmac13", "school": "Indiana", "abbr": "IU", "color": "#990000", "logo": "img/teams/indiana.webp" },
     { "twitch": "changknd", "school": "Maryland", "abbr": "UMD", "color": "#E03A3E", "logo": "img/teams/maryland.webp" },
-    { "twitch": "kdubz559", "school": "Arizona State", "abbr": "ASU", "color": "#8C1D40" }
+    { "twitch": "kdubz559", "school": "Arizona State", "abbr": "ASU", "color": "#8C1D40", "logo": "img/teams/arizona-state.webp" }
   ]
 }
