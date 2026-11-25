@@ -32,7 +32,9 @@
     { "season": 5, "week": 2, "start": "2026-11-16T22:30:00-06:00" },
     { "season": 5, "week": 3, "start": "2026-11-18T08:00:00-06:00" },
     { "season": 5, "week": 4, "start": "2026-11-19T09:30:00-06:00" },
-    { "season": 5, "week": 5, "start": "2026-11-21T13:03:00-06:00" }
+    { "season": 5, "week": 5, "start": "2026-11-21T13:03:00-06:00" },
+    { "season": 5, "week": 6, "start": "2026-11-22T22:05:00-06:00" },
+    { "season": 5, "week": 7, "start": "2026-11-24T11:00:00-06:00" }
   ],
 
   "titleMustIncludeAny": ["blam"],
@@ -53,6 +55,10 @@
   ],
 
   "schedule": [
+    { "season": 5, "week": 7, "games": [
+      ["Texas", "Oklahoma"], ["Navy", "Notre Dame"], ["SMU", "Nebraska"], ["South Carolina", "Illinois"], ["Clemson", "Virginia Tech"],
+      ["TCU", "West Virginia"], ["Georgia", "Florida State"], ["Alabama", "Maryland"], ["Utah", "Texas Tech"], ["Louisville", "North Carolina"],
+      ["LSU", "Florida"], ["Pitt", "Washington"], ["Arizona State", "UCLA"], ["Penn State", "Indiana"], ["Ole Miss", "USC"], ["Auburn", "Oregon"]] },
     { "season": 5, "week": 5, "games": [
       ["Penn State", "Virginia"], ["Michigan", "Florida"], ["Washington", "TCU"], ["Stanford", "NC State"], ["Louisville", "Utah"],
       ["Florida State", "Notre Dame"], ["Oregon", "North Carolina"], ["UCLA", "Ohio State"], ["Texas", "Illinois"], ["South Carolina", "Kentucky"],
