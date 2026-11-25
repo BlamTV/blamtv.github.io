@@ -59,6 +59,10 @@
       ["Texas", "Oklahoma"], ["Navy", "Notre Dame"], ["SMU", "Nebraska"], ["South Carolina", "Illinois"], ["Clemson", "Virginia Tech"],
       ["TCU", "West Virginia"], ["Georgia", "Florida State"], ["Alabama", "Maryland"], ["Utah", "Texas Tech"], ["Louisville", "North Carolina"],
       ["LSU", "Florida"], ["Pitt", "Washington"], ["Arizona State", "UCLA"], ["Penn State", "Indiana"], ["Ole Miss", "USC"], ["Auburn", "Oregon"]] },
+    { "season": 5, "week": 6, "games": [
+      ["Virginia", "Clemson"], ["Baylor", "Oklahoma"], ["Nebraska", "Texas"], ["Stanford", "Louisville"], ["Florida", "Auburn"],
+      ["SMU", "Arizona State"], ["Washington", "Ole Miss"], ["TCU", "Georgia"], ["Utah", "Iowa"], ["South Carolina", "Rutgers"],
+      ["Maryland", "Florida State"], ["West Virginia", "Virginia Tech"], ["Oregon", "Michigan"], ["Ohio State", "USC"]] },
     { "season": 5, "week": 5, "games": [
       ["Penn State", "Virginia"], ["Michigan", "Florida"], ["Washington", "TCU"], ["Stanford", "NC State"], ["Louisville", "Utah"],
       ["Florida State", "Notre Dame"], ["Oregon", "North Carolina"], ["UCLA", "Ohio State"], ["Texas", "Illinois"], ["South Carolina", "Kentucky"],
