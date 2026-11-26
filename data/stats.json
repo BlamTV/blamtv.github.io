@@ -1,0 +1,1106 @@
+{
+ "season": 5,
+ "through": "Week 7",
+ "updated": "2026-11-25",
+ "teams": [
+  {
+   "team": "Oklahoma",
+   "games": 5,
+   "ppg": 59.8,
+   "papg": 21.2,
+   "ypp": 10.0,
+   "ypp_a": 6.3,
+   "ypg": 521,
+   "ypg_a": 330,
+   "third": 71,
+   "pass": 326,
+   "rush": 182
+  },
+  {
+   "team": "Ole Miss",
+   "games": 5,
+   "ppg": 53.4,
+   "papg": 29.0,
+   "ypp": 10.6,
+   "ypp_a": 6.1,
+   "ypg": 546,
+   "ypg_a": 330,
+   "third": 56,
+   "pass": 430,
+   "rush": 79
+  },
+  {
+   "team": "Florida State",
+   "games": 4,
+   "ppg": 44.8,
+   "papg": 28.5,
+   "ypp": 9.3,
+   "ypp_a": 5.3,
+   "ypg": 395,
+   "ypg_a": 284,
+   "third": 59,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "Alabama",
+   "games": 5,
+   "ppg": 44.2,
+   "papg": 23.0,
+   "ypp": 9.9,
+   "ypp_a": 6.5,
+   "ypg": 481,
+   "ypg_a": 358,
+   "third": 39,
+   "pass": 270,
+   "rush": 232
+  },
+  {
+   "team": "Florida",
+   "games": 5,
+   "ppg": 43.8,
+   "papg": 32.6,
+   "ypp": 8.1,
+   "ypp_a": 7.1,
+   "ypg": 437,
+   "ypg_a": 379,
+   "third": 37,
+   "pass": 174,
+   "rush": 200
+  },
+  {
+   "team": "TCU",
+   "games": 6,
+   "ppg": 42.3,
+   "papg": 22.0,
+   "ypp": 8.0,
+   "ypp_a": 6.2,
+   "ypg": 357,
+   "ypg_a": 316,
+   "third": 45,
+   "pass": 202,
+   "rush": 162
+  },
+  {
+   "team": "Ohio State",
+   "games": 5,
+   "ppg": 39.6,
+   "papg": 26.6,
+   "ypp": 7.9,
+   "ypp_a": 6.8,
+   "ypg": 353,
+   "ypg_a": 373,
+   "third": 39,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "Pitt",
+   "games": 4,
+   "ppg": 39.0,
+   "papg": 35.8,
+   "ypp": 9.9,
+   "ypp_a": 7.0,
+   "ypg": 440,
+   "ypg_a": 353,
+   "third": 35,
+   "pass": 322,
+   "rush": 75
+  },
+  {
+   "team": "Stanford",
+   "games": 5,
+   "ppg": 38.8,
+   "papg": 15.6,
+   "ypp": 8.5,
+   "ypp_a": 4.8,
+   "ypg": 424,
+   "ypg_a": 238,
+   "third": 51,
+   "pass": 328,
+   "rush": 142
+  },
+  {
+   "team": "USC",
+   "games": 6,
+   "ppg": 37.3,
+   "papg": 30.5,
+   "ypp": 7.4,
+   "ypp_a": 7.5,
+   "ypg": 436,
+   "ypg_a": 352,
+   "third": 38,
+   "pass": 221,
+   "rush": 137
+  },
+  {
+   "team": "West Virginia",
+   "games": 5,
+   "ppg": 36.4,
+   "papg": 26.8,
+   "ypp": 7.6,
+   "ypp_a": 7.2,
+   "ypg": 339,
+   "ypg_a": 371,
+   "third": 49,
+   "pass": 187,
+   "rush": 151
+  },
+  {
+   "team": "South Carolina",
+   "games": 4,
+   "ppg": 34.8,
+   "papg": 31.8,
+   "ypp": 7.3,
+   "ypp_a": 8.7,
+   "ypg": 379,
+   "ypg_a": 444,
+   "third": 42,
+   "pass": 210,
+   "rush": 175
+  },
+  {
+   "team": "Clemson",
+   "games": 5,
+   "ppg": 34.4,
+   "papg": 27.0,
+   "ypp": 8.5,
+   "ypp_a": 6.1,
+   "ypg": 439,
+   "ypg_a": 311,
+   "third": 50,
+   "pass": 288,
+   "rush": 133
+  },
+  {
+   "team": "Penn State",
+   "games": 5,
+   "ppg": 33.0,
+   "papg": 23.4,
+   "ypp": 6.1,
+   "ypp_a": 7.1,
+   "ypg": 341,
+   "ypg_a": 360,
+   "third": 52,
+   "pass": 293,
+   "rush": 86
+  },
+  {
+   "team": "Maryland",
+   "games": 7,
+   "ppg": 32.7,
+   "papg": 24.4,
+   "ypp": 7.7,
+   "ypp_a": 7.9,
+   "ypg": 412,
+   "ypg_a": 347,
+   "third": 54,
+   "pass": 331,
+   "rush": 142
+  },
+  {
+   "team": "LSU",
+   "games": 4,
+   "ppg": 29.3,
+   "papg": 30.3,
+   "ypp": 7.7,
+   "ypp_a": 5.8,
+   "ypg": 340,
+   "ypg_a": 333,
+   "third": 32,
+   "pass": 281,
+   "rush": 93
+  },
+  {
+   "team": "Illinois",
+   "games": 3,
+   "ppg": 28.7,
+   "papg": 35.0,
+   "ypp": 8.3,
+   "ypp_a": 8.1,
+   "ypg": 418,
+   "ypg_a": 414,
+   "third": 31,
+   "pass": 281,
+   "rush": 116
+  },
+  {
+   "team": "Indiana",
+   "games": 4,
+   "ppg": 28.3,
+   "papg": 28.5,
+   "ypp": 6.3,
+   "ypp_a": 8.3,
+   "ypg": 341,
+   "ypg_a": 300,
+   "third": 33,
+   "pass": 231,
+   "rush": 173
+  },
+  {
+   "team": "Arizona State",
+   "games": 3,
+   "ppg": 28.0,
+   "papg": 30.7,
+   "ypp": 8.7,
+   "ypp_a": 6.7,
+   "ypg": 346,
+   "ypg_a": 385,
+   "third": 42,
+   "pass": 266,
+   "rush": 78
+  },
+  {
+   "team": "Auburn",
+   "games": 4,
+   "ppg": 27.8,
+   "papg": 35.3,
+   "ypp": 5.7,
+   "ypp_a": 8.0,
+   "ypg": 265,
+   "ypg_a": 502,
+   "third": 40,
+   "pass": 230,
+   "rush": 111
+  },
+  {
+   "team": "Notre Dame",
+   "games": 6,
+   "ppg": 27.5,
+   "papg": 38.2,
+   "ypp": 7.3,
+   "ypp_a": 7.4,
+   "ypg": 351,
+   "ypg_a": 361,
+   "third": 56,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "Texas",
+   "games": 8,
+   "ppg": 26.6,
+   "papg": 31.6,
+   "ypp": 5.8,
+   "ypp_a": 7.2,
+   "ypg": 320,
+   "ypg_a": 368,
+   "third": 45,
+   "pass": 233,
+   "rush": 106
+  },
+  {
+   "team": "Oregon",
+   "games": 6,
+   "ppg": 25.2,
+   "papg": 22.2,
+   "ypp": 7.0,
+   "ypp_a": 7.0,
+   "ypg": 346,
+   "ypg_a": 270,
+   "third": 58,
+   "pass": 181,
+   "rush": 178
+  },
+  {
+   "team": "Utah",
+   "games": 3,
+   "ppg": 25.0,
+   "papg": 26.3,
+   "ypp": 6.8,
+   "ypp_a": 4.8,
+   "ypg": 377,
+   "ypg_a": 205,
+   "third": 58,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "Virginia Tech",
+   "games": 6,
+   "ppg": 25.0,
+   "papg": 29.3,
+   "ypp": 6.4,
+   "ypp_a": 8.7,
+   "ypg": 359,
+   "ypg_a": 382,
+   "third": 52,
+   "pass": 234,
+   "rush": 136
+  },
+  {
+   "team": "Georgia",
+   "games": 5,
+   "ppg": 24.4,
+   "papg": 35.8,
+   "ypp": 6.5,
+   "ypp_a": 6.9,
+   "ypg": 281,
+   "ypg_a": 366,
+   "third": 44,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "UCLA",
+   "games": 5,
+   "ppg": 21.0,
+   "papg": 42.8,
+   "ypp": 5.8,
+   "ypp_a": 8.4,
+   "ypg": 333,
+   "ypg_a": 409,
+   "third": 34,
+   "pass": 221,
+   "rush": 128
+  },
+  {
+   "team": "Louisville",
+   "games": 5,
+   "ppg": 20.4,
+   "papg": 39.2,
+   "ypp": 5.2,
+   "ypp_a": 7.6,
+   "ypg": 269,
+   "ypg_a": 357,
+   "third": 32,
+   "pass": 207,
+   "rush": 119
+  },
+  {
+   "team": "Washington",
+   "games": 5,
+   "ppg": 19.0,
+   "papg": 40.6,
+   "ypp": 6.1,
+   "ypp_a": 11.5,
+   "ypg": 283,
+   "ypg_a": 437,
+   "third": 33,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "North Carolina",
+   "games": 4,
+   "ppg": 18.8,
+   "papg": 30.5,
+   "ypp": 5.5,
+   "ypp_a": 6.3,
+   "ypg": 210,
+   "ypg_a": 250,
+   "third": 37,
+   "pass": null,
+   "rush": null
+  },
+  {
+   "team": "Nebraska",
+   "games": 4,
+   "ppg": 18.0,
+   "papg": 34.8,
+   "ypp": 6.3,
+   "ypp_a": 8.7,
+   "ypg": 311,
+   "ypg_a": 372,
+   "third": 43,
+   "pass": 304,
+   "rush": 41
+  }
+ ],
+ "leaders": {
+  "ints": [
+   {
+    "g": 5,
+    "int": 6,
+    "tkl": 15,
+    "team": "Texas",
+    "player": "J. Rollins-Benton"
+   },
+   {
+    "g": 6,
+    "int": 4,
+    "tkl": 39,
+    "team": "Texas",
+    "player": "C. Garcia"
+   },
+   {
+    "g": 7,
+    "int": 3,
+    "tkl": 37,
+    "team": "Texas",
+    "player": "N. Mayes"
+   },
+   {
+    "g": 5,
+    "int": 3,
+    "tkl": 37,
+    "team": "West Virginia",
+    "player": "E. Robinson"
+   },
+   {
+    "g": 7,
+    "int": 3,
+    "tkl": 32,
+    "team": "Texas",
+    "player": "J. Venable"
+   },
+   {
+    "g": 3,
+    "int": 3,
+    "tkl": 30,
+    "team": "USC",
+    "player": "R. Long"
+   },
+   {
+    "g": 5,
+    "int": 3,
+    "tkl": 30,
+    "team": "West Virginia",
+    "player": "A. Lincoln"
+   },
+   {
+    "g": 5,
+    "int": 3,
+    "tkl": 27,
+    "team": "Texas",
+    "player": "C. Hamilton"
+   },
+   {
+    "g": 2,
+    "int": 3,
+    "tkl": 9,
+    "team": "Maryland",
+    "player": "C. Hajrullahu"
+   },
+   {
+    "g": 4,
+    "int": 2,
+    "tkl": 27,
+    "team": "Penn State",
+    "player": "D. Truman"
+   }
+  ],
+  "sacks": [
+   {
+    "g": 4,
+    "tkl": 19,
+    "sack": 6.5,
+    "team": "Texas",
+    "player": "J. McKinley"
+   },
+   {
+    "g": 6,
+    "tkl": 15,
+    "sack": 4.5,
+    "team": "Texas",
+    "player": "J. Manziel"
+   },
+   {
+    "g": 3,
+    "tkl": 13,
+    "sack": 4.0,
+    "team": "Clemson",
+    "player": "I. Hawkins"
+   },
+   {
+    "g": 5,
+    "tkl": 13,
+    "sack": 3.5,
+    "team": "Texas",
+    "player": "B. Stafford"
+   },
+   {
+    "g": 5,
+    "tkl": 30,
+    "sack": 3.0,
+    "team": "West Virginia",
+    "player": "A. Shabazz"
+   },
+   {
+    "g": 4,
+    "tkl": 13,
+    "sack": 3.0,
+    "team": "Penn State",
+    "player": "C. Thrasher"
+   },
+   {
+    "g": 4,
+    "tkl": 12,
+    "sack": 3.0,
+    "team": "Clemson",
+    "player": "S. Capps"
+   },
+   {
+    "g": 2,
+    "tkl": 10,
+    "sack": 3.0,
+    "team": "Florida",
+    "player": "M. Ball"
+   },
+   {
+    "g": 4,
+    "tkl": 9,
+    "sack": 3.0,
+    "team": "Texas",
+    "player": "A. Wear"
+   },
+   {
+    "g": 4,
+    "tkl": 8,
+    "sack": 3.0,
+    "team": "Penn State",
+    "player": "J. Ford"
+   }
+  ],
+  "passing": [
+   {
+    "g": 2,
+    "td": 8,
+    "int": 3,
+    "pct": 66,
+    "yds": 761,
+    "ypg": 380.5,
+    "team": "Ole Miss",
+    "player": "M. DiLauro"
+   },
+   {
+    "g": 2,
+    "td": 5,
+    "int": 4,
+    "pct": 80,
+    "yds": 662,
+    "ypg": 331.0,
+    "team": "Maryland",
+    "player": "J. Jaimes"
+   },
+   {
+    "g": 2,
+    "td": 5,
+    "int": 3,
+    "pct": 68,
+    "yds": 637,
+    "ypg": 318.5,
+    "team": "Arizona State",
+    "player": "K. Samuel"
+   },
+   {
+    "g": 2,
+    "td": 7,
+    "int": 3,
+    "pct": 67,
+    "yds": 592,
+    "ypg": 296.0,
+    "team": "Oklahoma",
+    "player": "J. Toone"
+   },
+   {
+    "g": 4,
+    "td": 9,
+    "int": 9,
+    "pct": 65,
+    "yds": 1148,
+    "ypg": 287.0,
+    "team": "Penn State",
+    "player": "E. Bequette"
+   },
+   {
+    "g": 4,
+    "td": 6,
+    "int": 6,
+    "pct": 70,
+    "yds": 1131,
+    "ypg": 282.8,
+    "team": "Stanford",
+    "player": "S. Breeze"
+   },
+   {
+    "g": 3,
+    "td": 5,
+    "int": 4,
+    "pct": 66,
+    "yds": 844,
+    "ypg": 281.3,
+    "team": "Illinois",
+    "player": "N. Tauaefa"
+   },
+   {
+    "g": 7,
+    "td": 15,
+    "int": 14,
+    "pct": 66,
+    "yds": 1625,
+    "ypg": 232.1,
+    "team": "Texas",
+    "player": "G. Lord"
+   },
+   {
+    "g": 3,
+    "td": 7,
+    "int": 4,
+    "pct": 67,
+    "yds": 689,
+    "ypg": 229.7,
+    "team": "Auburn",
+    "player": "D. Yarborough"
+   },
+   {
+    "g": 2,
+    "td": 3,
+    "int": 3,
+    "pct": 68,
+    "yds": 441,
+    "ypg": 220.5,
+    "team": "UCLA",
+    "player": "L. Akinmoladun"
+   },
+   {
+    "g": 2,
+    "td": 3,
+    "int": 4,
+    "pct": 65,
+    "yds": 439,
+    "ypg": 219.5,
+    "team": "Indiana",
+    "player": "Q. Newson"
+   },
+   {
+    "g": 2,
+    "td": 4,
+    "int": 1,
+    "pct": 72,
+    "yds": 428,
+    "ypg": 214.0,
+    "team": "TCU",
+    "player": "K. Davis"
+   },
+   {
+    "g": 3,
+    "td": 6,
+    "int": 5,
+    "pct": 53,
+    "yds": 635,
+    "ypg": 211.7,
+    "team": "USC",
+    "player": "J. Winovich"
+   },
+   {
+    "g": 4,
+    "td": 5,
+    "int": 4,
+    "pct": 59,
+    "yds": 840,
+    "ypg": 210.0,
+    "team": "South Carolina",
+    "player": "E. Fantuz"
+   },
+   {
+    "g": 3,
+    "td": 5,
+    "int": 4,
+    "pct": 53,
+    "yds": 622,
+    "ypg": 207.3,
+    "team": "Louisville",
+    "player": "B. Smigiel"
+   }
+  ],
+  "rushing": [
+   {
+    "g": 2,
+    "td": 5,
+    "avg": 7.5,
+    "yds": 262,
+    "ypg": 131.0,
+    "team": "TCU",
+    "player": "G. Ruggins"
+   },
+   {
+    "g": 2,
+    "td": 4,
+    "avg": 10.0,
+    "yds": 261,
+    "ypg": 130.5,
+    "team": "Alabama",
+    "player": "A. Gibbs"
+   },
+   {
+    "g": 3,
+    "td": 8,
+    "avg": 9.9,
+    "yds": 388,
+    "ypg": 129.3,
+    "team": "Stanford",
+    "player": "T. Gallo"
+   },
+   {
+    "g": 3,
+    "td": 4,
+    "avg": 22.0,
+    "yds": 374,
+    "ypg": 124.7,
+    "team": "Alabama",
+    "player": "I. Burgess"
+   },
+   {
+    "g": 2,
+    "td": 4,
+    "avg": 9.9,
+    "yds": 227,
+    "ypg": 113.5,
+    "team": "South Carolina",
+    "player": "M. Tulpala"
+   },
+   {
+    "g": 3,
+    "td": 1,
+    "avg": 6.0,
+    "yds": 332,
+    "ypg": 110.7,
+    "team": "Louisville",
+    "player": "J. Clemens"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "avg": 9.2,
+    "yds": 221,
+    "ypg": 110.5,
+    "team": "Florida",
+    "player": "J. Cochran"
+   },
+   {
+    "g": 2,
+    "td": 4,
+    "avg": 6.4,
+    "yds": 197,
+    "ypg": 98.5,
+    "team": "Ole Miss",
+    "player": "D. Garrett"
+   },
+   {
+    "g": 3,
+    "td": 3,
+    "avg": 5.0,
+    "yds": 279,
+    "ypg": 93.0,
+    "team": "USC",
+    "player": "E. Duarte"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "avg": 7.6,
+    "yds": 160,
+    "ypg": 80.0,
+    "team": "Oregon",
+    "player": "T. Darling"
+   },
+   {
+    "g": 2,
+    "td": 3,
+    "avg": 6.4,
+    "yds": 141,
+    "ypg": 70.5,
+    "team": "Maryland",
+    "player": "J. Murphy"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "avg": 6.7,
+    "yds": 134,
+    "ypg": 67.0,
+    "team": "Oklahoma",
+    "player": "J. Alexis"
+   },
+   {
+    "g": 7,
+    "td": 6,
+    "avg": 4.1,
+    "yds": 468,
+    "ypg": 66.9,
+    "team": "Texas",
+    "player": "T. Cloud"
+   },
+   {
+    "g": 3,
+    "td": 2,
+    "avg": 5.2,
+    "yds": 197,
+    "ypg": 65.7,
+    "team": "Auburn",
+    "player": "J. Colon"
+   },
+   {
+    "g": 5,
+    "td": 1,
+    "avg": 5.8,
+    "yds": 326,
+    "ypg": 65.2,
+    "team": "West Virginia",
+    "player": "A. Latimer"
+   }
+  ],
+  "tackles": [
+   {
+    "g": 2,
+    "tfl": 5,
+    "tkl": 20,
+    "tpg": 10.0,
+    "team": "LSU",
+    "player": "M. Song"
+   },
+   {
+    "g": 3,
+    "tfl": 0,
+    "tkl": 30,
+    "tpg": 10.0,
+    "team": "USC",
+    "player": "R. Long"
+   },
+   {
+    "g": 2,
+    "tfl": 3,
+    "tkl": 20,
+    "tpg": 10.0,
+    "team": "Oklahoma",
+    "player": "D. Rubin"
+   },
+   {
+    "g": 2,
+    "tfl": 0,
+    "tkl": 20,
+    "tpg": 10.0,
+    "team": "Alabama",
+    "player": "T. Yearby"
+   },
+   {
+    "g": 2,
+    "tfl": 3,
+    "tkl": 20,
+    "tpg": 10.0,
+    "team": "Alabama",
+    "player": "T. Neighbors"
+   },
+   {
+    "g": 2,
+    "tfl": 1,
+    "tkl": 19,
+    "tpg": 9.5,
+    "team": "LSU",
+    "player": "C. Offset"
+   },
+   {
+    "g": 5,
+    "tfl": 5,
+    "tkl": 45,
+    "tpg": 9.0,
+    "team": "Virginia Tech",
+    "player": "B. Williams"
+   },
+   {
+    "g": 2,
+    "tfl": 0,
+    "tkl": 18,
+    "tpg": 9.0,
+    "team": "Illinois",
+    "player": "N. Ibrahim"
+   },
+   {
+    "g": 4,
+    "tfl": 11,
+    "tkl": 33,
+    "tpg": 8.3,
+    "team": "Clemson",
+    "player": "J. Correa"
+   },
+   {
+    "g": 2,
+    "tfl": 4,
+    "tkl": 16,
+    "tpg": 8.0,
+    "team": "Alabama",
+    "player": "L. Gentry"
+   },
+   {
+    "g": 3,
+    "tfl": 1,
+    "tkl": 24,
+    "tpg": 8.0,
+    "team": "USC",
+    "player": "E. Hape"
+   },
+   {
+    "g": 2,
+    "tfl": 2,
+    "tkl": 16,
+    "tpg": 8.0,
+    "team": "Oregon",
+    "player": "Q. Brake"
+   },
+   {
+    "g": 3,
+    "tfl": 2,
+    "tkl": 24,
+    "tpg": 8.0,
+    "team": "Auburn",
+    "player": "C. Hamiel"
+   },
+   {
+    "g": 2,
+    "tfl": 7,
+    "tkl": 16,
+    "tpg": 8.0,
+    "team": "Florida",
+    "player": "A. Breida"
+   },
+   {
+    "g": 2,
+    "tfl": 5,
+    "tkl": 16,
+    "tpg": 8.0,
+    "team": "Ole Miss",
+    "player": "J. Carreon"
+   }
+  ],
+  "receiving": [
+   {
+    "g": 2,
+    "td": 2,
+    "rec": 9,
+    "yds": 267,
+    "ypg": 133.5,
+    "team": "Illinois",
+    "player": "L. Clements"
+   },
+   {
+    "g": 2,
+    "td": 3,
+    "rec": 8,
+    "yds": 206,
+    "ypg": 103.0,
+    "team": "Oklahoma",
+    "player": "S. MacKenzie"
+   },
+   {
+    "g": 2,
+    "td": 1,
+    "rec": 10,
+    "yds": 206,
+    "ypg": 103.0,
+    "team": "Ole Miss",
+    "player": "G. Poole"
+   },
+   {
+    "g": 4,
+    "td": 1,
+    "rec": 19,
+    "yds": 400,
+    "ypg": 100.0,
+    "team": "Stanford",
+    "player": "R. Mosley"
+   },
+   {
+    "g": 4,
+    "td": 2,
+    "rec": 21,
+    "yds": 376,
+    "ypg": 94.0,
+    "team": "Stanford",
+    "player": "A. Buck"
+   },
+   {
+    "g": 4,
+    "td": 4,
+    "rec": 21,
+    "yds": 366,
+    "ypg": 91.5,
+    "team": "Virginia Tech",
+    "player": "A. Martinez"
+   },
+   {
+    "g": 2,
+    "td": 1,
+    "rec": 10,
+    "yds": 181,
+    "ypg": 90.5,
+    "team": "Ole Miss",
+    "player": "D. Podlesny"
+   },
+   {
+    "g": 4,
+    "td": 2,
+    "rec": 20,
+    "yds": 360,
+    "ypg": 90.0,
+    "team": "Penn State",
+    "player": "G. Calvin"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "rec": 5,
+    "yds": 171,
+    "ypg": 85.5,
+    "team": "West Virginia",
+    "player": "B. Beard"
+   },
+   {
+    "g": 3,
+    "td": 3,
+    "rec": 9,
+    "yds": 240,
+    "ypg": 80.0,
+    "team": "Florida",
+    "player": "S. Blanko"
+   },
+   {
+    "g": 2,
+    "td": 0,
+    "rec": 11,
+    "yds": 157,
+    "ypg": 78.5,
+    "team": "Maryland",
+    "player": "J. Elias"
+   },
+   {
+    "g": 4,
+    "td": 4,
+    "rec": 21,
+    "yds": 313,
+    "ypg": 78.3,
+    "team": "Clemson",
+    "player": "N. Burroughs"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "rec": 6,
+    "yds": 156,
+    "ypg": 78.0,
+    "team": "Ole Miss",
+    "player": "J. Rachal"
+   },
+   {
+    "g": 3,
+    "td": 1,
+    "rec": 14,
+    "yds": 225,
+    "ypg": 75.0,
+    "team": "Auburn",
+    "player": "A. Kouandjio"
+   },
+   {
+    "g": 2,
+    "td": 2,
+    "rec": 8,
+    "yds": 149,
+    "ypg": 74.5,
+    "team": "Stanford",
+    "player": "J. Powell"
+   }
+  ]
+ },
+ "box_games": 46,
+ "min_games": 2
+}
