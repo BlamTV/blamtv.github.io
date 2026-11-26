@@ -1648,9 +1648,29 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
 
   // About: the league's mission statement (commissioner's words, verbatim)
-  // Stats hub and power rankings. data/power-rankings.json is written from the league's film numbers; the page only shows it.
+  // Stats hub and power rankings.
   let PR = null;
-  async function loadPR() { if (!PR) { try { PR = await getJSON('data/power-rankings.json'); } catch (e) { PR = { missing: true }; } } return PR; }
+  // Live stats: the app's database rebuilds them after every film load (public_site_stats). The json files in data/ are the fallback when the app cannot be reached.
+  let LIVE; const num = v => v == null || v === '' || isNaN(+v) ? null : +v;
+  async function loadLive() {
+    if (LIVE !== undefined) return LIVE;
+    try {
+      const r = await fetch(GNS.url + '/rest/v1/rpc/public_site_stats', { method: 'POST', cache: 'no-store', headers: { apikey: GNS.key, Authorization: 'Bearer ' + GNS.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: GNS.slug }) });
+      const d = r.ok ? await r.json() : null; LIVE = d && d.power && d.power.overall && d.season === L.season ? d : null;
+    } catch (e) { LIVE = null; }
+    return LIVE;
+  }
+  function livePR(d) {
+    const p = d.power, tk = v => { const n = num(v); return n != null && n > 8 ? null : n; };
+    return { season: d.season, through: d.through, updated: d.updated, teams: p.teams, games: p.games, min_games: 2, waiting: p.waiting || [],
+      overall: p.overall.map(r => ({ rank: +r[0], team: r[1], avatar: null, record: r[2], rating: +r[3], off: +String(r[4]).replace('#', ''), def: +String(r[5]).replace('#', ''), games: +r[6] })),
+      offense: (p.offense || []).map(r => ({ rank: +r[0], team: r[1], avatar: null, ypp: num(r[2]), ppg: num(r[3]), to: num(r[4]), rating: +r[5], games: +r[6] })),
+      defense: (p.defense || []).map(r => ({ rank: +r[0], team: r[1], avatar: null, ypp: num(r[2]), ppg: num(r[3]), take: tk(r[4]), rating: +r[5], games: +r[6] })) };
+  }
+  async function loadPR() {
+    if (!PR) { const d = await loadLive(); if (d) PR = livePR(d); else { try { PR = await getJSON('data/power-rankings.json'); } catch (e) { PR = { missing: true }; } } }
+    return PR;
+  }
   const prTeam = t => (L.members || []).find(m => m.school === t) || { school: t, color: '#55606c', logo: null, abbr: t.slice(0, 3).toUpperCase() };
   const prLogo = m => m.logo ? `<img src="${esc(m.logo)}" alt="" loading="lazy">` : `<span class="ph" aria-hidden="true">${esc(m.abbr || '')}</span>`;
   const PRK = { overall: ['Best Overall', 'Best overall team'], offense: ['Best Offense', 'Best offensive team'], defense: ['Best Defense', 'Best defensive team'] };
@@ -1693,7 +1713,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   }
   // Team stats and player leaders. data/stats.json is written from the league's film numbers; the page only shows it.
   let ST = null;
-  async function loadST() { if (!ST) { try { ST = await getJSON('data/stats.json'); } catch (e) { ST = { missing: true }; } } return ST; }
+  async function loadST() { if (!ST) { const d = await loadLive(); if (d && d.teams && d.leaders) ST = d; else { try { ST = await getJSON('data/stats.json'); } catch (e) { ST = { missing: true }; } } } return ST; }
   const TSK = { scoring: ['Scoring', 'ppg', true, 'points a game'], defense: ['Scoring Defense', 'papg', false, 'points allowed a game'], ypp: ['Yards a Play', 'ypp', true, 'yards a play'],
     yppa: ['Yards a Play Allowed', 'ypp_a', false, 'yards a play allowed'], passing: ['Passing', 'pass', true, 'passing yards a game'], rushing: ['Rushing', 'rush', true, 'rushing yards a game'], third: ['Third Down', 'third', true, '% on third down'] };
   const stRow = (n, m, name, small, val, unit) => `<li class="pr-row${n <= 3 ? ' top' : ''}" style="--tc:${esc(m.color || '#55606c')}"><span class="pr-n">${n}</span>${prLogo(m)}
