@@ -1686,7 +1686,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
         <span class="pr-t"><b>${esc(r.team)}</b><small>${line(r).filter(Boolean).map(esc).join(' &middot; ')}${r.games === 1 ? ' &middot; 1 game' : ''}</small></span>
         <span class="pr-r"><b>${r.rating}</b><small>Rating</small><i style="--w:${Math.max(4, Math.min(100, r.rating))}%"></i></span></li>`; }).join('')}</ol>
       <div class="pr-how"><p><b>How it works.</b> Mikey scouts every BLAM broadcast and ranks teams on how they played, not only on whether they won: how well the offense moved and scored, how well the defense held, and the results, all measured against the strength of the opponent.</p>
-        <p>Only games between two user coaches count. Games against the CPU are left out. A rating of 50 is an average BLAM team.</p>
+        <p>Results use the league's coach tiers (tier 1 is the top). Beating a coach from a higher tier counts as more than one win, 15% more for every tier between the two. Losing to a coach from a lower tier counts against a team by the same amount.</p>
+        <p>Only games between two user coaches count. Games against the CPU are left out. A game that never finished on the field is left out too. A rating of 50 is an average BLAM team.</p>
         <p>Records here are user-vs-user games on film, so they can differ from the league standings. A team needs two games on film to be ranked.${(P.waiting || []).length ? ` Waiting on a second game: ${P.waiting.map(esc).join(', ')}.` : ''} Updated ${esc(P.updated)}.</p></div>`;
   }
   function viewAbout() {
