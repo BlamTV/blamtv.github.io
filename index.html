@@ -1680,7 +1680,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     app.innerHTML = `<h1 class="st-h">Stats</h1><p class="st-sub">Numbers pulled from BLAM game film.</p>
       <div class="st-tiles"><a class="st-tile" href="#power"><span class="k">Top 25</span><b>Power Rankings</b><span class="d">Best overall team, best offense and best defense.</span><span class="lead" id="st-lead"></span><span class="go">Open rankings &rarr;</span></a>
         <a class="st-tile" href="#teamstats"><span class="k">By team</span><b>Team Stats</b><span class="d">Scoring, defense, yards a play, passing and rushing.</span><span class="go">Open team stats &rarr;</span></a>
-        <a class="st-tile" href="#leaders"><span class="k">By player</span><b>Player Leaders</b><span class="d">Passing, rushing, receiving, tackles, sacks and interceptions.</span><span class="go">Open leaders &rarr;</span></a></div>`;
+        <a class="st-tile" href="#leaders"><span class="k">By player</span><b>Player Leaders</b><span class="d">Passing, rushing, receiving, tackles, sacks and interceptions.</span><span class="go">Open leaders &rarr;</span></a></div>
+      <p class="st-sub" style="margin-top:18px">Coaches: the <a href="https://gamenstreetz.com/#/stats/my-team">GameNStreetz app</a> has your own team page, your game-by-game numbers and your power ranking. Same numbers as here, straight from Mikey.</p>`;
     const P = await loadPR(); const el = document.getElementById('st-lead');
     if (el && P.overall && P.overall[0]) { const m = prTeam(P.overall[0].team); el.innerHTML = `${prLogo(m)}<span>No. 1: ${esc(P.overall[0].team)}</span>`; }
   }
@@ -1715,7 +1716,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
   let ST = null;
   async function loadST() { if (!ST) { const d = await loadLive(); if (d && d.teams && d.leaders) ST = d; else { try { ST = await getJSON('data/stats.json'); } catch (e) { ST = { missing: true }; } } } return ST; }
   const TSK = { scoring: ['Scoring', 'ppg', true, 'points a game'], defense: ['Scoring Defense', 'papg', false, 'points allowed a game'], ypp: ['Yards a Play', 'ypp', true, 'yards a play'],
-    yppa: ['Yards a Play Allowed', 'ypp_a', false, 'yards a play allowed'], passing: ['Passing', 'pass', true, 'passing yards a game'], rushing: ['Rushing', 'rush', true, 'rushing yards a game'], third: ['Third Down', 'third', true, '% on third down'] };
+    yppa: ['Yards a Play Allowed', 'ypp_a', false, 'yards a play allowed'], passing: ['Passing', 'pass', true, 'passing yards a game'], rushing: ['Rushing', 'rush', true, 'rushing yards a game'], third: ['Third Down', 'third', true, '% on third down'],
+    giveaways: ['Giveaways', 'giveaways', false, 'giveaways a game'], takeaways: ['Takeaways', 'takeaways', true, 'takeaways a game'] };
   const stRow = (n, m, name, small, val, unit) => `<li class="pr-row${n <= 3 ? ' top' : ''}" style="--tc:${esc(m.color || '#55606c')}"><span class="pr-n">${n}</span>${prLogo(m)}
         <span class="pr-t"><b>${esc(name)}</b><small>${small.filter(Boolean).map(esc).join(' &middot; ')}</small></span><span class="pr-r"><b>${esc(val)}</b><small>${esc(unit)}</small></span></li>`;
   async function viewTeamStats(kind) {
@@ -1730,7 +1732,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <nav class="pr-switch" aria-label="Which stat">${Object.keys(TSK).map(k => `<a href="#teamstats-${k}"${k === kind ? ' aria-current="page"' : ''}>${TSK[k][0]}</a>`).join('')}</nav>
       <ol class="pr-list">${rows.map((t, i) => stRow(i + 1, prTeam(t.team), t.team, [`${t.games} game${t.games === 1 ? '' : 's'} on film`, kind === 'scoring' ? `${one(t.papg)} allowed` : `${one(t.ppg)} points a game`, kind === 'ypp' || kind === 'yppa' ? `${t.ypg} yards a game` : `${one(t.ypp)} yards a play`], key === 'third' ? t[key] + '%' : (key === 'pass' || key === 'rush' ? String(t[key]) : one(t[key])), unit)).join('')}</ol>
       <div class="pr-how"><p><b>Where this comes from.</b> Mikey reads every BLAM broadcast play by play. Points, yards a play and third downs are counted from the plays themselves, in every game on film, CPU games included.</p>
-        <p>Passing and rushing yards come from the end-of-game stat screens, so a team is listed there only when at least two of its games showed them. A game that never finished on the field is left out. Updated ${esc(S.updated)}.</p></div>`;
+        <p>Passing and rushing yards come from the end-of-game stat screens, so a team is listed there only when at least two of its games showed them. A game that never finished on the field is left out. Giveaways and takeaways (interceptions and fumbles) come from the end-of-game stats when they were shown, otherwise from the stat cards or the plays on film. Updated ${esc(S.updated)}.</p>
+        <p><b>Coaches:</b> your own team page, game by game, is in the <a href="https://gamenstreetz.com/#/stats/my-team">GameNStreetz app</a>.</p></div>`;
   }
   const LDK = { passing: ['Passing', r => [(+r.ypg).toFixed(1), 'yards a game'], r => [`${r.yds} yards`, `${r.td} TD`, `${r.int} INT`, `${r.pct}% complete`]],
     rushing: ['Rushing', r => [(+r.ypg).toFixed(1), 'yards a game'], r => [`${r.yds} yards`, `${r.td} TD`, `${(+r.avg).toFixed(1)} a carry`]],
