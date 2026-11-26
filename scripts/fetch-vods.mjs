@@ -5,6 +5,26 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const league = JSON.parse(await readFile('data/league.json', 'utf8'));
+
+// The league's weeks and matchups live in the GameNStreetz app's database. Pull any new ones into league.json here, so a new
+// week shows on the site (and tags that week's videos) without anyone editing this file by hand. Only adds; never removes or changes.
+try {
+  const APP = 'https://gspiymztabomgyvwoimf.supabase.co', KEY = 'sb_publishable_uw6UcK8Dw13fPsq3FXYD3w_Bvhh6uaH';   // the app's public address and public key
+  const r = await fetch(APP + '/rest/v1/rpc/public_league_schedule', { method: 'POST', signal: AbortSignal.timeout(10000),
+    headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: 'blamtv' }) });
+  const d = r.ok ? await r.json() : null;
+  if (d && d.season === league.season && Array.isArray(d.games)) {
+    let added = 0; league.weeks = league.weeks || []; league.schedule = league.schedule || [];
+    for (const w of d.weeks || []) if (Number.isInteger(w.week) && !isNaN(Date.parse(w.start)) && !league.weeks.some(x => x.season === d.season && x.week === w.week)) { league.weeks.push({ season: d.season, week: w.week, start: w.start }); added++; }
+    for (const g of d.games) {
+      if (!Number.isInteger(g.week) || typeof g.away !== 'string' || typeof g.home !== 'string') continue;
+      let sch = league.schedule.find(x => x.season === d.season && x.week === g.week);
+      if (!sch) { sch = { season: d.season, week: g.week, games: [] }; league.schedule.unshift(sch); }
+      if (!sch.games.some(([a, h]) => a === g.away && h === g.home)) { sch.games.push([g.away, g.home]); added++; }
+    }
+    if (added) { await writeFile('data/league.json', JSON.stringify(league, null, 2) + '\n'); console.log(`Schedule: ${added} new weeks or games from the app.`); }
+  }
+} catch (e) { console.warn('Schedule not refreshed from the app this run: ' + String(e).slice(0, 120)); }
 const CLIENT_ID = (process.env.TWITCH_CLIENT_ID || '').trim();
 const SECRET = (process.env.TWITCH_CLIENT_SECRET || '').trim();
 

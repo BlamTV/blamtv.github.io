@@ -813,7 +813,30 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       const changed = JSON.stringify(next) !== JSON.stringify(TIMES); TIMES = next; return changed;
     } catch (e) { return false; }
   }
+  // Weeks, matchups and final scores come live from the app's database, so the app and this site always show the same league.
+  // data/league.json (which the site's update job also refreshes from the app) is what shows if the app cannot be reached.
+  let FINALS = {};
+  async function loadLeagueLive() {
+    try {
+      const r = await fetch(GNS.url + '/rest/v1/rpc/public_league_schedule', { method: 'POST', cache: 'no-store', headers: { apikey: GNS.key, Authorization: 'Bearer ' + GNS.key, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_slug: GNS.slug }) });
+      if (!r.ok) return false;
+      const d = await r.json(); if (!d || d.season !== L.season || !Array.isArray(d.games)) return false;
+      const before = JSON.stringify([L.weeks, L.schedule, FINALS]), next = {};
+      L.weeks = L.weeks || []; L.schedule = L.schedule || [];
+      for (const w of d.weeks || []) if (Number.isInteger(w.week) && !isNaN(Date.parse(w.start)) && !L.weeks.some(x => x.season === d.season && x.week === w.week)) L.weeks.push({ season: d.season, week: w.week, start: w.start });
+      for (const g of d.games) {
+        if (!Number.isInteger(g.week) || !g.away || !g.home) continue;
+        let sch = L.schedule.find(x => x.season === d.season && x.week === g.week);
+        if (!sch) { sch = { season: d.season, week: g.week, games: [] }; L.schedule.push(sch); }
+        if (!sch.games.some(([a, h]) => a === g.away && h === g.home)) sch.games.push([g.away, g.home]);
+        if (Number.isInteger(g.a) && Number.isInteger(g.h)) next[timeKey(d.season, g.week, g.away, g.home)] = [g.a, g.h];
+      }
+      FINALS = next; return JSON.stringify([L.weeks, L.schedule, FINALS]) !== before;
+    } catch (e) { return false; }
+  }
   function kickoffLine(aw, hm, season, week) {
+    const fin = FINALS[timeKey(season, week, aw, hm)];
+    if (fin) return `<span class="ko">Final: ${esc(aw)} ${fin[0]}, ${esc(hm)} ${fin[1]} <small>from Mikey's film</small></span>`;
     const iso = TIMES[timeKey(season, week, aw, hm)]; if (!iso) return '';
     const d = new Date(iso), past = d.getTime() < Date.now() - 4 * 3600e3;          // shown on the reader's own clock, with the zone named
     const when = d.toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
@@ -2262,7 +2285,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     startStats();
     addEventListener('hashchange', render);
     if (!archSeason) {          // game times from the app: now, then every five minutes. The page is redrawn only when a time changed and matchups are on screen.
-      const tick = () => loadGameTimes().then(changed => { if (changed && app.querySelector('.mu-list')) render(); });
+      const tick = () => Promise.all([loadGameTimes(), loadLeagueLive()]).then(ch => { if (ch.some(Boolean) && (app.querySelector('.mu-list') || (ch[1] && /^#?(home)?$/.test(location.hash)))) render(); });
       tick(); setInterval(tick, 5 * 60e3);
     }
   }
