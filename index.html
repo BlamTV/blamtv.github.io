@@ -437,6 +437,8 @@ a.tm:hover { background: var(--raise) }
   nav.tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; overflow: visible; width: 100%; margin: 0 0 4px }
   nav.tabs a { font-size: min(11.5px, 2.95vw); letter-spacing: 0; padding: 11px 1px; text-align: center; white-space: nowrap; background: var(--raise); border-radius: 999px }
   nav.tabs a[hidden] { display: none }
+  nav.tabs a#nav-buckie { grid-column: 1 / -1 }
+  nav.tabs a#nav-buckie::after { content: ' Sands \00b7  Interviews' }
   nav.tabs a .streetz { top: -8px; left: auto; right: -2px; transform: none; font-size: 8px; padding: 2px 5px }
   footer .wrap { flex-direction: column; align-items: flex-start }
   footer .slogan { width: 170px }
@@ -734,6 +736,21 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
 .promo-ad .promo-snd:hover { background: #f3b234; color: #14100a }
 .promo-ad .promo-cap { padding: 10px 14px; background: #0b0b0d; color: #e9eef3; font: 600 14px/1.35 system-ui, sans-serif }
 .promo-ad .promo-cap b { color: #f3b234 }
+.show-list { display: grid; gap: 22px; margin: 8px 0 26px; max-width: 900px }
+.show { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden }
+.show video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000 }
+.show.vert video { aspect-ratio: 9 / 16; max-height: 78vh; margin: 0 auto }
+.show .show-txt { padding: 14px 16px 16px; display: grid; gap: 6px }
+.show .show-k { font: 700 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--accent) }
+.show h2 { font: 800 22px/1.15 var(--display); margin: 0 }
+.show p { margin: 0; color: var(--muted) }
+.show .show-act { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px }
+.show-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; margin: 6px 0 26px }
+.show-grid .show h2 { font-size: 18px }
+.bk-hero { display: flex; gap: 16px; align-items: center; margin: 0 0 18px }
+.bk-hero img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex: 0 0 auto }
+.bk-hero .st-h { margin: 0 }
+.bk-hero .st-sub { margin: 4px 0 0 }
 .promo-ad .promo-cap a { color: #f3b234; white-space: nowrap }
 </style>
 </head>
@@ -773,6 +790,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <a href="#chat" id="nav-chat" hidden>Chat</a>
       <a href="#mag" id="nav-mag">Magazine</a>
       <a href="#about" id="nav-about">About</a>
+      <a href="#buckie" id="nav-buckie">Buckie</a>
     </nav>
   </div>
   <div class="hash" aria-hidden="true"></div>
@@ -1717,7 +1735,8 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (!kind) {
       app.innerHTML = `<p class="st-crumb"><a href="#stats">Stats</a><span>/</span><span>Power Rankings</span></p><h1 class="st-h">Power Rankings</h1><p class="st-sub">Mikey's Top 25. ${sub}.</p>
         ${(() => { const vert = window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches; const f = 'vid/mikey-rankings-w7' + (vert ? '-vert' : ''); return `<section class="promo-ad${vert ? ' vert' : ''}" aria-label="Mikey's Power Rankings video"><video src="${f}.mp4?v=3" poster="${f}.jpg?v=3" controls playsinline preload="metadata"></video></section>`; })()}
-        <div class="st-tiles">${Object.keys(PRK).map(k => { const r = P[k][0], m = prTeam(r.team); return `<a class="st-tile" href="#power-${k}" style="--accent:${esc(m.color || '')}"><span class="k" style="background:#f3b234;color:#14100a">Top 25</span><b>${PRK[k][0]}</b><span class="d">${PRK[k][1]}s, ranked.</span><span class="lead">${prLogo(m)}<span>No. 1: ${esc(r.team)}</span></span><span class="go" style="color:#f3b234">See the list &rarr;</span></a>`; }).join('')}</div>`;
+        <div class="st-tiles">${Object.keys(PRK).map(k => { const r = P[k][0], m = prTeam(r.team); return `<a class="st-tile" href="#power-${k}" style="--accent:${esc(m.color || '')}"><span class="k" style="background:#f3b234;color:#14100a">Top 25</span><b>${PRK[k][0]}</b><span class="d">${PRK[k][1]}s, ranked.</span><span class="lead">${prLogo(m)}<span>No. 1: ${esc(r.team)}</span></span><span class="go" style="color:#f3b234">See the list &rarr;</span></a>`; }).join('')}</div><div id="pr-past"></div>`;
+      loadShows().then(S => { const el = document.getElementById('pr-past'); const old = (S.rankings || []).filter(x => !/mikey-rankings-w7/.test(x.src)); if (el && old.length) el.innerHTML = `<h2 class="st-h" style="font-size:26px;margin-top:28px">Earlier rankings videos</h2><div class="show-grid">${old.map(x => showCard(x, 'Mikey')).join('')}</div>`; });
       return;
     }
     const rows = P[kind], one = v => v == null ? null : (+v).toFixed(1);
@@ -1776,6 +1795,25 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
       <div class="pr-how"><p><b>Where this comes from.</b> Player numbers are read from the stat pages a coach shows at the end of a game, ${esc(S.box_games)} games so far. A player needs ${esc(S.min_games)} games read to be listed, and a team whose coach does not show the stat pages will not appear.</p>
         <p>Coaches: after the final whistle, show the team stats page, then passing, rushing, receiving and defense for both teams before you end the stream. Updated ${esc(S.updated)}.</p></div>`;
   }
+  // Buckie's interviews and Mikey's rankings videos: data/shows.json, the same file the GameNStreetz app reads.
+  let SHOWS = null;
+  async function loadShows() { if (!SHOWS) { try { SHOWS = await getJSON('data/shows.json'); } catch (e) { SHOWS = { interviews: [], rankings: [] }; } } return SHOWS; }
+  const phoneUp = () => !!(window.matchMedia && window.matchMedia('(max-width: 640px) and (orientation: portrait)').matches);
+  function showCard(x, kind) {
+    const vert = !!x.src_vert && phoneUp(), src = vert ? x.src_vert : x.src, poster = (vert ? x.poster_vert : x.poster) || x.poster || '';
+    const m = x.twitch ? member(x.twitch) : null;
+    return `<article class="show${vert ? ' vert' : ''}" id="show-${esc(x.id)}"><video src="${esc(src)}" ${poster ? `poster="${esc(poster)}"` : ''} controls playsinline preload="none"></video>
+      <div class="show-txt"><span class="show-k">${esc(kind)} &middot; ${esc(x.when || '')}${x.length ? ' &middot; ' + esc(x.length) : ''}</span><h2>${esc(x.title)}</h2>${x.blurb ? `<p>${esc(x.blurb)}</p>` : ''}
+      ${m && m.login ? `<div class="show-act"><a class="btn" href="#ch-${slug(m.login)}">${esc(m.school || x.team || '')} channel</a></div>` : ''}</div></article>`;
+  }
+  async function viewBuckie() {
+    const want = location.hash; const S = await loadShows(); if (location.hash !== want) return;
+    const iv = S.interviews || [];
+    app.innerHTML = `<div class="bk-hero"><img src="img/buckie.webp" alt="" onerror="this.remove()"><div><h1 class="st-h">Buckie Sands</h1><p class="st-sub">On the Streetz. Every coach interview, newest first.</p></div></div>
+      ${iv.length ? `<div class="show-list">${iv.map(x => showCard(x, 'Interview')).join('')}</div>` : `<div class="empty-state"><b>No interviews yet</b>Buckie's first sit-down is on the way.</div>`}
+      <p class="st-sub">Coaches answer Buckie in the <a href="https://gamenstreetz.com/#/buckie">GameNStreetz app</a>. Mikey's rankings videos are on the <a href="#power">Power Rankings</a> page.</p>`;
+  }
+
   function viewAbout() {
     const tiers = [...(L.conferences || [])].sort((a, b) => a.tier - b.tier);
     const ladder = tiers.length ? `<div class="ladder" aria-label="Five-tier promotion and relegation ladder"><div class="rungs">${tiers.map(c => `<div class="rung${c.tier === 1 ? ' t1' : ''}"><b>Tier ${c.tier}</b><span>${esc(c.name)}</span><small>${c.tier === 1 ? 'Highest level of competition' : c.tier === tiers.length ? 'Starting point' : ''}</small></div>`).join('')}</div>
@@ -2189,11 +2227,12 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     if (hlStop) { hlStop(); hlStop = null; }
     if (bothStop) { bothStop(); bothStop = null; }
     if (chatSub && sb) { sb.removeChannel(chatSub); chatSub = null; }
-    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat' && h !== 'mag' && !h.startsWith('mag-') && h !== 'stats' && !/^(power|teamstats|leaders)(-|$)/.test(h));
+    document.getElementById('nav-weeks').toggleAttribute('aria-current', !isCh && !isHl && !isCity && !h.startsWith('v-') && h !== 'nil' && h !== 'about' && h !== 'chat' && h !== 'mag' && !h.startsWith('mag-') && h !== 'stats' && h !== 'buckie' && !/^(power|teamstats|leaders)(-|$)/.test(h));
     document.getElementById('nav-stats').toggleAttribute('aria-current', h === 'stats' || /^(power|teamstats|leaders)(-|$)/.test(h));
     document.getElementById('nav-chat').toggleAttribute('aria-current', h === 'chat');
     document.getElementById('nav-city').toggleAttribute('aria-current', isCity);
     document.getElementById('nav-about').toggleAttribute('aria-current', h === 'about');
+    document.getElementById('nav-buckie').toggleAttribute('aria-current', h === 'buckie');
     document.getElementById('nav-mag').toggleAttribute('aria-current', h === 'mag' || h.startsWith('mag-'));
     document.getElementById('nav-nil').toggleAttribute('aria-current', h === 'nil');
     document.getElementById('nav-hl').toggleAttribute('aria-current', isHl);
@@ -2203,6 +2242,7 @@ footer .lines { display: grid; gap: 6px; flex: 1; min-width: 0 }
     else if (h === 'highlights') viewHighlights();
     else if (h === 'city') viewCity();
     else if (h === 'about') viewAbout();
+    else if (h === 'buckie') viewBuckie();
     else if (h === 'stats') viewStats();
     else if ((m = h.match(/^power(?:-(overall|offense|defense))?$/))) viewPower(m[1]);
     else if ((m = h.match(/^teamstats(?:-([a-z]+))?$/))) viewTeamStats(m[1]);

@@ -1,0 +1,43 @@
+{
+  "_about": "Buckie's interviews and Mikey's power rankings videos. The website's Buckie and Power Rankings pages and the GameNStreetz app both read this file, newest first. Video paths are relative to https://blamtv.github.io/.",
+  "interviews": [
+    {
+      "id": "s5-maryland",
+      "title": "One on One with Coach Alex Chang",
+      "team": "Maryland",
+      "coach": "Alex Chang",
+      "twitch": "changknd",
+      "season": 5,
+      "when": "Season 5, Week 8",
+      "date": "2026-11-28",
+      "length": "2:58",
+      "src": "vid/buckie-int-maryland.mp4",
+      "poster": "vid/buckie-int-maryland.jpg",
+      "blurb": "Maryland took down Georgia, Florida State and Alabama. Buckie asks Coach Chang what clicked, how he became the rumored best user catcher in the league, what's really going on with TCU, and whether No. 6 in Mikey's rankings is too low."
+    }
+  ],
+  "rankings": [
+    {
+      "id": "s5-round2",
+      "title": "Mikey's Power Rankings: Round Two",
+      "when": "Season 5, through Week 7",
+      "length": "1:45",
+      "src": "vid/mikey-rankings-w7.mp4",
+      "src_vert": "vid/mikey-rankings-w7-vert.mp4",
+      "poster": "vid/mikey-rankings-w7.jpg",
+      "poster_vert": "vid/mikey-rankings-w7-vert.jpg",
+      "blurb": "TCU still runs the league, Maryland keeps pace, and the full countdown from 25."
+    },
+    {
+      "id": "s5-round1",
+      "title": "Mikey's Power Rankings: Round One",
+      "when": "Season 5, through Week 4",
+      "length": "1:31",
+      "src": "vid/mikey-rankings-w4.mp4",
+      "src_vert": "vid/mikey-rankings-w4-vert.mp4",
+      "poster": "vid/mikey-rankings-w4.jpg",
+      "poster_vert": "vid/mikey-rankings-w4-vert.jpg",
+      "blurb": "The first ever Mikey Tomalini power rankings. TCU on top."
+    }
+  ]
+}
